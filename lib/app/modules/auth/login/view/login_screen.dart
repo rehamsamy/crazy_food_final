@@ -7,9 +7,10 @@ class LoginScreen extends GetView<LoginController>{
   Widget build(BuildContext context) {
    return Scaffold(
      body: Container(
-       height: 100,
-       width: 100,
-       color: Colors.deepOrange,
+       height: 200,
+       width: 200,
+    child: Image.asset('assets/images/back.png'),
+       
      ),
    );
   }
