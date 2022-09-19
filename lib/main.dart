@@ -1,3 +1,5 @@
+import 'package:crazy_food/app/core/values/localization/translation.dart';
+import 'package:crazy_food/app/modules/auth/login/view/login_screen.dart';
 import 'package:crazy_food/app/views/network_error.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -20,7 +22,32 @@ class _CrazyAppState extends State<CrazyApp> {
   bool _backViewOn = true;
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return  GetMaterialApp(
+      // localizationsDelegates: const [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate, // ONLY if it's a RTL language
+      // ],
+      supportedLocales: const [
+        Locale('en', 'US'), // include country code too
+        Locale('ar', 'EG'), // include country code too
+      ],
+      defaultTransition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 500),
+      translations: Translation(),
+     // initialBinding: GetBinding(),
+     //  locale: LocalStorage.isAr
+     //      ? const Locale('ar')
+     //      : const Locale('en'),
+      fallbackLocale: const Locale('en'),
+      debugShowCheckedModeBanner: false,
+      title: 'Crazy Food',
+      theme: ThemeData(primarySwatch: Colors.green),
+      home:
+      //LocalStorage.userModel!=null?HomeScreen()
+      // :
+      LoginScreen(),
+      // home: const LoginScreen(),
+    );
   }
 
   @override
