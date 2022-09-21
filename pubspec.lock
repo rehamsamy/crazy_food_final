@@ -243,7 +243,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_screenutil:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_screenutil
       url: "https://pub.dartlang.org"
