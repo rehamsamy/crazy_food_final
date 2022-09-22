@@ -18,4 +18,11 @@ import 'package:flutter/cupertino.dart';
           image:AssetImage('assets/images/back.png',))
   );
 
-
+ const List<Color> colorsMenu = [
+  Color(0xffF4E3B2),
+  Color(0xffBEE7CF),
+  Color(0xffD5BDE7),
+  Color(0xffE7B2AA),
+  Color(0xffB9D4E7),
+  Color(0xffE6D2E7),
+];

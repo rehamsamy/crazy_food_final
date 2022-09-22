@@ -52,7 +52,7 @@ class _CrazyAppState extends State<CrazyApp> {
         home:
         //LocalStorage.userModel!=null?HomeScreen()
         // :
-        LoginScreen(),
+        LoginScreenView(),
         // home: const LoginScreen(),
       ),
     );

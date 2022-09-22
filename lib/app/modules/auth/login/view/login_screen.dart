@@ -8,13 +8,12 @@ import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-class LoginScreen extends GetView<LoginController> {
+class LoginScreenView extends GetView<LoginController> {
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool isLogin = true;
-  GlobalKey<FormState> _formKey=GlobalKey<FormState>();
+  final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -144,9 +143,9 @@ class LoginScreen extends GetView<LoginController> {
                               height: 50,
                               radius: 100,
                               onPressed: (AnimationController animationController) async{
-                                animationController.forward();
-                                await Future.delayed(Duration(seconds: 2));
                                 if(_formKey.currentState!.validate()){
+                                  animationController.forward();
+                                  await Future.delayed(Duration(seconds: 2));
                                   Get.offAll(()=>HomeScreenView());
                                 }
                               },
