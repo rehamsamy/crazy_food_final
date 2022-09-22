@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/data/remote_data_source/auth_apis.dart';
 import 'package:crazy_food/app/modules/auth/login/controller/login_controller.dart';
 import 'package:crazy_food/app/modules/auth/login/view/widget/login_widget.dart';
 import 'package:crazy_food/app/modules/auth/login/view/widget/register_widget.dart';
@@ -146,7 +147,15 @@ class LoginScreenView extends GetView<LoginController> {
                                 if(_formKey.currentState!.validate()){
                                   animationController.forward();
                                   await Future.delayed(Duration(seconds: 2));
-                                  Get.offAll(()=>HomeScreenView());
+                                  if(controller.isLogin){
+                                    await AuthApis().loginUser(
+                                        email: emailController.text, password: passwordController.text);
+                                  }else{
+                                    await AuthApis().registerUser(name: nameController.text,
+                                        email: emailController.text, password: passwordController.text);
+                                  }
+
+                                 // Get.offAll(()=>HomeScreenView());
                                 }
                               },
                               child: Icon(
