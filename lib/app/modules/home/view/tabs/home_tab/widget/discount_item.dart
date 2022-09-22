@@ -12,7 +12,7 @@ class DiscountItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(3.0),
+      margin: EdgeInsets.all(5.0),
       padding: EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -35,7 +35,7 @@ class DiscountItem extends StatelessWidget {
             children: [
               AppText('30 % DISCOUNT',color: kPrimaryColor,fontWeight: FontWeight.bold,fontSize: 20,),
               SizedBox(height: 10,),
-              SizedBox(width:200,child: AppText('order_message'.tr,fontSize: 15,maxLines: 2,textOverflow: TextOverflow.ellipsis,)),
+              SizedBox(width:100,child: AppText('order_message'.tr,fontSize: 15,maxLines: 2,textOverflow: TextOverflow.ellipsis,)),
               SizedBox(height: 20,),
               InkWell(child:AppText('order_now'.tr,color: kPrimaryColor,fontSize: 14,fontWeight: FontWeight.bold),onTap: (){},)
             ],

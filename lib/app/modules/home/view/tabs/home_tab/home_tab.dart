@@ -85,7 +85,6 @@ class HomeTab extends StatelessWidget {
                               itemCount: 7),
                         ),
                           Container(
-                            margin: EdgeInsets.all(15),
                             height: DiscountItem.height,
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
