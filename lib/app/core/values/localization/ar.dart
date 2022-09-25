@@ -47,5 +47,6 @@ Map<String, String> ar = {
   'checkout':'',
   'delete':'حذف',
   'cancel':'الغاء',
-  'similar_products': 'المنتجات المشابهه'
+  'similar_products': 'المنتجات المشابهه',
+  'no_cat_found':'لاتوجد أقسام'
 };
