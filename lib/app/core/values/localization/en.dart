@@ -47,5 +47,6 @@ Map<String, String> en = {
   'delete_cart_item':'Are you sure remove this item from cart?',
   'delete':'Delete',
   'cancel':'Cancel',
-  'similar_products': 'Similar Products'
+  'similar_products': 'Similar Products',
+  'no_cat_found':'No category found'
 };

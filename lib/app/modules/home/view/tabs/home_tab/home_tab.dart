@@ -1,6 +1,7 @@
 import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_apis.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
+import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item_loading.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/discount_item.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/popular_item.dart';
 import 'package:crazy_food/app/modules/search/view/search_view.dart';
@@ -77,7 +78,6 @@ class HomeTab extends StatelessWidget {
                               ),
                             ),
                             getCategoryList(),
-
                           ],
                         ),
                       ),
@@ -192,10 +192,15 @@ class HomeTab extends StatelessWidget {
                 ),
                 itemCount: 7),
           );
-        }else if(snap.connectionState==ConnectionState.waiting){
-          return
         }
-
+        else if(categories.isNotEmpty) {
+          return Center(child: AppText('no_cat_found'.tr),);
+        }
+          else if(snap.connectionState==ConnectionState.waiting){
+          return CategoryItemLoading();
+        }else{
+          return SizedBox();
+        }
       }
     );
   }
