@@ -27,7 +27,7 @@ class AuthApis {
         'Accept': 'application/json',
         //'Authorization': 'Bearer ${SharedPrefService.getToken() ?? ''}',
         'Language': Get.locale?.languageCode ?? 'en',
-      },
+      },//
     );
     NetworkResponse response = await networkService.execute(
       request,
