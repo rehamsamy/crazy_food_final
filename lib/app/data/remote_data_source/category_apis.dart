@@ -1,0 +1,37 @@
+
+import 'package:crazy_food/app/data/models/category_model.dart';
+import 'package:crazy_food/app_constant.dart';
+import 'package:get/get.dart';
+import 'package:crazy_food/app/data/services/network_service.dart/dio_network_service.dart';
+
+
+class CategoryApis {
+  Future<List<CategoryItem>?> categories()async{
+    CategoryModel categories=CategoryModel();
+    final request = NetworkRequest(
+      type: NetworkRequestType.GET,
+      path: '/categories',
+      data: NetworkRequestBody.json(
+        {}
+      ),
+    );
+
+    NetworkResponse response = await networkService.execute(
+      request,
+      CategoryModel.fromJson, // <- Function to convert API response to your model
+    );
+    response.maybeWhen(
+        ok: (data) {
+          categories = data;
+          return categories.categories;
+        },
+        noData: (info) {
+          return null;
+        },
+        orElse: () {});
+    return categories.categories;
+  }
+
+
+
+}

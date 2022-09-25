@@ -1,3 +1,5 @@
+import 'package:crazy_food/app/data/models/login_model.dart';
+import 'package:crazy_food/app/data/models/register_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/auth_apis.dart';
 import 'package:crazy_food/app/modules/auth/login/controller/login_controller.dart';
 import 'package:crazy_food/app/modules/auth/login/view/widget/login_widget.dart';
@@ -148,11 +150,18 @@ class LoginScreenView extends GetView<LoginController> {
                                   animationController.forward();
                                   await Future.delayed(Duration(seconds: 2));
                                   if(controller.isLogin){
-                                    await AuthApis().loginUser(
+                                 LoginModel ? model=   await AuthApis().loginUser(
                                         email: emailController.text, password: passwordController.text);
+                                 Get.log('expire is '+(model.expiresIn).toString());
+                                 if(model.expiresIn !=null){
+                                   Get.offAll(()=>HomeScreenView());
+                                 }
                                   }else{
-                                    await AuthApis().registerUser(name: nameController.text,
+                                  RegisterModel model=  await AuthApis().registerUser(name: nameController.text,
                                         email: emailController.text, password: passwordController.text);
+                                    if(model.expiresIn !=null){
+                                      Get.offAll(()=>HomeScreenView());
+                                    }
                                   }
 
                                  // Get.offAll(()=>HomeScreenView());

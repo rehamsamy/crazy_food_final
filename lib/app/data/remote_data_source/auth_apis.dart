@@ -53,7 +53,7 @@ class AuthApis {
       type: NetworkRequestType.POST,
       path: 'accounts:signUp?key=$kApiKey',
       data: NetworkRequestBody.json(
-        {'name':name,
+        {'displayName':'name',
           'email': email,
           'password': 'password',
           'returnSecureToken': true},

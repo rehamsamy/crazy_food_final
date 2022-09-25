@@ -1,3 +1,5 @@
+import 'package:crazy_food/app/data/models/category_model.dart';
+import 'package:crazy_food/app/data/remote_data_source/category_apis.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/discount_item.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/popular_item.dart';
@@ -74,20 +76,8 @@ class HomeTab extends StatelessWidget {
                                 color: kPrimaryColor,
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(5),
-                              height: CategoryItem.height,
-                              child: ListView.separated(
-                                  physics: const BouncingScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (_, index) {
-                                    return CategoryItem();
-                                  },
-                                  separatorBuilder: (_, index) => SizedBox(
-                                        height: 3,
-                                      ),
-                                  itemCount: 7),
-                            ),
+                            getCategoryList(),
+
                           ],
                         ),
                       ),
@@ -179,6 +169,34 @@ class HomeTab extends StatelessWidget {
           size: 30,
         ),
       ),
+    );
+  }
+
+  getCategoryList() {
+    return  FutureBuilder(
+      future: CategoryApis().categories(),
+      builder: (_,snap){
+        List<CategoryItemModel>categories=snap.data as List<CategoryItemModel>;
+        if(snap.hasData&&categories.isNotEmpty){
+          return    Container(
+            padding: EdgeInsets.all(5),
+            height: CategoryItem.height,
+            child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (_, index) {
+                  return CategoryItem();
+                },
+                separatorBuilder: (_, index) => SizedBox(
+                  height: 3,
+                ),
+                itemCount: 7),
+          );
+        }else if(snap.connectionState==ConnectionState.waiting){
+          return
+        }
+
+      }
     );
   }
 }

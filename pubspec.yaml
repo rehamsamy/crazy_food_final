@@ -76,6 +76,7 @@ dev_dependencies:
   geocoder2: ^1.1.2
   geolocator: ^9.0.0
   get: ^4.6.1
+  flutter_shimmer: ^2.1.2
 #  google_maps_flutter: ^2.1.5
   http: ^0.13.4
 #  intercom_flutter: 7.1.0
