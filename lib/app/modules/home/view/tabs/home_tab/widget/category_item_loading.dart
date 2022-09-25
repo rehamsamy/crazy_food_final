@@ -1,6 +1,7 @@
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
+import 'package:crazy_food/app/shared/shimmer_ui_effect.dart';
 import 'package:flutter/material.dart';
-import 'package:crazy_food/widgets/shimmer_ui_effect.dart';
+
 
 class CategoryItemLoading extends StatelessWidget {
   const CategoryItemLoading({Key? key}) : super(key: key);

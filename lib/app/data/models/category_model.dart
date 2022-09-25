@@ -1,61 +1,68 @@
-
-class CategoryModel {
-  CategoryModel({
-    this.categories,});
-
-  CategoryModel.fromJson(dynamic json) {
-    status = json['status'];
-    if (json['categories'] !=null) {
-      categories = [];
-      json['categories'] .forEach((v) {
-        categories?.add(CategoryItemModel.fromJson(v));
-      });
-    }
-  }
-  bool? status;
-  List<CategoryItemModel>? categories;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['status'] = status;
-    if (categories != null) {
-      map['categories'] = categories?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-
-}
-
-
+/// id : 1
+/// idType : 1
+/// imagePath : "https://toppng.com/uploads/preview/fast-food-11549470764zfdstlnivq.png"
+/// nameAr : "برجر"
+/// nameEn : "Burger"
+/// type : ""
 
 class CategoryItemModel {
   CategoryItemModel({
-      this.id,
-      this.typeId,
-      this.name, 
-      this.imagePath, 
-      this.type,});
+      num? id, 
+      num? idType, 
+      String? imagePath, 
+      String? nameAr, 
+      String? nameEn, 
+      String? type,}){
+    _id = id;
+    _idType = idType;
+    _imagePath = imagePath;
+    _nameAr = nameAr;
+    _nameEn = nameEn;
+    _type = type;
+}
 
   CategoryItemModel.fromJson(dynamic json) {
-    id = json['id'];
-    typeId = json['type_id'];
-    name = json['name'];
-    imagePath = json['image_path'];
-    type = json['type'];
+    _id = json['id'];
+    _idType = json['idType'];
+    _imagePath = json['imagePath'];
+    _nameAr = json['nameAr'];
+    _nameEn = json['nameEn'];
+    _type = json['type'];
   }
-  int? id;
-  int? typeId;
-  String? name;
-  String? imagePath;
-  String? type;
+  num? _id;
+  num? _idType;
+  String? _imagePath;
+  String? _nameAr;
+  String? _nameEn;
+  String? _type;
+  CategoryItemModel copyWith({  num? id,
+  num? idType,
+  String? imagePath,
+  String? nameAr,
+  String? nameEn,
+  String? type,
+}) => CategoryItemModel(  id: id ?? _id,
+  idType: idType ?? _idType,
+  imagePath: imagePath ?? _imagePath,
+  nameAr: nameAr ?? _nameAr,
+  nameEn: nameEn ?? _nameEn,
+  type: type ?? _type,
+);
+  num? get id => _id;
+  num? get idType => _idType;
+  String? get imagePath => _imagePath;
+  String? get nameAr => _nameAr;
+  String? get nameEn => _nameEn;
+  String? get type => _type;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = id;
-    map['type_id'] = typeId;
-    map['name'] = name;
-    map['image_path'] = imagePath;
-    map['type'] = type;
+    map['id'] = _id;
+    map['idType'] = _idType;
+    map['imagePath'] = _imagePath;
+    map['nameAr'] = _nameAr;
+    map['nameEn'] = _nameEn;
+    map['type'] = _type;
     return map;
   }
 
