@@ -19,14 +19,13 @@ class CategoryApis {
 
     NetworkResponse response = await networkService.execute(
       request,
-      CategoryItemModel.fromJson, // <- Function to convert API response to your model
+      CategoryModel.fromJson, // <- Function to convert API response to your model
     );
     Get.log('ccc '+response.toString());
     response.maybeWhen(
         ok: (data) {
-          categories.add(data);
-          Get.log('ccc '+data.toString());
-          categories = data;
+          Get.log('ccc 111 '+data.toString());
+          categories = data.categories;
           return categories;
         },
         noData: (info) {

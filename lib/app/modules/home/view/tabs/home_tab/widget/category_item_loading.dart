@@ -15,9 +15,11 @@ class CategoryItemLoading extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: MyShimmerEffectUI.rectangular(
-              height: CategoryItem.height - 10,
+              height: CategoryItem.height - 30,
             ),
           ),
+          // SizedBox(height: 10),
+          // MyShimmerEffectUI.rectangular(height: 10)
         ],
       ),
     );

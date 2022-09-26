@@ -74,7 +74,7 @@ class HomeTab extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               trailing: InkWell(
-                                onTap: ()=>Get.to(()=>CategoryScreen()),
+                                onTap: () => Get.to(() => CategoryScreen()),
                                 child: AppText(
                                   'see_all'.tr,
                                   color: kPrimaryColor,
@@ -149,16 +149,23 @@ class HomeTab extends StatelessWidget {
     return ListTile(
       horizontalTitleGap: 10,
       leading: AppCashedImage(
-        imageUrl: 'https://tse2.mm.bing.net/th?id=OIP.izqqI6zf0-Ot-O1iaVu4KAHaEK&pid=Api&P=0',
-       isCircular: true,
+        imageUrl:
+            'https://tse2.mm.bing.net/th?id=OIP.izqqI6zf0-Ot-O1iaVu4KAHaEK&pid=Api&P=0',
+        isCircular: true,
         fit: BoxFit.cover,
         width: 40,
         height: 40,
         borderColor: Colors.white,
         borderWidth: 2,
       ),
-      title: AppText('user_name',color: Colors.white,),
-       subtitle:AppText('welcome to your crazy food ?!',color: Colors.white,),
+      title: AppText(
+        'user_name',
+        color: Colors.white,
+      ),
+      subtitle: AppText(
+        'welcome to your crazy food ?!',
+        color: Colors.white,
+      ),
       trailing: Badge(
         badgeContent: AppText(
           '6',
@@ -177,35 +184,53 @@ class HomeTab extends StatelessWidget {
   }
 
   getCategoryList() {
-    return  FutureBuilder(
-      future: CategoryApis().categories(),
-      builder: (_,snap){
-        List<CategoryItemModel>categories=snap.data as List<CategoryItemModel>;
-        if(snap.hasData&&categories.isNotEmpty){
-          return    Container(
-            padding: EdgeInsets.all(5),
-            height: CategoryItem.height,
-            child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (_, index) {
-                  return CategoryItem();
-                },
-                separatorBuilder: (_, index) => SizedBox(
-                  height: 3,
-                ),
-                itemCount: 7),
-          );
-        }
-        else if(categories.isNotEmpty) {
-          return Center(child: AppText('no_cat_found'.tr),);
-        }
-          else if(snap.connectionState==ConnectionState.waiting){
-          return CategoryItemLoading();
-        }else{
-          return SizedBox();
-        }
-      }
-    );
+    return FutureBuilder(
+        future: CategoryApis().categories(),
+        builder: (_, snap) {
+          if (snap.hasData) {
+            List<CategoryItemModel> categories =
+                snap.data as List<CategoryItemModel>;
+            if (categories.isNotEmpty) {
+              return Container(
+                padding: EdgeInsets.all(5),
+                height: CategoryItem.height,
+                child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (_, index) {
+                      return CategoryItem(categories[index]);
+                    },
+                    separatorBuilder: (_, index) => SizedBox(
+                          height: 3,
+                        ),
+                    itemCount: categories.length),
+              );
+            } else if (categories.isEmpty) {
+              return Center(
+                child: AppText('no_cat_found'.tr),
+              );
+            } else {
+              return SizedBox();
+            }
+          } else if (snap.connectionState == ConnectionState.waiting) {
+            return  Container(
+              padding: EdgeInsets.all(5),
+              height: CategoryItem.height,
+              child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (_, index) {
+                    return  CategoryItemLoading();
+                  },
+                  separatorBuilder: (_, index) => SizedBox(
+                    height: 3,
+                  ),
+                  itemCount: 5),
+            );
+
+          } else {
+            return SizedBox();
+          }
+        });
   }
 }
