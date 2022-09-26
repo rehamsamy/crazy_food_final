@@ -15,7 +15,7 @@ class CategoryApis {
         {}
       ),
     );
-Map<String,dynamic> map=  json.decode(response.body) as Map<String, dynamic>;
+
 
     NetworkResponse response = await networkService.execute(
       request,

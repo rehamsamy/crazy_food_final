@@ -1,5 +1,7 @@
 import 'package:crazy_food/app/data/services/network_service.dart/dio_network_service.dart';
+import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
@@ -40,3 +42,16 @@ const List<Color> colorsMenu = [
   Color(0xffB9D4E7),
   Color(0xffE6D2E7),
 ];
+
+//  AppBar kAppBar(String title,Function onPress){
+//   return AppBar(
+//   title: AppText( title??'',color: Colors.white,),
+// centerTitle: true,
+// elevation: 0,
+// leading: IconButton(
+// onPressed:()=>onPress,
+// icon: Icon(Icons.arrow_back_ios_sharp),
+// ),
+// );
+
+

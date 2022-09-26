@@ -8,6 +8,7 @@ class HomeController extends GetxController{
 
   handlePageViewerIndex(int newVal){
     index=newVal;
+    homePageViewController.jumpToPage(index);
     update();
   }
 

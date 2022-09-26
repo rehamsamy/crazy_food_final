@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:get/get.dart';
 
+import 'app/modules/home/view/home_screen.dart';
+
 void main() {
   runApp(const CrazyApp());
 }
@@ -28,32 +30,34 @@ class _CrazyAppState extends State<CrazyApp> {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_,child)=> GetMaterialApp(
-
-        // localizationsDelegates: const [
-        //   GlobalMaterialLocalizations.delegate,
-        //   GlobalWidgetsLocalizations.delegate, // ONLY if it's a RTL language
-        // ],
-        supportedLocales: const [
-          Locale('en', 'US'), // include country code too
-          Locale('ar', 'EG'), // include country code too
-        ],
-        defaultTransition: Transition.cupertino,
-        transitionDuration: const Duration(milliseconds: 500),
-        translations: Translation(),
-        initialBinding: GetBinding(),
-       //  locale: LocalStorage.isAr
-       //      ? const Locale('ar')
-       //      : const Locale('en'),
-        fallbackLocale: const Locale('en'),
-        debugShowCheckedModeBanner: false,
-        title: 'Crazy Food',
-        theme: ThemeData(primarySwatch: Colors.green),
-        home:
-        //LocalStorage.userModel!=null?HomeScreen()
-        // :
-        LoginScreenView(),
-        // home: const LoginScreen(),
+      builder: (_,child)=> MaterialApp(
+        home: GetMaterialApp(
+          // localizationsDelegates: const [
+          //   GlobalMaterialLocalizations.delegate,
+          //   GlobalWidgetsLocalizations.delegate, // ONLY if it's a RTL language
+          // ],
+          supportedLocales: const [
+            Locale('en', 'US'), // include country code too
+            Locale('ar', 'EG'), // include country code too
+          ],
+          defaultTransition: Transition.cupertino,
+          transitionDuration: const Duration(milliseconds: 500),
+          translations: Translation(),
+          initialBinding: GetBinding(),
+         //  locale: LocalStorage.isAr
+         //      ? const Locale('ar')
+         //      : const Locale('en'),
+          fallbackLocale: const Locale('en'),
+          debugShowCheckedModeBanner: false,
+          title: 'Crazy Food',
+          theme: ThemeData(primarySwatch: Colors.green),
+          home:
+          //LocalStorage.userModel!=null?
+         HomeScreenView()
+          // :
+          //  LoginScreenView(),
+          // home: const LoginScreen(),
+        ),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:crazy_food/app/modules/home/view/tabs/more_tab.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/offers_tab.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/orders_tab.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
+import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
@@ -38,34 +39,7 @@ class HomeScreenView extends GetView<HomeController> {
       ),
       bottomNavigationBar: BottomNavigationHome(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-      decoration: BoxDecoration(
-        color: kPrimaryColor,
-            shape: BoxShape.circle,
-      ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Card(
-            elevation: 10,
-          color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Badge(
-              toAnimate: true,
-              badgeContent:AppText('3',color: Colors.white,),
-              position:BadgePosition.topEnd(top:-15),
-              child: Icon(
-                  Icons.shopping_cart_outlined,
-                color: kPrimaryColor,
-              ),
-            ),
-          ),
-          ),
-        ),
-      ),
+      floatingActionButton: FabHome()
     );
   }
 }

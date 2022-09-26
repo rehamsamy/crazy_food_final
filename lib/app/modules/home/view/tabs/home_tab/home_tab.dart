@@ -1,5 +1,6 @@
 import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_apis.dart';
+import 'package:crazy_food/app/modules/category/view/category_screen.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item_loading.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/discount_item.dart';
@@ -72,9 +73,12 @@ class HomeTab extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
-                              trailing: AppText(
-                                'see_all'.tr,
-                                color: kPrimaryColor,
+                              trailing: InkWell(
+                                onTap: ()=>Get.to(()=>CategoryScreen()),
+                                child: AppText(
+                                  'see_all'.tr,
+                                  color: kPrimaryColor,
+                                ),
                               ),
                             ),
                             getCategoryList(),
