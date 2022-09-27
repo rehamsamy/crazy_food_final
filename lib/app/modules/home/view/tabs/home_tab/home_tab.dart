@@ -1,5 +1,7 @@
 import 'package:crazy_food/app/data/models/category_model.dart';
+import 'package:crazy_food/app/data/models/popular_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_apis.dart';
+import 'package:crazy_food/app/data/remote_data_source/popular_apis.dart';
 import 'package:crazy_food/app/modules/category/view/category_screen.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/category_item_loading.dart';
@@ -124,17 +126,8 @@ class HomeTab extends StatelessWidget {
                                 color: kPrimaryColor,
                               ),
                             ),
-                            Container(
-                              height: 150,
-                              padding: EdgeInsets.only(
-                                  bottom: 15, right: 15, left: 15),
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 10,
-                                  itemBuilder: (_, index) {
-                                     return PopularItemLoading();
-                                  }),
-                            ),
+                            getPopularList()
+
                           ],
                         ),
                       ),
@@ -233,5 +226,50 @@ class HomeTab extends StatelessWidget {
             return SizedBox();
           }
         });
+  }
+
+  getPopularList() {
+    return FutureBuilder(
+        future: PopularApis().getPopular(),
+        builder: (_, snap) {
+          if (snap.hasData) {
+            List<Popular> popularList = snap.data as List<Popular>;
+            if (popularList.isNotEmpty) {
+           return   Container(
+                height: 150,
+                padding: EdgeInsets.only(
+                    bottom: 15, right: 15, left: 15),
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: popularList.length,
+                    itemBuilder: (_, index) {
+                      return PopularItem(popularList[index]);
+                    }),
+              );
+            } else if (popularList.isEmpty) {
+              return Center(
+                child: AppText('no_cat_found'.tr),
+              );
+            } else {
+              return SizedBox();
+            }
+          } else if (snap.connectionState == ConnectionState.waiting) {
+          return  Container(
+              height: 150,
+              padding: EdgeInsets.only(
+                  bottom: 15, right: 15, left: 15),
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (_, index) {
+                    return PopularItemLoading();
+                  }),
+            );
+          } else {
+            return SizedBox();
+          }
+        });
+
+
   }
 }
