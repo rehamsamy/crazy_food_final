@@ -3,8 +3,8 @@ import 'package:crazy_food/app/shared/shimmer_ui_effect.dart';
 import 'package:flutter/material.dart';
 
 
-class CategoryItemLoading extends StatelessWidget {
-  const CategoryItemLoading({Key? key}) : super(key: key);
+class PopularItemLoading extends StatelessWidget {
+  const PopularItemLoading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +15,10 @@ class CategoryItemLoading extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: MyShimmerEffectUI.rectangular(
-              height: CategoryItem.height - 30,
+              height: CategoryItem.height - 50,
             ),
           ),
-          // SizedBox(height: 10),
+          // SizedBox(height: 5),
           // MyShimmerEffectUI.rectangular(height: 10)
         ],
       ),

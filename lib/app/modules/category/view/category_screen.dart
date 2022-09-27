@@ -4,7 +4,7 @@ import 'package:crazy_food/app/modules/category/controller/category_controller.d
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
-import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item_loading.dart';
+import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/category_item_loading.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -99,16 +99,14 @@ class CategoryScreen extends GetView<HomeController>{
             return    Container(
               padding: EdgeInsets.all(5),
               height: CategoryItem.height,
-              child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (_, index) {
-                    return  CategoryItemLoading();
-                  },
-                  // separatorBuilder: (_, index) => SizedBox(
-                  //   height: 3,
-                  // ),
-                  itemCount: 5),
+              child:GridView.builder(
+                padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 0,
+                  crossAxisSpacing: 0,
+                  mainAxisExtent: CategoryItem.height),
+                itemBuilder: (_,index)=>CategoryItemLoading(),
+                itemCount: 10,),
             );
           }else{
             return SizedBox();
@@ -116,12 +114,6 @@ class CategoryScreen extends GetView<HomeController>{
         }
     );
   }
-
-
-
-
-
-
 }
 
 

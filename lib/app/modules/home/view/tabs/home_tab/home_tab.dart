@@ -2,17 +2,21 @@ import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_apis.dart';
 import 'package:crazy_food/app/modules/category/view/category_screen.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
-import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item_loading.dart';
+import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/category_item_loading.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/discount_item.dart';
+import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/popular_item_loading.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/popular_item.dart';
 import 'package:crazy_food/app/modules/search/view/search_view.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app/shared/app_text_field.dart';
+import 'package:crazy_food/app/shared/occasions_shimmer.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:badges/badges.dart';
+
+import 'widget/loading_widget/discount_item_loading.dart';
 
 class HomeTab extends StatelessWidget {
   var searchController = TextEditingController();
@@ -94,7 +98,7 @@ class HomeTab extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             itemCount: 10,
                             itemBuilder: (_, index) {
-                              return DiscountItem(index);
+                              return DiscountItemLoading(index);
                             }),
                       ),
                       SizedBox(
@@ -128,7 +132,7 @@ class HomeTab extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: 10,
                                   itemBuilder: (_, index) {
-                                    return PopularItem(index);
+                                     return PopularItemLoading();
                                   }),
                             ),
                           ],
@@ -216,15 +220,12 @@ class HomeTab extends StatelessWidget {
             return  Container(
               padding: EdgeInsets.all(5),
               height: CategoryItem.height,
-              child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
+              child: ListView.builder(
+                  // physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (_, index) {
                     return  CategoryItemLoading();
                   },
-                  separatorBuilder: (_, index) => SizedBox(
-                    height: 3,
-                  ),
                   itemCount: 5),
             );
 

@@ -31,8 +31,8 @@ class MyShimmerEffectUI extends StatelessWidget {
         highlightColor: highlightColor ?? Colors.grey.shade300,
         period: Duration(seconds: seconds ?? 2),
         child: Container(
-          width: width,
-          height: height,
+           width: 100,
+           height: height,
           decoration: ShapeDecoration(
             color: Colors.grey,
             shape: shapeBorder,
