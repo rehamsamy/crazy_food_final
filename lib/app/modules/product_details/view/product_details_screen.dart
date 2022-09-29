@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/product_details/controller/product_details_controller.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -20,6 +21,9 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                 floating: true,
                 pinned: false,
                 snap: true,
+                leading: IconButton(icon:Icon(Icons.arrow_back_ios),
+                color: Colors.white,
+                onPressed: ()=>Get.to(()=>HomeScreenView())),
                 backgroundColor: Colors.white,
                 actionsIconTheme: IconThemeData(opacity: 0.0),
                 flexibleSpace: AppCashedImage(
@@ -53,6 +57,7 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                         padding: EdgeInsets.all(15),
                         child: getFirstProductData()),
                   ),
+                  SizedBox(height: 10,),
                   Card(
                     color: Colors.white,
                     elevation: 8,
@@ -60,7 +65,18 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: getProductDetailsData(context),
-                  )
+                  ),
+                  SizedBox(height: 10,),
+                  Card(
+                    color: Colors.white,
+                    elevation: 8,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Padding(
+                        padding: EdgeInsets.all(15),
+                        child: getSimilarProducts()),
+                  ),
                 ],
               ),
             ),
@@ -220,19 +236,19 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                   child: AppText('fffffffffffffffffffffff'),
                 ),
                 Positioned(
-                    left: controller.isDetailsSelected?50:200,
+                    left: controller.isDetailsSelected?80:200,
                     top: -30,
                     child: ClipOval(
                       child: Container(
                         color: Colors.white,
                         height: 60.0,
-                        width: 100.0,
+                        width: 90.0,
                         padding: EdgeInsets.only(bottom: 10),
                         child: Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
-                              width: 18,
-                              height: 18,
+                              width: 10,
+                              height: 10,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.orangeAccent),
@@ -242,6 +258,41 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
               ],
             ),
           )
+        ],
+      ),
+    );
+  }
+
+
+  getSimilarProducts(){
+    return Container(
+      height: 250,
+      child: Column(
+        children: [
+          AppText(
+            'similar_products'.tr ?? '',
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+          SizedBox(height: 5,),
+          Divider(color: Colors.grey,thickness: 1,),
+          SizedBox(height: 10,),
+          Expanded(
+            child: ListView.builder(
+                itemCount: 5,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (_, index) {
+                  return Container(
+                      margin: EdgeInsets.all(10),
+                      child: AppCashedImage(
+                        imageUrl:
+                        'https://knoww.cc/wp-content/uploads/2018/06/2718.jpg',
+                        radius: 20,
+                        width: 200,
+                        height: 40,
+                      ));
+                }),
+          ),
         ],
       ),
     );

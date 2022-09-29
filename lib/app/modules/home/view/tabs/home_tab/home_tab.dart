@@ -37,19 +37,22 @@ class HomeTab extends StatelessWidget {
               children: [
                 SizedBox(height: kToolbarHeight / 2),
                 profileWidget(),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: InkWell(
-                    onTap: () => Get.to(() => SearchScreen()),
-                    child: CustomTextFormField(
-                      hintText: 'search'.tr,
-                      controller: searchController,
-                      keyboardType: TextInputType.text,
-                      prefixIcon: Icons.search,
-                      prefixIconColor: Colors.grey,
-                      radius: 15,
-                      horizontalPadding: 0,
-                      // onChanged: ()=>,
+                GestureDetector(
+                  onTap: () => Get.to(() => SearchScreen()),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: InkWell(
+                      onTap: () => Get.to(() => SearchScreen()),
+                      child: CustomTextFormField(
+                        hintText: 'search'.tr,
+                        controller: searchController,
+                        keyboardType: TextInputType.text,
+                        prefixIcon: Icons.search,
+                        prefixIconColor: Colors.grey,
+                        radius: 15,
+                        horizontalPadding: 0,
+                        // onChanged: ()=>,
+                      ),
                     ),
                   ),
                 ),
