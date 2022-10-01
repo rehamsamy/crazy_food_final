@@ -20,7 +20,6 @@ class SearchScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: null,
         body: GetBuilder<SearchController>(
           builder:(_)=> Container(
             decoration: kContainerDecoraction,

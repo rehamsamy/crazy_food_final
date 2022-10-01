@@ -1,6 +1,7 @@
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/core/values/localization/translation.dart';
 import 'package:crazy_food/app/modules/auth/login/view/login_screen.dart';
+import 'package:crazy_food/app/modules/cart/view/cart_view.dart';
 import 'package:crazy_food/app/modules/category_items_screen/view/category_item_screen.dart';
 import 'package:crazy_food/app/views/network_error.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,8 @@ class _CrazyAppState extends State<CrazyApp> {
           theme: ThemeData(primarySwatch: Colors.green),
           home:
           //LocalStorage.userModel!=null?
-          ProductDetailsScreen()
+          // ProductDetailsScreen()
+          CartScreen()
           // HomeScreenView()
           //  LoginScreenView(),
           // home: const LoginScreen(),

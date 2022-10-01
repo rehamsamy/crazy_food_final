@@ -1,4 +1,5 @@
 import 'package:crazy_food/app/modules/auth/login/controller/login_controller.dart';
+import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:crazy_food/app/modules/category/controller/category_controller.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/product_details/controller/product_details_controller.dart';
@@ -14,5 +15,6 @@ class GetBinding implements Bindings {
     Get.lazyPut(() => CategoryController());
     Get.lazyPut(() => ProductDetailsController());
     Get.lazyPut(() => SearchController());
+    Get.lazyPut(() => CartController());
   }
 }

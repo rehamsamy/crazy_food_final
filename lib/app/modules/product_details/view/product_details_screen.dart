@@ -232,11 +232,10 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                   decoration: BoxDecoration(
                       color: kPrimaryColor,
                       borderRadius: BorderRadius.circular(20)),
-
-                  child: AppText('fffffffffffffffffffffff'),
+                  child: AppText('fffffffffffffffffffffff',maxLines: 5,),
                 ),
                 Positioned(
-                    left: controller.isDetailsSelected?80:200,
+                    left: controller.isDetailsSelected?70:200,
                     top: -30,
                     child: ClipOval(
                       child: Container(
