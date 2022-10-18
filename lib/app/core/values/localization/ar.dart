@@ -48,5 +48,9 @@ Map<String, String> ar = {
   'delete':'حذف',
   'cancel':'الغاء',
   'similar_products': 'المنتجات المشابهه',
-  'no_cat_found':'لاتوجد أقسام'
+  'no_cat_found':'لاتوجد أقسام',
+  'all_orders':'كل الطلبات',
+'processing':'جاري المعالجة',
+'pending':'ف الانتظار',
+'delivery':'تم التوصيل'
 };

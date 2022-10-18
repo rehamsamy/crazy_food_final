@@ -48,5 +48,9 @@ Map<String, String> en = {
   'delete':'Delete',
   'cancel':'Cancel',
   'similar_products': 'Similar Products',
-  'no_cat_found':'No category found'
+  'no_cat_found':'No category found',
+  'all_orders':'All Orders',
+  'processing':'Processing',
+  'pending':'Pending',
+  'delivery':'Delivery'
 };

@@ -15,7 +15,8 @@ class CategoryItemsItem extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       builder: (_) => GestureDetector(
-        onTap: ()=>ProductDetailsScreen(),
+        onTap: () {Get.log('category details ==>');
+          Get.to(()=>ProductDetailsScreen());},
         child: Container(
           // margin: EdgeInsets.all(5),
           decoration: BoxDecoration(
