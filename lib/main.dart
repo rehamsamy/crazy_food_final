@@ -27,39 +27,43 @@ class _CrazyAppState extends State<CrazyApp> {
   bool _backViewOn = true;
   @override
   Widget build(BuildContext context) {
-    return  ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (_,child)=> MaterialApp(
-        home: GetMaterialApp(
-          // localizationsDelegates: const [
-          //   GlobalMaterialLocalizations.delegate,
-          //   GlobalWidgetsLocalizations.delegate, // ONLY if it's a RTL language
-          // ],
-          supportedLocales: const [
-            Locale('en', 'US'), // include country code too
-            Locale('ar', 'EG'), // include country code too
-          ],
-          defaultTransition: Transition.cupertino,
-          transitionDuration: const Duration(milliseconds: 500),
-          translations: Translation(),
-          initialBinding: GetBinding(),
-         //  locale: LocalStorage.isAr
-         //      ? const Locale('ar')
-         //      : const Locale('en'),
-          fallbackLocale: const Locale('en'),
-          debugShowCheckedModeBanner: false,
-          title: 'Crazy Food',
-          theme: ThemeData(primarySwatch: Colors.green),
-          home:
-          //LocalStorage.userModel!=null?
-          //  ProductDetailsScreen()
-          OrdersScreen()
-          // CartScreen()
-          // HomeScreenView()
-          //  LoginScreenView(),
-          // home: const LoginScreen(),
+    return  MaterialApp(
+      home: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (_,child)=> MaterialApp(
+          home: GetMaterialApp(
+            // localizationsDelegates: const [
+            //   GlobalMaterialLocalizations.delegate,
+            //   GlobalWidgetsLocalizations.delegate, // ONLY if it's a RTL language
+            // ],
+            supportedLocales: const [
+              Locale('en', 'US'), // include country code too
+              Locale('ar', 'EG'), // include country code too
+            ],
+            defaultTransition: Transition.cupertino,
+            transitionDuration: const Duration(milliseconds: 500),
+            translations: Translation(),
+            initialBinding: GetBinding(),
+           //  locale: LocalStorage.isAr
+           //      ? const Locale('ar')
+           //      : const Locale('en'),
+            fallbackLocale: const Locale('en'),
+            debugShowCheckedModeBanner: false,
+            title: 'Crazy Food',
+            theme: ThemeData(primarySwatch: Colors.green),
+            home:MaterialApp(
+              home:OrdersScreen() ,
+            )
+            //LocalStorage.userModel!=null?
+            //  ProductDetailsScreen()
+
+            // CartScreen()
+            // HomeScreenView()
+            //  LoginScreenView(),
+            // home: const LoginScreen(),
+          ),
         ),
       ),
     );

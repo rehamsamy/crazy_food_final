@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 class OrderItem extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: ()=>Get.to(()=>OrdersDetailsScreen()),
       child: Container(
         height: 120,
