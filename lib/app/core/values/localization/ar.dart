@@ -52,5 +52,13 @@ Map<String, String> ar = {
   'all_orders':'كل الطلبات',
 'processing':'جاري المعالجة',
 'pending':'ف الانتظار',
-'delivery':'تم التوصيل'
+'delivery':'تم التوصيل',
+  'order_placed_dts':'طلب رقم #12364 مقيد من اجل التوصيل',
+  'pending_dts':'طلبك في انتظار الارسال',
+  'confirmed_dts':'طلبك تم التاكيد من اجل الارسال',
+  'processing_dts':'طلبك ف المعالجه',
+  'delivered_dts':'طلبك تم الاستلام',
+  'order_placed':'تم الطلب',
+  'confirmed':'تم التاكيد',
+  'delivered':'تم التوصيل',
 };

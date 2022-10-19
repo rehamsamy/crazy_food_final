@@ -52,5 +52,13 @@ Map<String, String> en = {
   'all_orders':'All Orders',
   'processing':'Processing',
   'pending':'Pending',
-  'delivery':'Delivery'
+  'delivery':'Delivery',
+  'order_placed':'Order Placed',
+  'confirmed':'Confirmed',
+  'delivered':'Delivered',
+  'order_placed_dts':'your order #132 was placed for delivery.',
+  'pending_dts':'your orderis pending for confirmation.',
+  'confirmed_dts':'your product is confirmed to deliver',
+  'processing_dts':'your product is processing to deliver',
+  'delivered_dts':'your product is delivered to you ',
 };

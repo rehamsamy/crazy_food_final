@@ -12,9 +12,11 @@ import 'package:get/get.dart';
 
 class OrdersDetailsScreen extends GetView<HomeController> {
   List<step.Step> stepList() => [
-    const step.Step(title: Text('Account'),time: Text('ddd'), content: Center(child: Text('Account'),)),
-    const step.Step(title: Text('Address'),time: Text('ddd'), content: Center(child: Text('Address'),)),
-    const step.Step(title: Text('Confirm'),time: Text('ddd'), content: Center(child: Text('Confirm'),))
+     step.Step(title: Text('order_placed'.tr),time: '9:30 AM', content:Text('order_placed_dts'.tr),),
+     step.Step(title: Text('pending'.tr),time:'9:30 AM', content: Center(child: Text('pending_dts'.tr),)),
+     step.Step(title: Text('confirmed'.tr),time: '9:30 AM', content: Center(child: Text('confirmed_dts'.tr),)),
+     step.Step(title: Text('processing'.tr),time:'9:30 AM', content: Center(child: Text('processing_dts'.tr),)),
+     step.Step(title: Text('delivered'.tr),time:'9:30 AM', content: Center(child: Text('delivered_dts'.tr),))
   ];
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class OrdersDetailsScreen extends GetView<HomeController> {
             width: Get.width,
             height: Get.height,
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
                   SizedBox(
@@ -48,21 +51,86 @@ class OrdersDetailsScreen extends GetView<HomeController> {
                     ),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12.0, vertical: 18.0),
-                    child: Card(
-                      elevation: 8,
-                      color: Colors.white,
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Column(
-                        children: [
-                          CustomStepper(steps: stepList() ),
-                              AppText(''),
-                              AppText(''),
-                              AppText(''),
-                        ],
-                      ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height:Get.height*0.58,
+                          child: Card(
+                            elevation: 8,
+                            color: Colors.white,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Column(
+                              children: [
+                                CustomStepper(steps: stepList() ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        SizedBox(
+                          height: Get.height*0.20,
+                          child: Card(
+                              color: Colors.white,
+                              elevation: 10,
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AppText(
+                                      'description.tr',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                    Divider(
+                                      color: Colors.grey,
+                                    ),
+                                    ListTile(
+                                      // onTap: () => Get.to(() => MapScreen(), binding: GetBinding()),
+                                      isThreeLine: true,
+                                      leading:Container(
+                                        color: Colors.amber,
+                                        width: 70,
+                                        height: 70,
+                                      ),
+                                      title: AppText(
+                                        'Straberrery(1kg)',
+                                        fontSize: 15,
+                                      ),
+                                      trailing: Icon(
+                                        Icons.arrow_forward_ios_sharp,
+                                        color: kPrimaryColor,
+                                      ),
+                                      subtitle: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          AppText(
+                                            '1.5 kg ',
+                                            fontSize: 13,
+                                            color: Colors.grey,
+                                          ),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          AppText(
+                                            '150.0 (paid)',
+                                            color: kPrimaryColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ],
                     ),
                   )
                 ],

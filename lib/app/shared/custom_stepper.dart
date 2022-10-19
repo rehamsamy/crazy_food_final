@@ -60,7 +60,7 @@ class Step {
   final Widget title;
   final Widget? subtitle;
   final Widget content;
-  final Widget time;
+  final String time;
   final StepState state;
   final bool isActive;
   final Widget? label;
@@ -197,21 +197,26 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
   }
 
   Widget _buildCircle(int index, bool oldState) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      width: _kStepSize,
-      height: _kStepSize,
-      child: AnimatedContainer(
-        curve: Curves.fastOutSlowIn,
-        duration: kThemeAnimationDuration,
-        decoration: BoxDecoration(
-          color: _circleColor(index),
-          shape: BoxShape.circle,
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
+          width: _kStepSize,
+          height: _kStepSize,
+          child: AnimatedContainer(
+            curve: Curves.fastOutSlowIn,
+            duration: kThemeAnimationDuration,
+            decoration: BoxDecoration(
+              color: _circleColor(index),
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: _buildCircleChild(index, oldState && widget.steps[index].state == StepState.error),
+            ),
+          ),
         ),
-        child: Center(
-          child: _buildCircleChild(index, oldState && widget.steps[index].state == StepState.error),
-        ),
-      ),
+        _buildLine(true),
+      ],
     );
   }
 
@@ -293,9 +298,6 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
       child: ConstrainedBox(
         constraints: const BoxConstraints.tightFor(height: 48.0),
         child: Row(
-          // The Material spec no longer includes a Stepper widget. The continue
-          // and cancel button styles have been configured to match the original
-          // version of this widget.
           children: <Widget>[
             TextButton(
               onPressed: widget.onStepContinue,
@@ -306,8 +308,8 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
                 backgroundColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
                   return _isDark() || states.contains(MaterialState.disabled) ? null : colorScheme.primary;
                 }),
-                padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(buttonPadding),
-                shape: const MaterialStatePropertyAll<OutlinedBorder>(buttonShape),
+                // padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(buttonPadding),
+                // shape: const MaterialStatePropertyAll<OutlinedBorder>(buttonShape),
               ),
               child: Text(localizations.continueButtonLabel),
             ),
@@ -428,21 +430,21 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
     return const SizedBox();
   }
 
-  Widget _buildVerticalHeader(int index) {
+  Widget _buildVerticalHeader(int index,String time) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: <Widget>[
-          Text('jjj'),
+          Text(time),
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
             child: Column(
               children: <Widget>[
                 // Line parts are always added in order for the ink splash to
                 // flood the tips of the connector lines.
-                _buildLine(!_isFirst(index)),
+                //    _buildLine(!_isFirst(index)),
                 _buildIcon(index),
-                _buildLine(!_isLast(index)),
+                    // _buildLine(!_isLast(index)),
               ],
             ),
           ),
@@ -465,7 +467,7 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
           top: 0.0,
           bottom: 0.0,
           child: SizedBox(
-            width: 24.0,
+            width: 0.0,
             child: Center(
               child: SizedBox(
                 width: _isLast(index) ? 0.0 : 1.0,
@@ -480,14 +482,13 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
           firstChild: Container(height: 0.0),
           secondChild: Container(
             margin: widget.margin ?? const EdgeInsetsDirectional.only(
-              start: 60.0,
-              end: 24.0,
-              bottom: 24.0,
+              // end: 24.0,
+               bottom: 30.0,
             ),
             child: Column(
               children: <Widget>[
                 widget.steps[index].content,
-                _buildVerticalControls(index),
+                // _buildVerticalControls(index),
               ],
             ),
           ),
@@ -505,6 +506,7 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
     return ListView(
       shrinkWrap: true,
       physics: widget.physics,
+      semanticChildCount: 6,
       children: <Widget>[
         for (int i = 0; i < widget.steps.length; i += 1)
           Column(
@@ -523,9 +525,9 @@ class _StepperState extends State<CustomStepper> with TickerProviderStateMixin {
                   widget.onStepTapped?.call(i);
                 } : null,
                 canRequestFocus: widget.steps[i].state != StepState.disabled,
-                child: _buildVerticalHeader(i),
+                child: _buildVerticalHeader(i,widget.steps[i].time.toString()),
               ),
-              _buildVerticalBody(i),
+               _buildVerticalBody(i),
             ],
           ),
       ],
