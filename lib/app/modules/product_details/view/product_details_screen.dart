@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:crazy_food/app/modules/category_items_screen/view/category_item_screen.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/product_details/controller/product_details_controller.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
@@ -23,12 +26,12 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                 snap: true,
                 leading: IconButton(icon:Icon(Icons.arrow_back_ios),
                 color: Colors.white,
-                onPressed: ()=>Get.to(()=>HomeScreenView())),
+                onPressed: ()=>Get.to(()=>CategoryItemsScreen())),
                 backgroundColor: Colors.white,
                 actionsIconTheme: IconThemeData(opacity: 0.0),
                 flexibleSpace: AppCashedImage(
                   imageUrl:
-                      'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
+                     controller.productModel?.imagePath?? 'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
                   height: 250,
                   fit: BoxFit.cover,
                 ),
@@ -91,12 +94,12 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         AppText(
-          'model.name' ?? '',
+          controller.productModel?.nameAr??'model.name',
           fontWeight: FontWeight.bold,
           fontSize: 20,
         ),
         AppText(
-          '${'model.itemDiscount'}\$',
+          ' ${controller.productModel?.discount}.${' Discount'}\$',
           color: Colors.grey,
           fontSize: 13,
         ),
@@ -107,17 +110,17 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             AppText(
-              '${'model.itemPrice'}\$',
+              '${ controller.productModel?.price}\$',
               fontSize: 14,
             ),
             AppText(
-              '40 Calarios',
+              '${ controller.productModel?.caleories} Calarios',
               fontSize: 14,
             ),
             RatingBarIndicator(
-              itemCount: 1,
-              itemSize: 27,
-              rating: 1,
+              itemCount: 5,
+              itemSize: 25,
+              rating:  double.parse((controller.productModel?.rate).toString()),
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, _) => Icon(
                 Icons.star_border,
@@ -232,7 +235,7 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                   decoration: BoxDecoration(
                       color: kPrimaryColor,
                       borderRadius: BorderRadius.circular(20)),
-                  child: AppText('fffffffffffffffffffffff',maxLines: 5,),
+                  child: AppText(controller.productModel?.description??'',maxLines: 5,textOverflow: TextOverflow.ellipsis,),
                 ),
                 Positioned(
                     left: controller.isDetailsSelected?70:200,

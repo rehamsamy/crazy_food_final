@@ -1,8 +1,11 @@
+import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/data/models/category_model.dart';
+import 'package:crazy_food/app/data/remote_data_source/category_items_apis.dart';
 import 'package:crazy_food/app/modules/category/view/category_screen.dart';
 import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_item.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
+import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/category_item_loading.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/modules/search/controller/search_controller.dart';
@@ -86,18 +89,63 @@ class SearchScreen extends StatelessWidget{
   }
 
   getCategoryItemsList() {
-    return   Container(
-      padding: EdgeInsets.all(5),
-      height: CategoryItemsItem.height,
-      child:GridView.builder(
-          padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 0,
-          crossAxisSpacing: 0,
-          mainAxisExtent: CategoryItemsItem.height),
-          itemBuilder: (_,index)=>CategoryItemsItem(),
-          itemCount: 6),
+
+    return  FutureBuilder(
+        future: CategoryItemsApis().getCategoriesList(),
+        builder: (_,snap){
+          if(snap.hasData){
+            List<ProductModel>products=snap.data as List<ProductModel>;
+            if(products.isNotEmpty){
+              return    Container(
+                padding: EdgeInsets.all(5),
+                height: CategoryItemsItem.height,
+                child:GridView.builder(
+                  padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 0,
+                    crossAxisSpacing: 0,
+                    mainAxisExtent: CategoryItemsItem.height),
+                  itemBuilder: (_,index)=>CategoryItemsItem(products[index]),
+                  itemCount: products.length,),
+              );
+            }else if(products.isEmpty) {
+              return Center(child: AppText('no_cat_found'.tr),);
+            }else{
+              return SizedBox();
+            }
+          }
+          else if(snap.connectionState==ConnectionState.waiting){
+            return    Container(
+              padding: EdgeInsets.all(5),
+              height: CategoryItemsItem.height,
+              child:GridView.builder(
+                padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 0,
+                  crossAxisSpacing: 0,
+                  mainAxisExtent: CategoryItemsItem.height),
+                itemBuilder: (_,index)=>CategoryItemLoading(),
+                itemCount: 10,),
+            );
+          }else{
+            return SizedBox();
+          }
+        }
     );
+
+
+    // return   Container(
+    //   padding: EdgeInsets.all(5),
+    //   height: CategoryItemsItem.height,
+    //   child:GridView.builder(
+    //     padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    //       crossAxisCount: 2,
+    //       mainAxisSpacing: 0,
+    //       crossAxisSpacing: 0,
+    //       mainAxisExtent: CategoryItemsItem.height),
+    //     itemBuilder: (_,index)=>CategoryItemsItem(),
+    //     itemCount: 6),
+    // );
 
   }
 

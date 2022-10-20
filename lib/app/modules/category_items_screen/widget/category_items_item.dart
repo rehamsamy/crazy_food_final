@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/product_details/view/product_details_screen.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
@@ -9,14 +10,16 @@ import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 
 class CategoryItemsItem extends GetView<HomeController> {
-  static double height = 250;
+  static double height = 230;
+  ProductModel model;
+  CategoryItemsItem(this.model);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       builder: (_) => InkWell(
-        onTap: () {Get.log('category details ==>');
-          Get.to(()=>ProductDetailsScreen());},
+        onTap: () {Get.log('category details ==>'+model.nameAr.toString());
+          Get.to(()=>ProductDetailsScreen(),arguments: {'product_details':model});},
         child: Container(
           // margin: EdgeInsets.all(5),
           decoration: BoxDecoration(
@@ -31,8 +34,8 @@ class CategoryItemsItem extends GetView<HomeController> {
                 child: Container(
                   margin: EdgeInsets.only(top: 4),
                   child: AppCashedImage(
-                    imageUrl: 'https://fustany.com/images/en/content/header_image_fustany-burger-recipe-home-made-backdrop-1-.jpg',
-                    height: 130,
+                    imageUrl: model.imagePath??'https://fustany.com/images/en/content/header_image_fustany-burger-recipe-home-made-backdrop-1-.jpg',
+                    height: 150,
                     width: MediaQuery.of(context).size.width*0.5,
                     fit: BoxFit.cover,
                   ),
@@ -50,7 +53,7 @@ class CategoryItemsItem extends GetView<HomeController> {
                       child: SizedBox(
                           width: 120,
                           child: AppText(
-                             'name',
+                            model.nameAr??'name',
                             fontSize: 16,
                             color: Colors.black,
                             textOverflow: TextOverflow.ellipsis,
@@ -62,7 +65,7 @@ class CategoryItemsItem extends GetView<HomeController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2.0),
-                      child: AppText('120', color: kPrimaryColor,fontWeight: FontWeight.bold,
+                      child: AppText((model.discount).toString()??'0', color: kPrimaryColor,fontWeight: FontWeight.bold,
                         fontSize: 12,),
                     ),
                   ],
