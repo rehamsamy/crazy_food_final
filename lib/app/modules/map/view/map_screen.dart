@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:crazy_food/app/modules/orders_details/view/orders_details_screen.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
@@ -106,6 +107,9 @@ class _MyAppState extends State<MapScreen> {
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
+          leading:  IconButton(onPressed: (){
+            Get.to(()=>OrdersDetailsScreen());
+          }, icon: Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 30,)),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),

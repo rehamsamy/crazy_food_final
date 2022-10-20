@@ -14,7 +14,7 @@ class CategoryItemsItem extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
-      builder: (_) => GestureDetector(
+      builder: (_) => InkWell(
         onTap: () {Get.log('category details ==>');
           Get.to(()=>ProductDetailsScreen());},
         child: Container(

@@ -4,6 +4,7 @@ import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CategoryItem extends StatelessWidget {
 static double height=150;
@@ -14,7 +15,7 @@ CategoryItem(this.model);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=>CategoryItemsScreen(),
+      onTap: ()=>Get.to(()=>CategoryItemsScreen()),
       child: Column(
         children: [
           Container(

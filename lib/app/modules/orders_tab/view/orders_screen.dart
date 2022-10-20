@@ -2,6 +2,7 @@ import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/modules/orders_tab/view/widget/order_item.dart';
+import 'package:crazy_food/app/modules/orders_tab/view/widget/order_item_loading.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
@@ -54,9 +55,9 @@ class OrdersScreen extends GetView<HomeController> {
                             child: Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(15.0),
+                                  padding: const EdgeInsets.only(top: 15.0,left: 15,right: 15),
                                   child: SizedBox(
-                                    height: 45,
+                                    height: 40,
                                     child: TabBar(
                                       isScrollable: true,
                                       indicator: BoxDecoration(
@@ -78,13 +79,18 @@ class OrdersScreen extends GetView<HomeController> {
                                     ),
                                   ),
                                 ),
+                                SizedBox(height: 20,),
                                 Expanded(
                                     child: TabBarView(
                                   children: [
-                                    ListView.builder(itemBuilder: (_, index) {
-                                      return OrderItem();
+                                    ListView.builder(
+                                        padding: EdgeInsets.all(0),itemBuilder: (_, index) {
+                                      return OrderItemLoading();
                                     }),
-                                    AppText(''),
+                                   Container(
+                                     color: Colors.grey,
+                                     height: 50,
+                                   ),
                                     AppText(''),
                                     AppText(''),
                                   ],
@@ -96,10 +102,12 @@ class OrdersScreen extends GetView<HomeController> {
                       ],
                     ),
                   )),
-              bottomNavigationBar: BottomNavigationHome(),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
-              floatingActionButton: FabHome())),
+              // bottomNavigationBar: BottomNavigationHome(),
+              // floatingActionButtonLocation:
+              //     FloatingActionButtonLocation.centerDocked,
+              // floatingActionButton: FabHome()
+          )
+      ),
     );
   }
 }
