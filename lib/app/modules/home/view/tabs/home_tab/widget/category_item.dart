@@ -15,7 +15,7 @@ CategoryItem(this.model);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=>Get.to(()=>CategoryItemsScreen()),
+      onTap: ()=>Get.to(()=>CategoryItemsScreen(),arguments: {'categoryType':model?.id,'categoryName':model?.nameAr}),
       child: Column(
         children: [
           Container(

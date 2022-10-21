@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/product_details/view/product_details_screen.dart';
@@ -12,14 +13,16 @@ import 'package:get/get.dart';
 class CategoryItemsItem extends GetView<HomeController> {
   static double height = 230;
   ProductModel model;
-  CategoryItemsItem(this.model);
-
+  List<ProductModel> ?similarProducts;
+  CategoryItemsItem(this.model,this.similarProducts);
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       builder: (_) => InkWell(
-        onTap: () {Get.log('category details ==>'+model.nameAr.toString());
-          Get.to(()=>ProductDetailsScreen(),arguments: {'product_details':model});},
+        onTap: () {Get.log('category details ==>'+(similarProducts?.length).toString());
+          Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
+              arguments: {'product_details':model,
+                          'similarProducts':similarProducts});},
         child: Container(
           // margin: EdgeInsets.all(5),
           decoration: BoxDecoration(

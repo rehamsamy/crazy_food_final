@@ -15,9 +15,14 @@ import 'package:get/get.dart';
 class CategoryItemsScreen extends GetView<HomeController>{
    CategoryItemModel ? _categoryItemModel;
    CategoryItemsScreen();
+   int ?typeId;
+   String ? catName;
+   Map map=Get.arguments;
   // CategoryItemsScreen(this._categoryItemModel);
   @override
   Widget build(BuildContext context) {
+    typeId=map['categoryType'];
+    catName=map['categoryName'];
     return Scaffold(
         appBar: null,
         body: GetBuilder<HomeController>(
@@ -37,7 +42,7 @@ class CategoryItemsScreen extends GetView<HomeController>{
                         onPressed:()=>Get.to(()=>CategoryScreen()),
                         icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                       ),
-                      AppText(_categoryItemModel?.nameAr??'',color: Colors.white,fontSize: 18,),
+                      AppText('قسم ال${ catName??''}',color: Colors.white,fontSize: 20,),
                       SizedBox()
                     ],
                   ),
@@ -78,9 +83,16 @@ class CategoryItemsScreen extends GetView<HomeController>{
         future: CategoryItemsApis().getCategoriesList(),
         builder: (_,snap){
           if(snap.hasData){
-            List<ProductModel>products=snap.data as List<ProductModel>;
-            Get.log('prod  ===>  '+products.length.toString());
-            if(products.isNotEmpty){
+            List<ProductModel>?products=snap.data as List<ProductModel>;
+           List<ProductModel>? prods=[];
+           products.map((e) {
+             if (e.idType==typeId){
+               prods.add(e);
+               return e;
+             }
+           }).toList()  as List<ProductModel?>;
+            Get.log('prods  ===>  '+products.length.toString());
+            if(prods!.isNotEmpty){
               return    Container(
                 padding: EdgeInsets.all(5),
                    height: CategoryItemsItem.height,
@@ -90,8 +102,12 @@ class CategoryItemsScreen extends GetView<HomeController>{
                     mainAxisSpacing: 0,
                     crossAxisSpacing: 0,
                     mainAxisExtent: CategoryItemsItem.height),
-                  itemBuilder: (_,index)=>CategoryItemsItem(products[index]),
-                  itemCount: products.length,),
+                  itemBuilder: (_,index)
+                    {
+                      // List<ProductModel> similarProds=products.map((e) => null).toList();
+                      return CategoryItemsItem(prods[index],prods);
+                    },
+                  itemCount: prods.length,),
               );
             }else if(products.isEmpty) {
               return Center(child: AppText('no_cat_found'.tr),);

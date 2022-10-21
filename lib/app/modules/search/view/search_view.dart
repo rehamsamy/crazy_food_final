@@ -105,7 +105,7 @@ class SearchScreen extends StatelessWidget{
                     mainAxisSpacing: 0,
                     crossAxisSpacing: 0,
                     mainAxisExtent: CategoryItemsItem.height),
-                  itemBuilder: (_,index)=>CategoryItemsItem(products[index]),
+                  itemBuilder: (_,index)=>CategoryItemsItem(products[index],products),
                   itemCount: products.length,),
               );
             }else if(products.isEmpty) {

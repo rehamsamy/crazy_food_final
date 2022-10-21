@@ -1,5 +1,7 @@
 import 'dart:ffi';
 
+import 'package:crazy_food/app/core/get_binding.dart';
+import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/modules/category_items_screen/view/category_item_screen.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/product_details/controller/product_details_controller.dart';
@@ -12,15 +14,18 @@ import 'package:get/get.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductDetailsScreen extends GetView<ProductDetailsController> {
+  Map map=Get.arguments;
+  ProductModel ? productModel;
   @override
   Widget build(BuildContext context) {
+     productModel=map['product_details'] as ProductModel;
     return GetBuilder<ProductDetailsController>(
       builder: (_)=> Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                expandedHeight: 200,
+                expandedHeight: 280,
                 floating: true,
                 pinned: false,
                 snap: true,
@@ -31,8 +36,8 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                 actionsIconTheme: IconThemeData(opacity: 0.0),
                 flexibleSpace: AppCashedImage(
                   imageUrl:
-                     controller.productModel?.imagePath?? 'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
-                  height: 250,
+                    productModel?.imagePath?? 'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
+                  height: 280,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -47,7 +52,7 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                     right: Radius.circular(20),
                     left: Radius.circular(20),
                   ),
-                  color: Colors.grey.shade300),
+                  color:kAuthGreyColor ),
               child: Column(
                 children: [
                   Card(
@@ -94,12 +99,12 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         AppText(
-          controller.productModel?.nameAr??'model.name',
+          productModel?.nameAr??'model.name',
           fontWeight: FontWeight.bold,
           fontSize: 20,
         ),
         AppText(
-          ' ${controller.productModel?.discount}.${' Discount'}\$',
+          ' ${productModel?.discount}.${' Discount'}\$',
           color: Colors.grey,
           fontSize: 13,
         ),
@@ -110,17 +115,17 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             AppText(
-              '${ controller.productModel?.price}\$',
+              '${ productModel?.price}\$',
               fontSize: 14,
             ),
             AppText(
-              '${ controller.productModel?.caleories} Calarios',
+              '${ productModel?.caleories} Calarios',
               fontSize: 14,
             ),
             RatingBarIndicator(
               itemCount: 5,
-              itemSize: 25,
-              rating:  double.parse((controller.productModel?.rate).toString()),
+              itemSize: 20,
+              rating:  double.parse((productModel?.rate).toString()),
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, _) => Icon(
                 Icons.star_border,
@@ -228,15 +233,7 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
           Expanded(
             child: Stack(
               children: [
-                Container(
-                   height: 170,
-                  width: Get.width,
-                  padding: EdgeInsets.symmetric(vertical: 40,horizontal: 5),
-                  decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: AppText(controller.productModel?.description??'',maxLines: 5,textOverflow: TextOverflow.ellipsis,),
-                ),
+                getBodyCintent(),
                 Positioned(
                     left: controller.isDetailsSelected?70:200,
                     top: -30,
@@ -281,22 +278,82 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
           SizedBox(height: 10,),
           Expanded(
             child: ListView.builder(
-                itemCount: 5,
+                itemCount: controller.similarProducts?.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (_, index) {
-                  return Container(
-                      margin: EdgeInsets.all(10),
-                      child: AppCashedImage(
-                        imageUrl:
-                        'https://knoww.cc/wp-content/uploads/2018/06/2718.jpg',
-                        radius: 20,
-                        width: 200,
-                        height: 40,
-                      ));
+                  return InkWell(
+                    onTap: (){
+                      Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
+                          arguments: {'product_details':controller.similarProducts?[index],
+                            'similarProducts':controller.similarProducts});
+                    },
+                    child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: AppCashedImage(
+                          imageUrl:
+                         controller.similarProducts?[index].imagePath?? 'https://knoww.cc/wp-content/uploads/2018/06/2718.jpg',
+                          radius: 20,
+                          width: 250,
+                          height: 60,
+                        )),
+                  );
                 }),
           ),
         ],
       ),
     );
+  }
+
+  getBodyCintent() {
+    if (controller.isDetailsSelected){
+      return  Container(
+        height: 170,
+        width: Get.width,
+        padding: EdgeInsets.only(top: 40,left: 15,right: 15,bottom: 15),
+        decoration: BoxDecoration(
+            color: kPrimaryColor,
+            borderRadius: BorderRadius.circular(20)),
+        child: SingleChildScrollView(
+          child: Align(
+            alignment: AlignmentDirectional.topStart,
+            child: AppText(
+              productModel?.description??'',color:Colors.white,
+              fontSize: 14,
+              maxLines: 6,textOverflow: TextOverflow.ellipsis,),
+          ),
+        ),
+      );
+    }else{
+      return  Container(
+        height: 170,
+        width: Get.width,
+        padding: EdgeInsets.only(top: 40,left: 10,right: 10,bottom: 15),
+        decoration: BoxDecoration(
+            color: kPrimaryColor,
+            borderRadius: BorderRadius.circular(20)),
+        child: ListView.builder(
+          itemCount: productModel?.reviews?.length,
+          itemBuilder: (context,index) {
+            return Row(
+              children: [
+                 Card(
+                   color: Colors.orangeAccent,
+                   shape:BeveledRectangleBorder(
+                     borderRadius: BorderRadius.circular(20)
+                   ),
+                   child: SizedBox(height: 14,width: 14,),
+                 ),
+                Expanded(
+                  child: AppText(
+                    productModel?.reviews?[index].body??'',color:Colors.white,
+                    fontSize: 14,
+                    maxLines:1,textOverflow: TextOverflow.ellipsis,),
+                ),
+              ],
+            );
+          }
+        ),
+      );
+    }
   }
 }

@@ -10,11 +10,24 @@ import 'package:get/get.dart';
 class GetBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => LoginController());
-    Get.lazyPut(() => HomeController());
-    Get.lazyPut(() => CategoryController());
-    Get.lazyPut(() => ProductDetailsController());
-    Get.lazyPut(() => SearchController());
-    Get.lazyPut(() => CartController());
+    Get.lazyPut<HomeController>(
+          () => HomeController(),
+    );
+    Get.lazyPut<LoginController>(
+          () => LoginController(),
+    );
+    Get.lazyPut<CategoryController>(
+          () => CategoryController(),
+    );
+    Get.lazyPut<ProductDetailsController>(
+          () => ProductDetailsController(),
+    );
+    Get.lazyPut<SearchController>(
+          () => SearchController(),
+    );
+
+    Get.lazyPut<CartController>(
+          () => CartController(),
+    );
   }
 }
