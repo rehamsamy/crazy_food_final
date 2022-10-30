@@ -3,6 +3,7 @@ import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_items_apis.dart';
 import 'package:crazy_food/app/modules/category/view/category_screen.dart';
 import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_item.dart';
+import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_loading.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/category_item_loading.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
@@ -90,11 +91,15 @@ class CategoryItemsScreen extends GetView<HomeController>{
                prods.add(e);
                return e;
              }
-           }).toList()  as List<ProductModel?>;
-            Get.log('prods  ===>  '+products.length.toString());
-            if(prods!.isNotEmpty){
+           }).toList()  ;
+           for (int i=0;i<prods.length;i++){
+             Get.log('items   '+typeId.toString()+'    '+prods[i].nameAr.toString());
+           }
+            Get.log('prods  ===>  '+typeId.toString()+'    '+prods.length.toString());
+            if(prods.isNotEmpty){
               return    Container(
                 padding: EdgeInsets.all(5),
+                   width: Get.width,
                    height: CategoryItemsItem.height,
                 child:GridView.builder(
                   padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -104,8 +109,9 @@ class CategoryItemsScreen extends GetView<HomeController>{
                     mainAxisExtent: CategoryItemsItem.height),
                   itemBuilder: (_,index)
                     {
+                      // return CategoryItemsLoading();
                       // List<ProductModel> similarProds=products.map((e) => null).toList();
-                      return CategoryItemsItem(prods[index],prods);
+                       return CategoryItemsItem(prods[index],prods);
                     },
                   itemCount: prods.length,),
               );
@@ -124,8 +130,8 @@ class CategoryItemsScreen extends GetView<HomeController>{
                   crossAxisCount: 2,
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 0,
-                  mainAxisExtent: CategoryItemsItem.height),
-                itemBuilder: (_,index)=>CategoryItemLoading(),
+                  mainAxisExtent:CategoryItemsItem.height),
+                itemBuilder: (_,index)=>CategoryItemsLoading(),
                 itemCount: 10,),
             );
           }else{

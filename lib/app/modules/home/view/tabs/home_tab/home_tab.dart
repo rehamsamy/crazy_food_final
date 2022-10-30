@@ -12,7 +12,6 @@ import 'package:crazy_food/app/modules/search/view/search_view.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app/shared/app_text_field.dart';
-import 'package:crazy_food/app/shared/occasions_shimmer.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

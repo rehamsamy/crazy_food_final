@@ -30,7 +30,7 @@ CategoryItem(this.model);
               height: 80,
               width: 80,
               fit: BoxFit.contain,
-            ) ,
+            ),
           ),
           SizedBox(height: 5,),
           AppText(model?.nameAr??'', maxLines: 1,fontSize: 15,),

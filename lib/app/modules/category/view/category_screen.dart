@@ -106,7 +106,7 @@ class CategoryScreen extends GetView<HomeController>{
                   crossAxisSpacing: 0,
                   mainAxisExtent: CategoryItem.height),
                 itemBuilder: (_,index)=>CategoryItemLoading(),
-                itemCount: 10,),
+                itemCount: 15,),
             );
           }else{
             return SizedBox();

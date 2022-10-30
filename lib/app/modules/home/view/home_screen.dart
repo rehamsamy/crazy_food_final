@@ -1,17 +1,12 @@
-import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/cart_tab.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/home_tab.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/more_tab.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/offers_tab.dart';
-import 'package:crazy_food/app/modules/home/view/tabs/orders_tab.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/modules/orders_tab/view/orders_screen.dart';
-import 'package:crazy_food/app/shared/app_text.dart';
-import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart';
 import 'package:get/get.dart';
 
 class HomeScreenView extends GetView<HomeController> {
@@ -23,7 +18,6 @@ class HomeScreenView extends GetView<HomeController> {
         builder: (_)=>Container(
           width: Get.width,
           height: Get.height,
-          //decoration: kContainerDecoraction,
           color: Colors.white,
           child: PageView(
                controller: controller.homePageViewController,

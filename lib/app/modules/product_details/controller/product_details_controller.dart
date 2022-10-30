@@ -8,18 +8,26 @@ List<ProductModel> ?similarProducts;
 
 @override
   void onInit() {
-  super.onInit();
+  similarProducts?.clear();
   Get.log('category details 1 ==>'+(productModel?.nameAr).toString());
 productModel = map['product_details'] as ProductModel;
   similarProducts=map['similarProducts'] as List<ProductModel>;
 Get.log('category details 1 ==>'+(productModel?.nameAr).toString());
+  for (int i=0;i<similarProducts!.length;i++){
+    Get.log('items ===>  '+'    '+(similarProducts![i].nameAr).toString());
+  }
+
+  update();
+  super.onInit();
   }
 
 
 
 
 
-handleISDetailsReviews(bool newVal){
+
+
+  handleISDetailsReviews(bool newVal){
   isDetailsSelected=newVal;
   update();
 }
