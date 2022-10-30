@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/modules/category/view/category_screen.dart';
@@ -12,13 +12,15 @@ import 'package:get/get.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductDetailsScreen extends GetView<ProductDetailsController> {
-  Map map=Get.arguments;
-  ProductModel ? productModel;
-  ProductDetailsController controller=Get.find();
+   Map map=Get.arguments;
+   ProductModel ? productModel;
+   List<ProductModel> ?similarProducts;
+  // ProductDetailsController controller=Get.find();
 
   @override
   Widget build(BuildContext context) {
-     productModel=map['product_details'] as ProductModel;
+      productModel=map['product_details'] as ProductModel;
+    similarProducts=map['similarProducts'] as List<ProductModel>;
     return GetBuilder<ProductDetailsController>(
       init: ProductDetailsController(),
       builder: (_)=> Scaffold(

@@ -1,10 +1,7 @@
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
-import 'package:crazy_food/app/data/models/popular_model.dart';
 import 'package:crazy_food/app/modules/product_details/view/product_details_screen.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
-import 'package:crazy_food/app/shared/app_text.dart';
-import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
