@@ -1,4 +1,7 @@
+import 'package:crazy_food/app/core/get_binding.dart';
+import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/data/models/popular_model.dart';
+import 'package:crazy_food/app/modules/product_details/view/product_details_screen.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
@@ -7,19 +10,33 @@ import 'package:get/get.dart';
 
 class PopularItem extends StatelessWidget {
 
-  Popular model;
+  ProductModel model;
+  List<ProductModel> ?allProducts;
+  PopularItem(this.model,this.allProducts);
 
-  PopularItem(this.model);
   @override
   Widget build(BuildContext context) {
-     return   Padding(
-       padding: const EdgeInsets.all(5.0),
-       child: AppCashedImage(
-         radius: 15,
-         height: 130,
-         width: 140,
-         fit: BoxFit.cover,
-         imageUrl:model.imagePath?? 'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
+    List<ProductModel> ?similarProducts;
+    allProducts?.map((e) {
+      if(e.idType==model.idType){
+        similarProducts?.add(e);
+      }
+    } ).toList();
+     return   InkWell(
+       onTap: (){
+         Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
+             arguments: {'product_details':model,
+               'similarProducts':similarProducts});
+       },
+       child: Padding(
+         padding: const EdgeInsets.all(5.0),
+         child: AppCashedImage(
+           radius: 15,
+           height: 130,
+           width: 140,
+           fit: BoxFit.cover,
+           imageUrl:model.imagePath?? 'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
+         ),
        ),
      );
   }

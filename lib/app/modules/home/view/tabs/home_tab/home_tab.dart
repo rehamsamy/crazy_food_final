@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/models/popular_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_apis.dart';
@@ -235,8 +236,15 @@ class HomeTab extends StatelessWidget {
         future: PopularApis().getPopular(),
         builder: (_, snap) {
           if (snap.hasData) {
-            List<Popular> popularList = snap.data as List<Popular>;
-            if (popularList.isNotEmpty) {
+            List< ProductModel> prods = snap.data as List<ProductModel>;
+            List<ProductModel>popularList=[];
+            if (prods.isNotEmpty) {
+              prods.map((e) {
+                if((e.rate??0.0)>4){
+                  popularList.add(e);
+                }
+              } ).toList();
+
            return   Container(
                 height: 150,
                 padding: EdgeInsets.only(
@@ -245,7 +253,7 @@ class HomeTab extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: popularList.length,
                     itemBuilder: (_, index) {
-                      return PopularItem(popularList[index]);
+                      return PopularItem(popularList[index],prods);
                     }),
               );
             } else if (popularList.isEmpty) {

@@ -35,8 +35,8 @@ PopularModel copyWith({  List<Popular>? popular,
 
 class Popular {
   Popular({
-      num? id, 
-      String? imagePath,}){
+     required num? id,
+     required String? imagePath,}){
     _id = id;
     _imagePath = imagePath;
 }

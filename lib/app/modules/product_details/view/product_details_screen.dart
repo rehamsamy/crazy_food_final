@@ -1,10 +1,7 @@
 import 'dart:ffi';
-
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/modules/category/view/category_screen.dart';
-import 'package:crazy_food/app/modules/category_items_screen/view/category_item_screen.dart';
-import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/product_details/controller/product_details_controller.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
