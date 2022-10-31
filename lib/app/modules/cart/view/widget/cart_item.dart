@@ -1,4 +1,3 @@
-import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
@@ -35,7 +34,7 @@ class CartItem extends GetView<HomeController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppText(
-                      'model.name' ?? '',
+                      'model.name',
                       fontSize: 16,
                       color: Colors.black,
                       textOverflow: TextOverflow.ellipsis,

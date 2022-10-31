@@ -1,21 +1,14 @@
-import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:crazy_food/app/modules/cart/view/widget/cart_item.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
-import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
-import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:crazy_food/app/data/models/category_model.dart';
-import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_item.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
-import 'package:get/get.dart';
+
 
 class CartScreen extends GetView<HomeController> {
-  CategoryItemModel? _categoryItemModel;
-
   CartScreen();
 
   @override
@@ -114,10 +107,10 @@ class CartScreen extends GetView<HomeController> {
               ),
             ),
           ),
-        ),
-        bottomNavigationBar: BottomNavigationHome(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FabHome());
+        ));
+        // bottomNavigationBar: BottomNavigationHome(),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // floatingActionButton: FabHome());
   }
 
   getCartList() {

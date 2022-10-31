@@ -68,7 +68,7 @@ class CategoryItemsItem extends GetView<HomeController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2.0),
-                      child: AppText((model.discount).toString()??'0', color: kPrimaryColor,fontWeight: FontWeight.bold,
+                      child: AppText((model.discount).toString(), color: kPrimaryColor,fontWeight: FontWeight.bold,
                         fontSize: 12,),
                     ),
                   ],

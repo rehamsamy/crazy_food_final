@@ -1,7 +1,7 @@
 
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
-import 'package:crazy_food/app/modules/category/view/category_screen.dart';
+import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/product_details/controller/product_details_controller.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -15,80 +15,82 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
    Map map=Get.arguments;
    ProductModel ? productModel;
    List<ProductModel> ?similarProducts;
-  // ProductDetailsController controller=Get.find();
+   ProductDetailsController controller=Get.put(ProductDetailsController());
 
   @override
   Widget build(BuildContext context) {
       productModel=map['product_details'] as ProductModel;
     similarProducts=map['similarProducts'] as List<ProductModel>;
-    return GetBuilder<ProductDetailsController>(
-      init: ProductDetailsController(),
-      builder: (_)=> Scaffold(
-        body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                expandedHeight: 280,
-                floating: true,
-                pinned: false,
-                snap: true,
-                leading: IconButton(icon:Icon(Icons.arrow_back_ios),
-                color: Colors.white,
-                onPressed: ()=>Get.to(()=>CategoryScreen())),
-                backgroundColor: Colors.white,
-                actionsIconTheme: IconThemeData(opacity: 0.0),
-                flexibleSpace: AppCashedImage(
-                  imageUrl:
-                    productModel?.imagePath?? 'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
-                  height: 280,
-                  fit: BoxFit.cover,
+    return MaterialApp(
+      home: GetBuilder<ProductDetailsController>(
+        init: ProductDetailsController(),
+        builder: (_)=> Scaffold(
+          body: NestedScrollView(
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              return [
+                SliverAppBar(
+                  expandedHeight: 280,
+                  floating: true,
+                  pinned: false,
+                  snap: true,
+                  leading: IconButton(icon:Icon(Icons.arrow_back_ios),
+                  color: Colors.white,
+                  onPressed: ()=>Get.to(()=>HomeScreenView())),
+                  backgroundColor: Colors.white,
+                  actionsIconTheme: IconThemeData(opacity: 0.0),
+                  flexibleSpace: AppCashedImage(
+                    imageUrl:
+                      productModel?.imagePath?? 'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
+                    height: 280,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-            ];
-          },
-          body: SingleChildScrollView(
-            child: Container(
-              height: 800,
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.horizontal(
-                    right: Radius.circular(20),
-                    left: Radius.circular(20),
-                  ),
-                  color:kAuthGreyColor ),
-              child: Column(
-                children: [
-                  Card(
-                    color: Colors.white,
-                    elevation: 8,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+              ];
+            },
+            body: SingleChildScrollView(
+              child: Container(
+                height: 800,
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.horizontal(
+                      right: Radius.circular(20),
+                      left: Radius.circular(20),
                     ),
-                    child: Padding(
-                        padding: EdgeInsets.all(15),
-                        child: getFirstProductData()),
-                  ),
-                  SizedBox(height: 10,),
-                  Card(
-                    color: Colors.white,
-                    elevation: 8,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                    color:kAuthGreyColor ),
+                child: Column(
+                  children: [
+                    Card(
+                      color: Colors.white,
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Padding(
+                          padding: EdgeInsets.all(15),
+                          child: getFirstProductData()),
                     ),
-                    child: getProductDetailsData(context),
-                  ),
-                  SizedBox(height: 10,),
-                  Card(
-                    color: Colors.white,
-                    elevation: 8,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                    SizedBox(height: 10,),
+                    Card(
+                      color: Colors.white,
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: getProductDetailsData(context),
                     ),
-                    child: Padding(
-                        padding: EdgeInsets.all(15),
-                        child: getSimilarProducts()),
-                  ),
-                ],
+                    SizedBox(height: 10,),
+                    Card(
+                      color: Colors.white,
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Padding(
+                          padding: EdgeInsets.all(15),
+                          child: getSimilarProducts()),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -272,7 +274,7 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
       child: Column(
         children: [
           AppText(
-            'similar_products'.tr ?? '',
+            'similar_products'.tr ,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),

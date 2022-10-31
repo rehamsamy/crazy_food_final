@@ -1,6 +1,5 @@
 import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/data/models/category_model.dart';
-import 'package:crazy_food/app/data/models/popular_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_apis.dart';
 import 'package:crazy_food/app/data/remote_data_source/popular_apis.dart';
 import 'package:crazy_food/app/modules/category/view/category_screen.dart';
@@ -97,15 +96,7 @@ class HomeTab extends StatelessWidget {
                       SizedBox(
                         height: 15,
                       ),
-                      Container(
-                        height: DiscountItem.height,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 10,
-                            itemBuilder: (_, index) {
-                              return DiscountItemLoading(index);
-                            }),
-                      ),
+                     getDiscountList(),
                       SizedBox(
                         height: 15,
                       ),
@@ -130,7 +121,6 @@ class HomeTab extends StatelessWidget {
                               ),
                             ),
                             getPopularList()
-
                           ],
                         ),
                       ),
@@ -213,18 +203,17 @@ class HomeTab extends StatelessWidget {
               return SizedBox();
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
-            return  Container(
+            return Container(
               padding: EdgeInsets.all(5),
               height: CategoryItem.height,
               child: ListView.builder(
                   // physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (_, index) {
-                    return  CategoryItemLoading();
+                    return CategoryItemLoading();
                   },
                   itemCount: 5),
             );
-
           } else {
             return SizedBox();
           }
@@ -236,38 +225,39 @@ class HomeTab extends StatelessWidget {
         future: PopularApis().getPopular(),
         builder: (_, snap) {
           if (snap.hasData) {
-            List< ProductModel> prods = snap.data as List<ProductModel>;
-            List<ProductModel>popularList=[];
+            List<ProductModel> prods = snap.data as List<ProductModel>;
+            List<ProductModel> popularList = [];
             if (prods.isNotEmpty) {
               prods.map((e) {
-                if((e.rate??0.0)>4){
+                if ((e.rate ?? 0.0) > 4) {
                   popularList.add(e);
                 }
-              } ).toList();
+              }).toList();
 
-           return   Container(
+              return Container(
                 height: 150,
-                padding: EdgeInsets.only(
-                    bottom: 15, right: 15, left: 15),
+                padding: EdgeInsets.only(bottom: 15, right: 15, left: 15),
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: popularList.length,
                     itemBuilder: (_, index) {
-                      return PopularItem(popularList[index],prods);
+                      return PopularItem(popularList[index], prods);
                     }),
               );
             } else if (popularList.isEmpty) {
-              return Center(
-                child: AppText('no_cat_found'.tr),
+              return Container(
+                height: 150,
+                child: Center(
+                  child: AppText('no_cat_found'.tr),
+                ),
               );
             } else {
               return SizedBox();
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
-          return  Container(
+            return Container(
               height: 150,
-              padding: EdgeInsets.only(
-                  bottom: 15, right: 15, left: 15),
+              padding: EdgeInsets.only(bottom: 15, right: 15, left: 15),
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
@@ -279,7 +269,80 @@ class HomeTab extends StatelessWidget {
             return SizedBox();
           }
         });
+  }
+
+  getDiscountList() {
+    return FutureBuilder(
+        future: PopularApis().getPopular(),
+        builder: (_, snap) {
+          if (snap.hasData) {
+            List<ProductModel> prods = snap.data as List<ProductModel>;
+             List<ProductModel> discountList = [];
+            if (prods.isNotEmpty) {
+              prods.map((e) {
+                if ((e.discount ?? 0.0) > 4) {
+                  discountList.add(e);
+                }
+              }).toList();
+           List<ProductModel>  discountOrderList= selectionAsecSortFilter(discountList);
+              return Container(
+                height: DiscountItem.height,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: discountOrderList.length,
+                    itemBuilder: (_, index) {
+                      // return DiscountItemLoading(index);
+                      return DiscountItem(index,discountOrderList[index]);
+                    }),
+              );
+            } else if (discountList.isEmpty) {
+              return Container(
+                height: 150,
+                child: Center(
+                  child: AppText('no_cat_found'.tr),
+                ),
+              );
+            } else {
+              return SizedBox();
+            }
+          } else if (snap.connectionState == ConnectionState.waiting) {
+            return Container(
+              height: DiscountItem.height,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (_, index) {
+                    // return DiscountItemLoading(index);
+                    return DiscountItemLoading(index);
+                  }),
+            );
+          } else {
+            return SizedBox();
+          }
+        });
+  }
 
 
+
+  List<ProductModel> selectionAsecSortFilter(List<ProductModel> prodss){
+    List<ProductModel> prods=prodss ;
+    for (var i = 0; i < prods.length - 1; i++) {
+      var index_min = i;
+      for (var j = i + 1; j < prods.length; j++) {
+        if ((prods[j].discount)! <
+            (prods[index_min].discount??0)) {
+          index_min = j;
+        }
+      }
+      if (index_min != i) {
+        var temp = prods[i];
+        prods[i] = prods[index_min];
+        prods[index_min] = temp;
+      }
+    }
+    print(prods.length);
+    return prods;
   }
 }
+
+

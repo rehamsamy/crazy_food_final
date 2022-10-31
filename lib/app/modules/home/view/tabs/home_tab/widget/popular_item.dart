@@ -9,18 +9,18 @@ class PopularItem extends StatelessWidget {
 
   ProductModel model;
   List<ProductModel> ?allProducts;
+  List<ProductModel> ?similarProducts=[];
   PopularItem(this.model,this.allProducts);
 
   @override
   Widget build(BuildContext context) {
-    List<ProductModel> ?similarProducts;
-    allProducts?.map((e) {
-      if(e.idType==model.idType){
-        similarProducts?.add(e);
-      }
-    } ).toList();
-     return   InkWell(
+     return  InkWell(
        onTap: (){
+         allProducts?.map((e) {
+           if(e.idType==1){
+             similarProducts?.add(e);
+           }
+         } ).toList();
          Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
              arguments: {'product_details':model,
                'similarProducts':similarProducts});
@@ -37,6 +37,4 @@ class PopularItem extends StatelessWidget {
        ),
      );
   }
-
-
 }
