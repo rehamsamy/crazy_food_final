@@ -1,15 +1,18 @@
 import 'package:crazy_food/app/modules/cart/view/widget/cart_item.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
+import 'package:crazy_food/app/modules/home/view/home_screen.dart';
+import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
+import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 
 
 class CartScreen extends GetView<HomeController> {
-  CartScreen();
+   String ? fabFlag;
+   CartScreen({this.fabFlag});
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +33,16 @@ class CartScreen extends GetView<HomeController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      AppText(
-                        'cart'.tr,
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      IconButton(
+                        onPressed:()=>Get.to(()=>HomeScreenView()),
+                        icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                       ),
+                      AppText('cart'.tr,color: Colors.white,fontSize: 18,),
+                      SizedBox()
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Stack(
                     children: [
@@ -107,10 +110,10 @@ class CartScreen extends GetView<HomeController> {
               ),
             ),
           ),
-        ));
-        // bottomNavigationBar: BottomNavigationHome(),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        // floatingActionButton: FabHome());
+        ),
+        bottomNavigationBar:fabFlag=='yes'? BottomNavigationHome():null,
+        floatingActionButtonLocation:fabFlag=='yes'? FloatingActionButtonLocation.centerDocked:null,
+        floatingActionButton: fabFlag=='yes'?FabHome():null);
   }
 
   getCartList() {

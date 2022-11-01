@@ -13,13 +13,19 @@ import 'package:get/get.dart';
 class CategoryItemsItem extends GetView<HomeController> {
   static double height = 230;
   ProductModel model;
+  int ? index;
   List<ProductModel> ?similarProducts;
-  CategoryItemsItem(this.model,this.similarProducts);
+  List<ProductModel> ?allProducts;
+  int ?selectedIndex;
+  CategoryItemsItem(this.model,this.similarProducts,this.index,this.allProducts);
+  HomeController controller=Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
+    Get.log('vvvvvvv  '+controller.isIncrementVisible.toString());
     return GetBuilder<HomeController>(
       builder: (_) => InkWell(
-        onTap: () {Get.log('category details ==>'+(similarProducts?.length).toString());
+        onTap: () {
+          Get.log('category details ==>'+(similarProducts?.length).toString());
           Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
               arguments: {'product_details':model,
                           'similarProducts':similarProducts});},
@@ -44,7 +50,6 @@ class CategoryItemsItem extends GetView<HomeController> {
                   ),
                 ),
               ),
-
               Positioned(
                 left: 1,
                 bottom: 2,
@@ -121,7 +126,16 @@ class CategoryItemsItem extends GetView<HomeController> {
                                   size: 14,
                                 ),
                                 onPressed: () {
+                                  selectedIndex=index;
                                   controller.handleIsIncrementVisible(true);
+                                  // Get.log('case  => '+index.toString());
+                                  // if(selectedIndex==0){
+                                  //   Get.log('case1');
+                                  //   controller.handleIsIncrementVisible(false);
+                                  // }else{
+                                  //   Get.log('case2');
+                                  //   controller.handleIsIncrementVisible(true);
+                                  // }
                                 },
                                 color: Colors.white,
                                 padding: EdgeInsets.all(0),

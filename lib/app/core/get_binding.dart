@@ -7,11 +7,9 @@ import 'package:crazy_food/app/modules/search/controller/search_controller.dart'
 import 'package:get/get.dart';
 
 
-class GetBinding implements Bindings {
+class GetBinding extends Bindings {
   @override
   void dependencies() {
-
- 
     Get.lazyPut<HomeController>(
           () => HomeController(),
     );
@@ -27,7 +25,6 @@ class GetBinding implements Bindings {
     Get.lazyPut<SearchController>(
           () => SearchController(),
     );
-
     Get.lazyPut<CartController>(
           () => CartController(),
     );

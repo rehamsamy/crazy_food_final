@@ -10,7 +10,7 @@ class FabHome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
    return  GestureDetector(
-     onTap: ()=>Get.to(()=>CartScreen()),
+     onTap: ()=>Get.to(()=>CartScreen(fabFlag:'yes')),
      child: Container(
        decoration: BoxDecoration(
          color: kPrimaryColor,
