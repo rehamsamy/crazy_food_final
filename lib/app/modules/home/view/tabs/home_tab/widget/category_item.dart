@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/modules/category_items_screen/view/category_item_screen.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
@@ -15,7 +16,9 @@ CategoryItem(this.model);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=>Get.to(()=>CategoryItemsScreen(),arguments: {'categoryType':model?.id,'categoryName':model?.nameAr}),
+      onTap: ()=>
+          Get.to(()=>CategoryItemsScreen(),arguments: {'categoryType':model?.id,'categoryName':model?.nameAr},
+      binding: GetBinding()),
       child: Column(
         children: [
           Container(

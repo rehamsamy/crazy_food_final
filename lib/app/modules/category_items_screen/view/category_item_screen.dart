@@ -2,6 +2,7 @@ import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_items_apis.dart';
 import 'package:crazy_food/app/modules/category/view/category_screen.dart';
+import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
 import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_item.dart';
 import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_loading.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
@@ -13,20 +14,23 @@ import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-class CategoryItemsScreen extends GetView<HomeController>{
+class CategoryItemsScreen extends GetView<CategoryItemsController>{
    CategoryItemModel ? _categoryItemModel;
    CategoryItemsScreen();
    int ?typeId;
    String ? catName;
    Map map=Get.arguments;
   // CategoryItemsScreen(this._categoryItemModel);
-  @override
+   CategoryItemsController controller=Get.find();
+   @override
   Widget build(BuildContext context) {
     typeId=map['categoryType'];
     catName=map['categoryName'];
+    Get.log('cate   ==>  '+typeId.toString());
     return Scaffold(
         appBar: null,
-        body: GetBuilder<HomeController>(
+        body: GetBuilder<CategoryItemsController>(
+          init: CategoryItemsController(),
           builder:(_)=> Container(
             decoration: kContainerDecoraction,
             width: Get.width,
@@ -93,10 +97,9 @@ class CategoryItemsScreen extends GetView<HomeController>{
              }
            }).toList()  ;
            for (int i=0;i<prods.length;i++){
-             Get.log('items   '+typeId.toString()+'    '+prods[i].nameAr.toString());
-           }
-            Get.log('prods  ===>  '+typeId.toString()+'    '+prods.length.toString());
-            if(prods.isNotEmpty){
+             // Get.log(prods[i].nameAr.toString());
+               }
+                if(prods.isNotEmpty){
               return    Container(
                 padding: EdgeInsets.all(5),
                    width: Get.width,
@@ -111,7 +114,7 @@ class CategoryItemsScreen extends GetView<HomeController>{
                     {
                       // return CategoryItemsLoading();
                       // List<ProductModel> similarProds=products.map((e) => null).toList();
-                       return CategoryItemsItem(products[index],prods,index,products);
+                       return CategoryItemsItem(prods[index],products,index);
                     },
                   itemCount: prods.length,),
               );

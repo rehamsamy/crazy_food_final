@@ -1,5 +1,6 @@
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/core/values/localization/translation.dart';
+import 'package:crazy_food/app/modules/category_items_screen/view/category_item_screen.dart';
 import 'package:crazy_food/app/modules/orders_tab/view/orders_screen.dart';
 import 'package:crazy_food/app/views/network_error.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'app/modules/home/view/home_screen.dart';
 import 'app/modules/product_details/view/product_details_screen.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   runApp(const CrazyApp());
 }
 
@@ -34,6 +36,7 @@ class _CrazyAppState extends State<CrazyApp> {
         splitScreenMode: true,
         builder: (_,child)=> MaterialApp(
           home: GetMaterialApp(
+              debugShowCheckedModeBanner: false,
             // localizationsDelegates: const [
             //   GlobalMaterialLocalizations.delegate,
             //   GlobalWidgetsLocalizations.delegate, // ONLY if it's a RTL language
@@ -42,6 +45,7 @@ class _CrazyAppState extends State<CrazyApp> {
               Locale('en', 'US'), // include country code too
               Locale('ar', 'EG'), // include country code too
             ],
+
             defaultTransition: Transition.cupertino,
             transitionDuration: const Duration(milliseconds: 500),
             translations: Translation(),
@@ -50,7 +54,6 @@ class _CrazyAppState extends State<CrazyApp> {
            //      ? const Locale('ar')
            //      : const Locale('en'),
             fallbackLocale: const Locale('en'),
-            debugShowCheckedModeBanner: false,
             title: 'Crazy Food',
             theme: ThemeData(primarySwatch: Colors.green),
             home:MaterialApp(

@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeScreenView extends GetView<HomeController> {
-  const HomeScreenView({Key? key}) : super(key: key);
+   HomeScreenView({Key? key}) : super(key: key);
+  HomeController controller=Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

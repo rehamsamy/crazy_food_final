@@ -1,6 +1,6 @@
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
-import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
+import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
 import 'package:crazy_food/app/modules/product_details/view/product_details_screen.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -10,19 +10,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 
-class CategoryItemsItem extends GetView<HomeController> {
+class CategoryItemsItem extends GetView<CategoryItemsController> {
   static double height = 230;
   ProductModel model;
   int ? index;
   List<ProductModel> ?similarProducts;
-  List<ProductModel> ?allProducts;
   int ?selectedIndex;
-  CategoryItemsItem(this.model,this.similarProducts,this.index,this.allProducts);
-  HomeController controller=Get.put(HomeController());
+  CategoryItemsItem(this.model,this.similarProducts,this.index);
+  CategoryItemsController controller=Get.find();
   @override
   Widget build(BuildContext context) {
-    Get.log('vvvvvvv  '+controller.isIncrementVisible.toString());
-    return GetBuilder<HomeController>(
+    return GetBuilder<CategoryItemsController>(
+      init: CategoryItemsController(),
       builder: (_) => InkWell(
         onTap: () {
           Get.log('category details ==>'+(similarProducts?.length).toString());
@@ -126,16 +125,14 @@ class CategoryItemsItem extends GetView<HomeController> {
                                   size: 14,
                                 ),
                                 onPressed: () {
-                                  selectedIndex=index;
-                                  controller.handleIsIncrementVisible(true);
-                                  // Get.log('case  => '+index.toString());
-                                  // if(selectedIndex==0){
-                                  //   Get.log('case1');
-                                  //   controller.handleIsIncrementVisible(false);
-                                  // }else{
-                                  //   Get.log('case2');
-                                  //   controller.handleIsIncrementVisible(true);
-                                  // }
+                                  selectedIndex=model.id as int?;
+                                     if(selectedIndex==model.id){
+                                    Get.log('case1');
+                                    controller.handleIsIncrementVisible(true);
+                                  }else{
+                                    Get.log('case2');
+                                    controller.handleIsIncrementVisible(false);
+                                  }
                                 },
                                 color: Colors.white,
                                 padding: EdgeInsets.all(0),

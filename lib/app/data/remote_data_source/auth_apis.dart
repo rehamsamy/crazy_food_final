@@ -36,7 +36,6 @@ class AuthApis {
     response.maybeWhen(
         ok: (data) {
           loginModel = data;
-          Get.log('vvvvvvv '+loginModel.displayName.toString());
           return loginModel;
         },
         noData: (info) {
@@ -73,7 +72,6 @@ class AuthApis {
       request,
       RegisterModel.fromJson, // <- Function to convert API response to your model
     );
-    Get.log('vvvvvvv '+response.toString());
     response.maybeWhen(
         ok: (data) {
           registerModel = data;

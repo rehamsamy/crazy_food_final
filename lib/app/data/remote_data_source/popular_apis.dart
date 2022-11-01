@@ -52,7 +52,6 @@ class PopularApis {
       request,
       CategoryItemsModel.fromJson, // <- Function to convert API response to your model
     );
-    Get.log('ccc '+response.toString());
     response.maybeWhen(
         ok: (data) {
           popularList = data.productsList;
@@ -63,7 +62,6 @@ class PopularApis {
           //     popularList.add(popular);
           //   }
           // } ).toList();
-          Get.log('prods size ==>'+popularList.length.toString());
           return popularList;
         },
         noData: (info) {

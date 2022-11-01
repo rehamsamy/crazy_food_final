@@ -22,10 +22,8 @@ class CategoryItemsApis {
       request,
       CategoryItemsModel.fromJson, // <- Function to convert API response to your model
     );
-    Get.log('ccc '+response.toString());
     response.maybeWhen(
         ok: (data) {
-          Get.log('ccc 111 '+data.toString());
           products = data.productsList;
           return products;
         },

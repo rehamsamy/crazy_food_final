@@ -21,10 +21,8 @@ class CategoryApis {
       request,
       CategoryModel.fromJson, // <- Function to convert API response to your model
     );
-    Get.log('ccc '+response.toString());
     response.maybeWhen(
         ok: (data) {
-          Get.log('ccc 111 '+data.toString());
           categories = data.categories;
           return categories;
         },

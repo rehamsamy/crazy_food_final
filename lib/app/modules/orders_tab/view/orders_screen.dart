@@ -85,7 +85,8 @@ class OrdersScreen extends GetView<HomeController> {
                                   children: [
                                     ListView.builder(
                                         padding: EdgeInsets.all(0),itemBuilder: (_, index) {
-                                      return OrderItemLoading();
+                                   //   return OrderItemLoading();
+                                      return OrderItem();
                                     }),
                                    Container(
                                      color: Colors.grey,
