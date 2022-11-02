@@ -1,5 +1,6 @@
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/core/values/localization/translation.dart';
+import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
 import 'package:crazy_food/app/modules/category_items_screen/view/category_item_screen.dart';
 import 'package:crazy_food/app/modules/orders_tab/view/orders_screen.dart';
 import 'package:crazy_food/app/views/network_error.dart';
@@ -58,7 +59,10 @@ class _CrazyAppState extends State<CrazyApp> {
             theme: ThemeData(primarySwatch: Colors.green),
             home:MaterialApp(
               home:HomeScreenView() ,
-            )
+            ),
+            routes: {
+    CategoryItemsScreen.Stores_SCREEN_ROUTE: (_) =>
+    GetBuilder<CategoryItemsController>(builder: (_) => CategoryItemsScreen())},
             //LocalStorage.userModel!=null?
             //  ProductDetailsScreen()
 
