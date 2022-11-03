@@ -17,7 +17,6 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
   List<ProductModel> ?similarProducts;
   int ?selectedIndex;
   CategoryItemsItem(this.model,this.similarProducts,this.index);
-  CategoryItemsController controller=Get.find();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CategoryItemsController>(
@@ -83,19 +82,19 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                   right: 0,
                   child: Container(
                       width: 30,
-                      height: controller.isIncrementVisible ? 80 : 40,
+                      height: controller.itemIndex==index? 80 : 40,
                       padding: EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: kPrimaryColor,
                           borderRadius:
                               BorderRadius.only(topLeft: Radius.circular(15))),
-                      child: controller.isIncrementVisible
+                      child: controller.itemIndex==index
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 InkWell(
                                     onTap: () {
-                                      controller.changeItemQuantity('decrement');
+                                      controller.changeItemQuantity('decrement',index);
                                     },
                                     child: Icon(
                                       Icons.minimize_outlined,
@@ -109,7 +108,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                                 ),
                                 InkWell(
                                     onTap: () {
-                                      controller.changeItemQuantity('increment');
+                                      controller.changeItemQuantity('increment',index);
                                     },
                                     child: Icon(
                                       Icons.add,
@@ -125,14 +124,8 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                                   size: 14,
                                 ),
                                 onPressed: () {
-                                  selectedIndex=model.id as int?;
-                                     if(selectedIndex==model.id){
-                                    Get.log('case1');
-                                    controller.handleIsIncrementVisible(true);
-                                  }else{
-                                    Get.log('case2');
-                                    controller.handleIsIncrementVisible(false);
-                                  }
+                                  controller.setItemIndex(index??-1);
+                                    controller.handleIsIncrementVisible(true,index??-1);
                                 },
                                 color: Colors.white,
                                 padding: EdgeInsets.all(0),

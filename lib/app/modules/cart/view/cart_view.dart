@@ -1,5 +1,5 @@
+import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:crazy_food/app/modules/cart/view/widget/cart_item.dart';
-import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
@@ -9,16 +9,14 @@ import 'package:get/get.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 
-
-class CartScreen extends GetView<HomeController> {
+class CartScreen extends GetView<CartController> {
    String ? fabFlag;
    CartScreen({this.fabFlag});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: null,
-        body: GetBuilder<HomeController>(
+        body: GetBuilder<CartController>(
           builder: (_) => Container(
             decoration: kContainerDecoraction,
             width: Get.width,

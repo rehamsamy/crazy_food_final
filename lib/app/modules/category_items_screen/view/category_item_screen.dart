@@ -20,17 +20,13 @@ class CategoryItemsScreen extends GetView<CategoryItemsController>{
    int ?typeId;
    String ? catName;
    Map map=Get.arguments;
-  // CategoryItemsScreen(this._categoryItemModel);
-   CategoryItemsController controller=Get.find();
    @override
   Widget build(BuildContext context) {
     typeId=map['categoryType'];
     catName=map['categoryName'];
-    Get.log('cate   ==>  '+typeId.toString());
     return Scaffold(
         appBar: null,
         body: GetBuilder<CategoryItemsController>(
-          init: CategoryItemsController(),
           builder:(_)=> Container(
             decoration: kContainerDecoraction,
             width: Get.width,
@@ -44,7 +40,7 @@ class CategoryItemsScreen extends GetView<CategoryItemsController>{
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed:()=>Get.to(()=>CategoryScreen()),
+                        onPressed:()=>Get.offAll(()=>CategoryScreen()),
                         icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                       ),
                       AppText('قسم ال${ catName??''}',color: Colors.white,fontSize: 20,),

@@ -18,7 +18,7 @@ CategoryItem(this.model);
     return GestureDetector(
       onTap: ()=>
           Get.to(()=>CategoryItemsScreen(),arguments: {'categoryType':model?.id,'categoryName':model?.nameAr},
-      binding: GetBinding()),
+        binding: GetBinding()),
       child: Column(
         children: [
           Container(

@@ -60,9 +60,7 @@ class _CrazyAppState extends State<CrazyApp> {
             home:MaterialApp(
               home:HomeScreenView() ,
             ),
-            routes: {
-    CategoryItemsScreen.Stores_SCREEN_ROUTE: (_) =>
-    GetBuilder<CategoryItemsController>(builder: (_) => CategoryItemsScreen())},
+
             //LocalStorage.userModel!=null?
             //  ProductDetailsScreen()
 

@@ -15,7 +15,7 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
    Map map=Get.arguments;
    ProductModel ? productModel;
    List<ProductModel> ?similarProducts;
-   ProductDetailsController controller=Get.put(ProductDetailsController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,6 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
     similarProducts=map['similarProducts'] as List<ProductModel>;
     return MaterialApp(
       home: GetBuilder<ProductDetailsController>(
-        init: ProductDetailsController(),
         builder: (_)=> Scaffold(
           body: NestedScrollView(
             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -35,7 +34,7 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                   snap: true,
                   leading: IconButton(icon:Icon(Icons.arrow_back_ios),
                   color: Colors.white,
-                  onPressed: ()=>Get.to(()=>HomeScreenView())),
+                  onPressed: ()=>Get.off(()=>HomeScreenView())),
                   backgroundColor: Colors.white,
                   actionsIconTheme: IconThemeData(opacity: 0.0),
                   flexibleSpace: AppCashedImage(
