@@ -126,6 +126,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                                 onPressed: () {
                                   controller.setItemIndex(index??-1);
                                     controller.handleIsIncrementVisible(true,index??-1);
+                                    controller.ddItemToCartScreen(model);
                                 },
                                 color: Colors.white,
                                 padding: EdgeInsets.all(0),

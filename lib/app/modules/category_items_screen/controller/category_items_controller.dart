@@ -1,8 +1,10 @@
+import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 class CategoryItemsController extends GetxController{
   int index=0;
   List<bool>? isIncrementVisible;
+  List<ProductModel>? cartItemsList=[];
   int itemIndex =-1;
   int ? cartCount=0;
   int itemQuantity=0;
@@ -48,5 +50,12 @@ class CategoryItemsController extends GetxController{
     cartCount=((cartCount!) + (itemQuantity));
     update();
   }
+
+  void ddItemToCartScreen(ProductModel model) {
+    cartItemsList!.add(model);
+    update();
+  }
+
+
 
 }

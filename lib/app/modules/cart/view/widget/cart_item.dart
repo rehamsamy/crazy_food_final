@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
@@ -9,6 +10,8 @@ import 'package:get/get.dart';
 
 class CartItem extends GetView<HomeController> {
   static double height = 120;
+
+  CartItem(ProductModel? cartsList);
 
   @override
   Widget build(BuildContext context) {

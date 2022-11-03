@@ -120,8 +120,8 @@ class CartScreen extends GetView<CartController> {
       padding: EdgeInsets.all(5),
       child: ListView.builder(
           padding: EdgeInsets.all(10),
-          itemBuilder: (_, index) => CartItem(),
-          itemCount: 3),
+          itemBuilder: (_, index) => CartItem(controller.cartsList?[index]),
+          itemCount: controller.cartsList?.length),
     );
   }
 }
