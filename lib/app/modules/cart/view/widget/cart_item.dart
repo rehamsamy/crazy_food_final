@@ -1,4 +1,4 @@
-import 'package:crazy_food/app/data/models/category_items_model.dart';
+import 'package:crazy_food/app/data/models/cart_model.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
@@ -10,8 +10,8 @@ import 'package:get/get.dart';
 
 class CartItem extends GetView<HomeController> {
   static double height = 120;
-
-  CartItem(ProductModel? cartsList);
+  CartModel ? model;
+  CartItem(this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +28,17 @@ class CartItem extends GetView<HomeController> {
               children: [
                 AppCashedImage(
                   imageUrl:
-                      'https://cdn.pixabay.com/photo/2020/05/17/04/22/pizza-5179939__340.jpg',
-                  fit: BoxFit.contain,
-                  width: 120,
+                     model?.imagePath?? 'https://cdn.pixabay.com/photo/2020/05/17/04/22/pizza-5179939__340.jpg',
+                  fit: BoxFit.cover,
+                  width: 135,
                   height: 120,
+                  radius: 15,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppText(
-                      'model.name',
+                      model?.title??'',
                       fontSize: 16,
                       color: Colors.black,
                       textOverflow: TextOverflow.ellipsis,
@@ -45,7 +46,7 @@ class CartItem extends GetView<HomeController> {
                     Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: AppText(
-                        '1700kg',
+                        (model?.caleories).toString(),
                         fontSize: 10,
                         color: Colors.grey.shade400,
                       ),
@@ -56,7 +57,7 @@ class CartItem extends GetView<HomeController> {
                     Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: AppText(
-                        '17.00',
+                        (model?.price).toString(),
                         color: kPrimaryColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 12,

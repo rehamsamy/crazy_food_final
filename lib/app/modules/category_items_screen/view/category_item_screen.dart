@@ -5,8 +5,6 @@ import 'package:crazy_food/app/modules/category/view/category_screen.dart';
 import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
 import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_item.dart';
 import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_loading.dart';
-import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
-import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/category_item_loading.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -15,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 class CategoryItemsScreen extends GetView<CategoryItemsController>{
-   CategoryItemModel ? _categoryItemModel;
    CategoryItemsScreen();
    int ?typeId;
    String ? catName;

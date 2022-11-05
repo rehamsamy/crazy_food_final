@@ -1,10 +1,11 @@
 import 'package:crazy_food/app/data/models/category_items_model.dart';
+import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 class CategoryItemsController extends GetxController{
+  CartController cartController=Get.find();
   int index=0;
   List<bool>? isIncrementVisible;
-  List<ProductModel>? cartItemsList=[];
   int itemIndex =-1;
   int ? cartCount=0;
   int itemQuantity=0;
@@ -36,7 +37,7 @@ class CategoryItemsController extends GetxController{
     itemQuantity=0;
     update();
   }
-  changeItemQuantity(String type,index){
+  changeItemQuantity(String type,index,ProductModel model){
     if(type=='increment'&&index==itemIndex){
       itemQuantity++;
     }else if(type=='decrement'&&index==itemIndex){
@@ -47,14 +48,17 @@ class CategoryItemsController extends GetxController{
         itemQuantity;
       }
     }
+ cartController.ddItemToCartScreen(model.id.toString(),model.price,
+        model.nameAr??'',model.imagePath??'',model.caleories as int);
+
     cartCount=((cartCount!) + (itemQuantity));
     update();
   }
 
-  void ddItemToCartScreen(ProductModel model) {
-    cartItemsList!.add(model);
-    update();
-  }
+
+
+
+
 
 
 

@@ -115,13 +115,21 @@ class CartScreen extends GetView<CartController> {
   }
 
   getCartList() {
-    return Container(
-      height: CartItem.height,
-      padding: EdgeInsets.all(5),
-      child: ListView.builder(
-          padding: EdgeInsets.all(10),
-          itemBuilder: (_, index) => CartItem(controller.cartsList?[index]),
-          itemCount: controller.cartsList?.length),
-    );
+    Get.log('size is ==>'+controller.cartItemMap.length.toString());
+    if(controller.cartItemMap.values.length>0) {
+      return Container(
+        height: CartItem.height,
+        padding: EdgeInsets.all(5),
+        child: ListView.builder(
+            padding: EdgeInsets.all(10),
+            itemBuilder: (_, index) => CartItem((controller.cartItemMap.values.toList())[index]),
+            itemCount: (controller.cartItemMap.values.toList()).length),
+      );
+    }else{
+      return  Container(
+          height: CartItem.height,
+          padding: EdgeInsets.all(5),
+    child:Center(child:AppText('no_items')));
+    }
   }
 }

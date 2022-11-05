@@ -94,7 +94,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                               children: [
                                 InkWell(
                                     onTap: () {
-                                      controller.changeItemQuantity('decrement',index);
+                                      controller.changeItemQuantity('decrement',index,model);
                                     },
                                     child: Icon(
                                       Icons.minimize_outlined,
@@ -108,7 +108,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                                 ),
                                 InkWell(
                                     onTap: () {
-                                      controller.changeItemQuantity('increment',index);
+                                      controller.changeItemQuantity('increment',index,model);
                                     },
                                     child: Icon(
                                       Icons.add,
@@ -126,8 +126,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                                 onPressed: () {
                                   controller.setItemIndex(index??-1);
                                     controller.handleIsIncrementVisible(true,index??-1);
-                                    controller.ddItemToCartScreen(model);
-                                },
+                                        },
                                 color: Colors.white,
                                 padding: EdgeInsets.all(0),
                               ),
@@ -138,4 +137,5 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
       ),
     );
   }
+
 }
