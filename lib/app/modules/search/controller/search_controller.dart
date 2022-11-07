@@ -16,6 +16,7 @@ class SearchController extends GetxController {
 
   @override
   void onInit() {
+    Get.log('init ==>');
     getCategoryItemsList();
   }
 
@@ -29,13 +30,21 @@ class SearchController extends GetxController {
 
   void onSearchTextChanged(String val) {
     searchList?.clear();
+    val=searchController.text;
     if (val.isEmpty) {
       update();
       return;
     }
-    Get.log('mmm  =>'+(allCategoryItemsList?.length).toString());
+    Get.log('mmm  =>'+(allCategoryItemsList?.length).toString()+'  '+val);
  searchList=allCategoryItemsList?.
- where((element) => ((element.nameAr).toString()).contains(val)).toList();
+ where((element) {
+   if  (((element.nameEn).toString()).contains(val)){
+     Get.log('lllll '+val);
+     return true;
+   }
+   return true;
+ }
+ ).toList();
  update();
   }
   }

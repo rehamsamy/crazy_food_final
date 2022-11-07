@@ -55,6 +55,7 @@ class SearchScreen extends GetView<SearchController>{
                         radius: 15,
                         horizontalPadding: 0,
                         onChanged: (val) {
+                          Get.log('text val  ==>'+val);
                           controller.onSearchTextChanged(val);
                         },
                       ),
