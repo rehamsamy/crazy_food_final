@@ -15,11 +15,9 @@ import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-class SearchScreen extends StatelessWidget{
+class SearchScreen extends GetView<SearchController>{
   CategoryItemModel ? _categoryItemModel;
   SearchScreen();
-  TextEditingController searchController=TextEditingController();
-  // CategoryItemsScreen(this._categoryItemModel);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +35,7 @@ class SearchScreen extends StatelessWidget{
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed:()=>Get.to(()=>HomeScreenView()),
+                        onPressed:()=>Get.offAll(()=>HomeScreenView()),
                         icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                       ),
                       AppText('search'.tr,color: Colors.white,fontSize: 18,),
@@ -50,13 +48,15 @@ class SearchScreen extends StatelessWidget{
                       onTap: () => Get.to(() => SearchScreen()),
                       child: CustomTextFormField(
                         hintText: 'search'.tr,
-                        controller: searchController,
+                        controller: controller.searchController,
                         keyboardType: TextInputType.text,
                         prefixIcon: Icons.search,
                         prefixIconColor: Colors.grey,
                         radius: 15,
                         horizontalPadding: 0,
-                        // onChanged: ()=>,
+                        onChanged: (val) {
+                          controller.onSearchTextChanged(val);
+                        },
                       ),
                     ),
                   ),
@@ -76,7 +76,7 @@ class SearchScreen extends StatelessWidget{
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child:getCategoryItemsList()
+                        child:getSearchListBuilder()
                     ),
                   )
                 ],
@@ -88,65 +88,35 @@ class SearchScreen extends StatelessWidget{
     );
   }
 
-  getCategoryItemsList() {
-
-    return  FutureBuilder(
-        future: CategoryItemsApis().getCategoriesList(),
-        builder: (_,snap){
-          if(snap.hasData){
-            List<ProductModel>products=snap.data as List<ProductModel>;
-            if(products.isNotEmpty){
-              return    Container(
-                padding: EdgeInsets.all(5),
-                height: CategoryItemsItem.height,
-                child:GridView.builder(
-                  padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 0,
-                    crossAxisSpacing: 0,
-                    mainAxisExtent: CategoryItemsItem.height),
-                  itemBuilder: (_,index)=>CategoryItemsItem(products[index],products,index),
-                  itemCount: products.length,),
-              );
-            }else if(products.isEmpty) {
-              return Center(child: AppText('no_cat_found'.tr),);
-            }else{
-              return SizedBox();
-            }
-          }
-          else if(snap.connectionState==ConnectionState.waiting){
-            return    Container(
-              padding: EdgeInsets.all(5),
-              height: CategoryItemsItem.height,
-              child:GridView.builder(
-                padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 0,
-                  crossAxisSpacing: 0,
-                  mainAxisExtent: CategoryItemsItem.height),
-                itemBuilder: (_,index)=>CategoryItemLoading(),
-                itemCount: 10,),
-            );
-          }else{
-            return SizedBox();
-          }
-        }
-    );
-
-
-    // return   Container(
-    //   padding: EdgeInsets.all(5),
-    //   height: CategoryItemsItem.height,
-    //   child:GridView.builder(
-    //     padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //       crossAxisCount: 2,
-    //       mainAxisSpacing: 0,
-    //       crossAxisSpacing: 0,
-    //       mainAxisExtent: CategoryItemsItem.height),
-    //     itemBuilder: (_,index)=>CategoryItemsItem(),
-    //     itemCount: 6),
-    // );
-
+  getSearchListBuilder() {
+    if (controller.searchList!.isNotEmpty) {
+      return    Container(
+        padding: EdgeInsets.all(5),
+        width: Get.width,
+        height: CategoryItemsItem.height,
+        child:GridView.builder(
+          padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
+            mainAxisExtent: CategoryItemsItem.height),
+          itemBuilder: (_,index)
+          {
+            // return CategoryItemsLoading();
+            // List<ProductModel> similarProds=products.map((e) => null).toList();
+            return CategoryItemsItem(controller.searchList![index],controller.allCategoryItemsList,index);
+          },
+          itemCount:controller.searchList?.length,),
+      );
+    } else if (controller.searchList!.isEmpty) {
+      return Center(
+        child: AppText('no_cat_found'.tr),
+      );
+    } else {
+      return SizedBox();
+    }
   }
+
+
 
 }

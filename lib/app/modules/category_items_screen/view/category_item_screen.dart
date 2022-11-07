@@ -76,7 +76,6 @@ class CategoryItemsScreen extends GetView<CategoryItemsController>{
   }
 
   getCategoryItemsList() {
-
     return  FutureBuilder(
         future: CategoryItemsApis().getCategoriesList(),
         builder: (_,snap){

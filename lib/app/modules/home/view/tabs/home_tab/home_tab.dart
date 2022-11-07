@@ -21,6 +21,7 @@ import 'widget/loading_widget/discount_item_loading.dart';
 
 class HomeTab extends StatelessWidget {
   var searchController = TextEditingController();
+  List<ProductModel> ? allProducts;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +37,12 @@ class HomeTab extends StatelessWidget {
               children: [
                 SizedBox(height: kToolbarHeight / 2),
                 profileWidget(),
-                GestureDetector(
-                  onTap: () => Get.to(() => SearchScreen()),
+                InkWell(
+                  onTap: () => Get.off(() => SearchScreen()),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: InkWell(
-                      onTap: () => Get.to(() => SearchScreen()),
+                      onTap: () => Get.off(() => SearchScreen()),
                       child: CustomTextFormField(
                         hintText: 'search'.tr,
                         controller: searchController,
@@ -50,6 +51,9 @@ class HomeTab extends StatelessWidget {
                         prefixIconColor: Colors.grey,
                         radius: 15,
                         horizontalPadding: 0,
+                        onChanged: (val){
+                          Get.off(() => SearchScreen());
+                        },
                         // onChanged: ()=>,
                       ),
                     ),

@@ -31,7 +31,7 @@ class CategoryScreen extends GetView<HomeController>{
                mainAxisAlignment: MainAxisAlignment.spaceAround,
                children: [
                  IconButton(
-                   onPressed:()=>Get.to(()=>HomeScreenView()),
+                   onPressed:()=>Get.offAll(()=>HomeScreenView()),
                    icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                  ),
                 AppText('categories'.tr,color: Colors.white,fontSize: 18,),
