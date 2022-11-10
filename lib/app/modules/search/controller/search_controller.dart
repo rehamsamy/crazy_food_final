@@ -1,10 +1,5 @@
 import 'package:crazy_food/app/data/models/category_items_model.dart';
-import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_items_apis.dart';
-import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_item.dart';
-import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
-import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/category_item_loading.dart';
-import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,11 +33,11 @@ class SearchController extends GetxController {
     Get.log('mmm  =>'+(allCategoryItemsList?.length).toString()+'  '+val);
  searchList=allCategoryItemsList?.
  where((element) {
-   if  (((element.nameEn).toString()).contains(val)){
-     Get.log('lllll '+val);
+   if  ((((element.nameEn).toString()).toLowerCase()).contains(val.toLowerCase())){
+     Get.log('lllll '+val+' '+element.nameEn.toString());
      return true;
    }
-   return true;
+   return false;
  }
  ).toList();
  update();

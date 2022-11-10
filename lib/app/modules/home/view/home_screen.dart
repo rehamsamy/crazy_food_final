@@ -27,7 +27,7 @@ class HomeScreenView extends GetView<HomeController> {
               children: [
                 HomeTab(),
                 OrdersScreen(),
-                CartScreen(),
+                CartScreen(fabFlag:'no'),
                 OffersTab(),
                 MoreTab()
               ],

@@ -45,7 +45,12 @@ class SearchScreen extends GetView<SearchController>{
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: InkWell(
-                      onTap: () => Get.to(() => SearchScreen()),
+                      onTap: () {
+                        FocusScopeNode currentFocus = FocusScope.of(context);
+                        if (!currentFocus.hasPrimaryFocus) {
+                          currentFocus.unfocus();
+                        }
+                      } ,
                       child: CustomTextFormField(
                         hintText: 'search'.tr,
                         controller: controller.searchController,

@@ -2,15 +2,10 @@ import 'package:crazy_food/app/data/models/cart_model.dart';import 'package:get/
 class CartController extends GetxController{
   Map<String,CartModel> _cartsList={};
   Map<String, CartModel> get cartItemMap => _cartsList;
-
-
   @override
   void onInit() {
     super.onInit();
   }
-
-
-
   void ddItemToCartScreen(String id,num ? price,String title,String imagePath,int caleories) {
     Get.log('found');
     if(_cartsList.containsKey(id)){

@@ -109,9 +109,9 @@ class CartScreen extends GetView<CartController> {
             ),
           ),
         ),
-        bottomNavigationBar:fabFlag=='yes'? BottomNavigationHome():null,
+        bottomNavigationBar:fabFlag=='yes'? BottomNavigationHome():SizedBox(),
         floatingActionButtonLocation:fabFlag=='yes'? FloatingActionButtonLocation.centerDocked:null,
-        floatingActionButton: fabFlag=='yes'?FabHome():null);
+        floatingActionButton: fabFlag=='no'?SizedBox():FabHome());
   }
 
   getCartList() {

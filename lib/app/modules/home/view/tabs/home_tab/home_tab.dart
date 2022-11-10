@@ -16,7 +16,6 @@ import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:badges/badges.dart';
-
 import 'widget/loading_widget/discount_item_loading.dart';
 
 class HomeTab extends StatelessWidget {

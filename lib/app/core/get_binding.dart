@@ -2,6 +2,7 @@ import 'package:crazy_food/app/modules/auth/login/controller/login_controller.da
 import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:crazy_food/app/modules/category/controller/category_controller.dart';
 import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
+import 'package:crazy_food/app/modules/checkout/controller/checkout_controller.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/product_details/controller/product_details_controller.dart';
 import 'package:crazy_food/app/modules/search/controller/search_controller.dart';
@@ -31,6 +32,9 @@ class GetBinding extends Bindings {
     );
     Get.lazyPut<CategoryItemsController>(
           () => CategoryItemsController(),
+    );
+    Get.lazyPut<CheckoutController>(
+          () => CheckoutController(),
     );
   }
 }
