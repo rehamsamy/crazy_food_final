@@ -38,7 +38,7 @@ class SearchController extends GetxController {
      return true;
    }
    Get.log('lllll '+(searchList?.length).toString());
-   return true;
+   return false;
  }
  ).toList();
  update();
