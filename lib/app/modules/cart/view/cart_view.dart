@@ -111,7 +111,7 @@ class CartScreen extends GetView<CartController> {
         ),
         bottomNavigationBar:fabFlag=='yes'? BottomNavigationHome():SizedBox(),
         floatingActionButtonLocation:fabFlag=='yes'? FloatingActionButtonLocation.centerDocked:null,
-        floatingActionButton: fabFlag=='no'?SizedBox():FabHome());
+        floatingActionButton: fabFlag=='yes'?FabHome():SizedBox());
   }
 
   getCartList() {

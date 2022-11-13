@@ -17,6 +17,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 class SearchScreen extends GetView<SearchController>{
   CategoryItemModel ? _categoryItemModel;
+  SearchController controller=Get.find();
   SearchScreen();
   @override
   Widget build(BuildContext context) {
@@ -45,11 +46,12 @@ class SearchScreen extends GetView<SearchController>{
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: InkWell(
-                      onTap: () {
-                        FocusScopeNode currentFocus = FocusScope.of(context);
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
+                        onTap: () {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+                          if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                            currentFocus.focusedChild?.unfocus();
+                          }
+
                       } ,
                       child: CustomTextFormField(
                         hintText: 'search'.tr,
@@ -96,23 +98,27 @@ class SearchScreen extends GetView<SearchController>{
 
   getSearchListBuilder() {
     if (controller.searchList!.isNotEmpty) {
-      return    Container(
-        padding: EdgeInsets.all(5),
-        width: Get.width,
-        height: CategoryItemsItem.height,
-        child:GridView.builder(
-          padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 0,
-            crossAxisSpacing: 0,
-            mainAxisExtent: CategoryItemsItem.height),
-          itemBuilder: (_,index)
-          {
-            // return CategoryItemsLoading();
-            // List<ProductModel> similarProds=products.map((e) => null).toList();
-            return CategoryItemsItem(controller.searchList![index],controller.allCategoryItemsList,index);
-          },
-          itemCount:controller.searchList?.length,),
+      return   GetBuilder<SearchController>(
+        builder: (context) {
+          return Container(
+            padding: EdgeInsets.all(5),
+            width: Get.width,
+            height: CategoryItemsItem.height,
+            child:GridView.builder(
+              padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 0,
+                crossAxisSpacing: 0,
+                mainAxisExtent: CategoryItemsItem.height),
+              itemBuilder: (_,index)
+              {
+                // return CategoryItemsLoading();
+                // List<ProductModel> similarProds=products.map((e) => null).toList();
+                return CategoryItemsItem(controller.searchList![index],controller.allCategoryItemsList,index);
+              },
+              itemCount:controller.searchList?.length,),
+          );
+        }
       );
     } else if (controller.searchList!.isEmpty) {
       return Center(
