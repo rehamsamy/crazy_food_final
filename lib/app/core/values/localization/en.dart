@@ -61,4 +61,5 @@ Map<String, String> en = {
   'confirmed_dts':'your product is confirmed to deliver',
   'processing_dts':'your product is processing to deliver',
   'delivered_dts':'your product is delivered to you ',
+  'pay':'Pay'
 };
