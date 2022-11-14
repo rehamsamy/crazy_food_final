@@ -31,7 +31,7 @@ class CheckoutView extends GetView<CheckoutController>{
                         onPressed:()=>Get.to(()=>HomeScreenView()),
                         icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                       ),
-                      AppText('checkout'.tr,color: Colors.white,fontSize: 18,),
+                      AppText('add_new_payment'.tr,color: Colors.white,fontSize: 18,),
                       SizedBox()
                     ],
                   ),

@@ -52,7 +52,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
 
     // MFSDK.init(mAPIUrl, mAPIKey);
    // MFSDK.init(mAPIKey, MFCountry.SAUDI_ARABIA, MFEnvironment.LIVE);
-    MFSDK.init(mAPIKey, MFCountry.SAUDI_ARABIA, MFEnvironment.TEST);
+    MFSDK.init(mAPIKey, MFCountry.EGYPT, MFEnvironment.TEST);
 
     initiatePayment();
   }
@@ -68,7 +68,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
           if (result.isSuccess())
             {
               setState(() {
-                print(result.response?.toJson());
+                  print('mm  =>'+(result.response?.toJson()).toString());
                 _response = ""; //result.response.toJson().toString();
                 paymentMethods?.addAll(result.response?.paymentMethods??[]);
                 for (int i = 0; i < paymentMethods!.length; i++)
@@ -100,7 +100,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
         request,
         // context.locale.languageCode == "en"
         //     ? MFAPILanguage.AR
-             MFAPILanguage.EN,
+             MFAPILanguage.AR,
         onInvoiceCreated: (String invoiceId) =>
         {print("invoiceId: " + invoiceId)},
         onPaymentResponse: (String invoiceId,
@@ -110,6 +110,10 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
             {
               setState(() {
                 print(invoiceId + " <<<<<<<=-=--=-=-=-=-=-=invoiceId ");
+                print((result.response?.invoiceTransactions?[0].paymentGateway).toString() + " <<<<<<<=-=--=-=-=-=-=-=invoiceId ");
+                print((result.response?.invoiceTransactions?[0].cardNumber).toString() + " <<<<<<<=-=--=-=-=-=-=-=invoiceId ");
+               //To Do firebase add payment
+
                 // print(invoiceId + " <<<<<<<=-=--=-=-=-=-=-= trans from pay ${} ");
                 print(result.response?.toJson());
                 Navigator.pop(context, {
@@ -294,7 +298,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
 //   String _response = '';
 //   String _loading = "Loading...";
 //   var sessionIdValue = "";
-//   late MFPaymentCardView mfPaymentCardView;
+  late MFPaymentCardView mfPaymentCardView;
 //   late MFApplePayButton mfApplePayButton;
 //   bool isLoading=true;
 //
@@ -842,30 +846,30 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
 //     );
 //   }
 //
-//   createPaymentCardView(double height) {
-//     mfPaymentCardView = MFPaymentCardView(
-//       language: MFAPILanguage.AR,
-//       inputColor: Colors.red,
-//       labelColor: Colors.blue,
-//       errorColor: Colors.blue,
-//       borderColor: Colors.green,
-//       fontSize: 18,
-//       borderWidth: 1,
-//       borderRadius: 2,
-//       cardHeight: 270,
-//       // cardHolderNameHint: "card holder name hint",
-//       // cardNumberHint: "card number hint",
-//       // expiryDateHint: "expiry date hint",
-//       cvvHint: "cvv hint",
-//       showLabels: true,
-//       // cardHolderNameLabel: "card holder name label",
-//       // cardNumberLabel: "card number label",
-//       // expiryDateLabel: "expiry date label",
-//       // cvvLabel: "cvv label",
-//     );
-//
-//     return mfPaymentCardView;
-//   }
+  createPaymentCardView(double height) {
+    mfPaymentCardView = MFPaymentCardView(
+      language: MFAPILanguage.AR,
+      inputColor: Colors.red,
+      labelColor: Colors.blue,
+      errorColor: Colors.blue,
+      borderColor: Colors.green,
+      fontSize: 18,
+      borderWidth: 1,
+      borderRadius: 2,
+      cardHeight: 270,
+      // cardHolderNameHint: "card holder name hint",
+      // cardNumberHint: "card number hint",
+      // expiryDateHint: "expiry date hint",
+      cvvHint: "cvv hint",
+      showLabels: true,
+      // cardHolderNameLabel: "card holder name label",
+      // cardNumberLabel: "card number label",
+      // expiryDateLabel: "expiry date label",
+      // cvvLabel: "cvv label",
+    );
+
+    return mfPaymentCardView;
+  }
 //
 //   /// This for Apple pay button
 //   createApplePayView() {
