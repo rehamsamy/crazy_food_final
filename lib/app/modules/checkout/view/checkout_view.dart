@@ -1,6 +1,9 @@
+import 'package:crazy_food/app/data/models/payment_model.dart';
+import 'package:crazy_food/app/data/remote_data_source/payment_apis.dart';
 import 'package:crazy_food/app/modules/checkout/controller/checkout_controller.dart';
 import 'package:crazy_food/app/modules/checkout/view/my_fatora.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
+import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/discount_item_loading.dart';
 import 'package:crazy_food/app/modules/map/view/map_screen.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
@@ -133,10 +136,52 @@ class CheckoutView extends GetView<CheckoutController>{
   }
 
   getPaymentList() {
-    return Container(
-      height: 150,
-      color: Colors.orangeAccent,
-    );
+    // return Container(
+    //   height: 150,
+    //   color: Colors.orangeAccent,
+    // );
+
+    return FutureBuilder(
+        future: PaymentApis().getPayment(),
+        builder: (_, snap) {
+          if (snap.hasData) {
+            List<PaymentModel> paymentList = snap.data as List<PaymentModel>;
+            if (paymentList.isNotEmpty) {
+              return Container(
+                height: 200,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: paymentList.length,
+                    itemBuilder: (_, index) {
+                      // return DiscountItemLoading(index);
+                      return Container(color: Colors.blue,);
+                    }),
+              );
+            } else if (paymentList.isEmpty) {
+              return Container(
+                height: 150,
+                child: Center(
+                  child: AppText('no_cat_found'.tr),
+                ),
+              );
+            } else {
+              return SizedBox();
+            }
+          } else if (snap.connectionState == ConnectionState.waiting) {
+            return Container(
+              height: 200,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (_, index) {
+                    // return DiscountItemLoading(index);
+                    return DiscountItemLoading(index);
+                  }),
+            );
+          } else {
+            return SizedBox();
+          }
+        });
   }
 
 }

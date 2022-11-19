@@ -2,8 +2,8 @@
 
 //123456
 
+import 'package:crazy_food/app/data/remote_data_source/payment_apis.dart';
 import 'package:crazy_food/app/modules/checkout/view/checkout_view.dart';
-import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
@@ -92,7 +92,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
   /*
     Execute Regular Payment
    */
-  void executeRegularPayment(int paymentMethodId) {
+  void executeRegularPayment(int paymentMethodId) async{
     var request = new MFExecutePaymentRequest(paymentMethodId, widget.amount);
 
     MFSDK.executePayment(
@@ -108,11 +108,12 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
         {
           if (result.isSuccess())
             {
-              setState(() {
+              setState(() async {
                 print(invoiceId + " <<<<<<<=-=--=-=-=-=-=-=invoiceId ");
                 print((result.response?.invoiceTransactions?[0].paymentGateway).toString() + " <<<<<<<=-=--=-=-=-=-=-=invoiceId ");
                 print((result.response?.invoiceTransactions?[0].cardNumber).toString() + " <<<<<<<=-=--=-=-=-=-=-=invoiceId ");
                //To Do firebase add payment
+
 
                 // print(invoiceId + " <<<<<<<=-=--=-=-=-=-=-= trans from pay ${} ");
                 print(result.response?.toJson());
@@ -121,7 +122,8 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
                   "transaction": invoiceId.toString(),
                   // result.response.invoiceTransactions[0].transactionId,
                 });
-
+              await PaymentApis().puplishPaymentMethod((result.response?.invoiceTransactions?[0].paymentGateway).toString(),
+                   (result.response?.invoiceTransactions?[0].cardNumber).toString());
                 _response = (result.response?.toJson()).toString();
               })
             }
@@ -185,7 +187,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
 
   @override
   Widget build(BuildContext context) {
-    double widthC = MediaQuery.of(context).size.width;
+    //double widthC = MediaQuery.of(context).size.width;
     // AppBar appBar = AppBar(
     //   backgroundColor: kAccentColor,
     //   brightness: Brightness.light,
