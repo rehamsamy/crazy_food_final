@@ -61,4 +61,6 @@ Map<String, String> ar = {
   'order_placed':'تم الطلب',
   'confirmed':'تم التاكيد',
   'delivered':'تم التوصيل',
+  'pay':'دفع',
+  'add_new_payment':'اضافه وسبه دفع جديده'
 };

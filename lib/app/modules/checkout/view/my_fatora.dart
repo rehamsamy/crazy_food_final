@@ -2,11 +2,15 @@
 
 //123456
 
+import 'package:crazy_food/app/data/remote_data_source/payment_apis.dart';
+import 'package:crazy_food/app/modules/checkout/view/checkout_view.dart';
+import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart' as Get;
+import 'package:get/get.dart' as gg;
+import 'package:get/get.dart';
 
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 import 'package:myfatoorah_flutter/utils/MFCountry.dart';
@@ -48,7 +52,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
 
     // MFSDK.init(mAPIUrl, mAPIKey);
    // MFSDK.init(mAPIKey, MFCountry.SAUDI_ARABIA, MFEnvironment.LIVE);
-    MFSDK.init(mAPIKey, MFCountry.SAUDI_ARABIA, MFEnvironment.TEST);
+    MFSDK.init(mAPIKey, MFCountry.EGYPT, MFEnvironment.TEST);
 
     initiatePayment();
   }
@@ -64,7 +68,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
           if (result.isSuccess())
             {
               setState(() {
-                print(result.response?.toJson());
+                  print('mm  =>'+(result.response?.toJson()).toString());
                 _response = ""; //result.response.toJson().toString();
                 paymentMethods?.addAll(result.response?.paymentMethods??[]);
                 for (int i = 0; i < paymentMethods!.length; i++)
@@ -88,7 +92,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
   /*
     Execute Regular Payment
    */
-  void executeRegularPayment(int paymentMethodId) {
+  void executeRegularPayment(int paymentMethodId) async{
     var request = new MFExecutePaymentRequest(paymentMethodId, widget.amount);
 
     MFSDK.executePayment(
@@ -96,7 +100,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
         request,
         // context.locale.languageCode == "en"
         //     ? MFAPILanguage.AR
-             MFAPILanguage.EN,
+             MFAPILanguage.AR,
         onInvoiceCreated: (String invoiceId) =>
         {print("invoiceId: " + invoiceId)},
         onPaymentResponse: (String invoiceId,
@@ -104,8 +108,13 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
         {
           if (result.isSuccess())
             {
-              setState(() {
+              setState(() async {
                 print(invoiceId + " <<<<<<<=-=--=-=-=-=-=-=invoiceId ");
+                print((result.response?.invoiceTransactions?[0].paymentGateway).toString() + " <<<<<<<=-=--=-=-=-=-=-=invoiceId ");
+                print((result.response?.invoiceTransactions?[0].cardNumber).toString() + " <<<<<<<=-=--=-=-=-=-=-=invoiceId ");
+               //To Do firebase add payment
+
+
                 // print(invoiceId + " <<<<<<<=-=--=-=-=-=-=-= trans from pay ${} ");
                 print(result.response?.toJson());
                 Navigator.pop(context, {
@@ -113,7 +122,8 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
                   "transaction": invoiceId.toString(),
                   // result.response.invoiceTransactions[0].transactionId,
                 });
-
+              await PaymentApis().puplishPaymentMethod((result.response?.invoiceTransactions?[0].paymentGateway).toString(),
+                   (result.response?.invoiceTransactions?[0].cardNumber).toString());
                 _response = (result.response?.toJson()).toString();
               })
             }
@@ -158,7 +168,6 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
 
   void pay() {
     if (selectedPaymentMethodIndex == -1) {
-
       Fluttertoast.showToast(
           msg: "Please select payment method first",
           toastLength: Toast.LENGTH_SHORT,
@@ -178,106 +187,100 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
 
   @override
   Widget build(BuildContext context) {
-    double widthC = MediaQuery.of(context).size.width;
-    AppBar appBar = AppBar(
-      backgroundColor: kAccentColor,
-      brightness: Brightness.light,
-      elevation: 0,
-      leading:  IconButton(
-        onPressed:(){},
-        icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
-      ),
-      title: Text(
-       ('charge_wallet'),
-        style: TextStyle(),
-      ),
-      centerTitle: true,
-    );
+    //double widthC = MediaQuery.of(context).size.width;
+    // AppBar appBar = AppBar(
+    //   backgroundColor: kAccentColor,
+    //   brightness: Brightness.light,
+    //   elevation: 0,
+    //   leading:  IconButton(
+    //     onPressed:(){},
+    //     icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+    //   ),
+    //   title: Text(
+    //    ('charge_wallet'),
+    //     style: TextStyle(),
+    //   ),
+    //   centerTitle: true,
+    // );
     return Scaffold(
       extendBody: true,
-      appBar: appBar,
-      bottomNavigationBar:
-      Container(
-        height:50,
-        width: widthC,
-        margin: EdgeInsets.all(15),
-        child: ElevatedButton(
-            // color: Colors.blueAccent,
-            onPressed: pay,
-            // borderRadius: 10,
-            child: Container(
-              child: Center(
-                child: Text(
-                  'دفع',
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // appBar: appBar,
+        floatingActionButton:
+          AppProgressButton(
+            text: 'pay'.tr,
+              width: 160,
+              height: 50,
+              radius: 10,
+            fontSize: 20,
+            backgroundColor: kPrimaryColor,
+        child: AppText('pay'.tr,color: Colors.white,),
+        onPressed: (AnimationController animationController) async{
+              await  animationController.forward();
+              await Future.delayed(Duration(seconds: 2));
+              pay();
+              await  animationController.reverse();
+        }
 
-                ),
-              ),
-            )),
-      ),
-      // Container(
-      //   margin: EdgeInsets.all(10),
-      //   height: 48,
-      //   child: RaisedButton(
-      //     color: Colors.lightBlue,
-      //     textColor: Colors.white,
-      //     child: Text('Pay'),
-      //     onPressed: pay,
-      //   ),
-      // ),
+          ),
       body: SafeArea(
-        child: Column(children: [
-                  Container(
-                    width: widthC,
-                    //height: 60,
-                    padding: EdgeInsets.all(12),
-                    margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1),
-                      borderRadius: BorderRadius.circular(7)
-                    ),
-                    child:Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(icon: Icon(Icons.arrow_back_ios),onPressed: () {}
-
-                            // Get.Get.to(()=>ChargeWalletPage())
-                          ,),
-                        SizedBox(),
-                        Divider(height: 40,thickness:5,color: Colors.red,),
-                        Text('${widget.amount}   ${('rail')}',
-                        overflow: TextOverflow.ellipsis,),
-                        Icon(Icons.payments),
-
-
-                      ],
-                    ),
-
-                    ),
-                  SizedBox(height:10 ,),
-                  Expanded(
-                  child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 0.0,
-                          mainAxisSpacing: 0.0),
-                      itemCount: paymentMethods!.length,
-                      itemBuilder: (BuildContext ctxt, int index) {
-                        return Column(
-                          children: <Widget>[
-                            Image.network(paymentMethods?[index].imageUrl??'',
-                                width: 80.0, height: 60.0),
-                            AppText(paymentMethods?[index].paymentMethodAr??'',fontSize: 20,),
-                            Checkbox(
-                                value: isSelected?[index],
-                                onChanged: (bool ?value) {
-                                  setState(() {
-                                    setPaymentMethodSelected(index, value??true);
-                                  });
-                                })
-                          ],
-                        );
-                      })),
-   ] )));
+        child: Container(
+          decoration: kContainerDecoraction,
+          width: MediaQuery.of(context).size.width,
+          height:MediaQuery.of(context).size.height,
+          child: Column(children: [
+            SizedBox(
+              height: 40,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  onPressed:()=>Get.to(()=>CheckoutView()),
+                  icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+                ),
+                AppText('checkout'.tr,color: Colors.white,fontSize: 18,),
+                SizedBox()
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+                    Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 30),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(20),bottom:  Radius.circular(20)),
+                        color: Colors.white,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 18.0),
+                      child: GridView.builder(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 0.0,
+                              mainAxisSpacing: 0.0),
+                          itemCount: paymentMethods!.length,
+                          itemBuilder: (BuildContext ctxt, int index) {
+                            return Column(
+                              children: <Widget>[
+                                Image.network(paymentMethods?[index].imageUrl??'',
+                                    width: 80.0, height: 60.0),
+                                AppText(paymentMethods?[index].paymentMethodAr??'',fontSize: 20,),
+                                Checkbox(
+                                    value: isSelected?[index],
+                                    onChanged: (bool ?value) {
+                                      setState(() {
+                                        setPaymentMethodSelected(index, value??true);
+                                      });
+                                    })
+                              ],
+                            );
+                          }),
+                    )),
+   ] ),
+        )));
   }
 }
 
@@ -297,7 +300,7 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
 //   String _response = '';
 //   String _loading = "Loading...";
 //   var sessionIdValue = "";
-//   late MFPaymentCardView mfPaymentCardView;
+  late MFPaymentCardView mfPaymentCardView;
 //   late MFApplePayButton mfApplePayButton;
 //   bool isLoading=true;
 //
@@ -845,30 +848,30 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
 //     );
 //   }
 //
-//   createPaymentCardView(double height) {
-//     mfPaymentCardView = MFPaymentCardView(
-//       language: MFAPILanguage.AR,
-//       inputColor: Colors.red,
-//       labelColor: Colors.blue,
-//       errorColor: Colors.blue,
-//       borderColor: Colors.green,
-//       fontSize: 18,
-//       borderWidth: 1,
-//       borderRadius: 2,
-//       cardHeight: 270,
-//       // cardHolderNameHint: "card holder name hint",
-//       // cardNumberHint: "card number hint",
-//       // expiryDateHint: "expiry date hint",
-//       cvvHint: "cvv hint",
-//       showLabels: true,
-//       // cardHolderNameLabel: "card holder name label",
-//       // cardNumberLabel: "card number label",
-//       // expiryDateLabel: "expiry date label",
-//       // cvvLabel: "cvv label",
-//     );
-//
-//     return mfPaymentCardView;
-//   }
+  createPaymentCardView(double height) {
+    mfPaymentCardView = MFPaymentCardView(
+      language: MFAPILanguage.AR,
+      inputColor: Colors.red,
+      labelColor: Colors.blue,
+      errorColor: Colors.blue,
+      borderColor: Colors.green,
+      fontSize: 18,
+      borderWidth: 1,
+      borderRadius: 2,
+      cardHeight: 270,
+      // cardHolderNameHint: "card holder name hint",
+      // cardNumberHint: "card number hint",
+      // expiryDateHint: "expiry date hint",
+      cvvHint: "cvv hint",
+      showLabels: true,
+      // cardHolderNameLabel: "card holder name label",
+      // cardNumberLabel: "card number label",
+      // expiryDateLabel: "expiry date label",
+      // cvvLabel: "cvv label",
+    );
+
+    return mfPaymentCardView;
+  }
 //
 //   /// This for Apple pay button
 //   createApplePayView() {

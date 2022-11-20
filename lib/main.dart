@@ -1,18 +1,12 @@
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/core/values/localization/translation.dart';
-import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
-import 'package:crazy_food/app/modules/category_items_screen/view/category_item_screen.dart';
 import 'package:crazy_food/app/modules/checkout/view/checkout_view.dart';
-import 'package:crazy_food/app/modules/orders_tab/view/orders_screen.dart';
 import 'package:crazy_food/app/views/network_error.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:get/get.dart';
-
-import 'app/modules/home/view/home_screen.dart';
-import 'app/modules/product_details/view/product_details_screen.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -92,3 +86,7 @@ class _CrazyAppState extends State<CrazyApp> {
     });
   }
 }
+
+
+
+//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
