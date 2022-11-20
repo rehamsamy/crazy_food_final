@@ -36,11 +36,11 @@ class PaymentApis {
     return true;
   }
 
-  Future<List<PaymentModel>?> getPayment()async{
+  Future<bool?> getPayment()async{
 List<PaymentModel>? paymentList;
     final request = NetworkRequest(
       type: NetworkRequestType.GET,
-      path: '/payment/token1.json',
+      path: '/payment/payment/token1.json',
       data: NetworkRequestBody.json(
           {
 
@@ -50,17 +50,18 @@ List<PaymentModel>? paymentList;
 
 
     NetworkResponse response = await networkService.execute(
-        request,
-        PaymentModel.fromJson);
-    Get.log('cccccccccccc       '+response.toString());
+        request,Payment.fromJson
+        );
+     Get.log('cccccccccccc       '+response.toString());
     response.maybeWhen(
         ok: (data) {
-          return paymentList;
+          Get.log('2222222222       '+response.toString());
+          return true;
         },
         noData: (info) {
           return null;
         },
         orElse: () {});
-    return paymentList;
+    return false;
   }
 }
