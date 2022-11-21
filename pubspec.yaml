@@ -93,6 +93,8 @@ dev_dependencies:
   permission: ^0.1.7
   myfatoorah_flutter: ^2.1.13
   fluttertoast: ^8.0.8
+  geocoding: ^2.0.5
+  flutter_geocoder: ^0.2.2-nullsafety
 
 
 # For information on the generic Dart part of this file, see the

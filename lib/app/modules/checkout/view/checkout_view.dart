@@ -35,7 +35,7 @@ class CheckoutView extends GetView<CheckoutController>{
                         onPressed:()=>Get.to(()=>HomeScreenView()),
                         icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                       ),
-                      AppText('add_new_payment'.tr,color: Colors.white,fontSize: 18,),
+                      AppText('checkout'.tr,color: Colors.white,fontSize: 18,),
                       SizedBox()
                     ],
                   ),
@@ -99,7 +99,7 @@ class CheckoutView extends GetView<CheckoutController>{
                                 children: [
                                   ListTile(
                                     title: AppText(
-                                      'address'.tr,
+                                      'payment'.tr,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                       fontSize: 15,
@@ -130,12 +130,51 @@ class CheckoutView extends GetView<CheckoutController>{
   }
 
   getAddressList() {
-    return Container(
-      height: 150,
-      color: Colors.orangeAccent,
-    );
-  }
+    return FutureBuilder(
+        future: PaymentApis().getPayment(),
+        builder: (_, snap) {
+          if (snap.hasData) {
+            List<PaymentModel> paymentList = snap.data as List<PaymentModel>;
+            if (paymentList.isNotEmpty) {
+              return Container(
+                height: 200,
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: paymentList.length,
+                    itemBuilder: (_, index) {
+                      return InkWell(
+                          onTap: (){
 
+                          },
+                          child: PaymentWidget(paymentList[index],index,index==controller.paymentIndex));
+                    }),
+              );
+            } else if (paymentList.isEmpty) {
+              return Container(
+                height: 150,
+                child: Center(
+                  child: AppText('no_cat_found'.tr),
+                ),
+              );
+            } else {
+              return SizedBox();
+            }
+          } else if (snap.connectionState == ConnectionState.waiting) {
+            return Container(
+              height: 200,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (_, index) {
+                    // return DiscountItemLoading(index);
+                    return DiscountItemLoading(index);
+                  }),
+            );
+          } else {
+            return SizedBox();
+          }
+        });
+  }
   getPaymentList() {
     return FutureBuilder(
         future: PaymentApis().getPayment(),
@@ -149,7 +188,11 @@ class CheckoutView extends GetView<CheckoutController>{
                     scrollDirection: Axis.vertical,
                     itemCount: paymentList.length,
                     itemBuilder: (_, index) {
-                      return PaymentWidget(paymentList[index]);
+                      return InkWell(
+                        onTap: (){
+
+                        },
+                          child: PaymentWidget(paymentList[index],index,index==controller.paymentIndex));
                     }),
               );
             } else if (paymentList.isEmpty) {

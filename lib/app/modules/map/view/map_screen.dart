@@ -10,6 +10,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:get/get.dart';
+import 'package:geocoding/geocoding.dart' as geo;
+import 'package:flutter_geocoder/geocoder.dart';
+
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -44,13 +47,29 @@ class _MyAppState extends State<MapScreen> {
 
   void getLocation() async {
     var location = await currentLocation.getLocation();
-    currentLocation.onLocationChanged.listen((LocationData loc) {
+    currentLocation.onLocationChanged.listen((LocationData loc) async {
       mapController?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
         target: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
         zoom: 12.0,
       )));
-      print(loc.latitude);
-      locationData=loc;
+
+      try {
+        final coordinates = new Coordinates(loc.latitude, loc.longitude);
+        List<Address> add =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+        Get.log('loc  ==> '+add[0].countryName.toString());
+        // List<geo.Placemark> placemarks = await geo.placemarkFromCoordinates(
+        //   loc.latitude??0,
+        //   loc.longitude??0,
+        // );
+        // print('000 '+(placemarks[0].country).toString());
+
+
+      }catch(err){
+        print('vvvv =>'+err.toString());
+      }
+      // Get.log('location   =>'+location.
+      // locationData=loc;
 
       print('vvvv '+loc.longitude.toString());
       if (mounted) {
@@ -108,7 +127,8 @@ class _MyAppState extends State<MapScreen> {
             fontSize: 20,
           ),
           leading:  IconButton(onPressed: (){
-            Get.to(()=>OrdersDetailsScreen());
+            // Get.to(()=>OrdersDetailsScreen());
+           Navigator.of(context).pop();
           }, icon: Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 30,)),
           backgroundColor: Colors.transparent,
           elevation: 0,

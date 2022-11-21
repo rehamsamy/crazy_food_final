@@ -40,49 +40,53 @@ class PaymentApis {
 
   Future<List<PaymentModel>?> getPayment() async {
     List<PaymentModel>? paymentList = [];
-    // try {
-    //
-    //   var response =
-    //       await http.get(Uri.parse('$baseUrl/payment/payment/token1.json'));
-    //   Get.log('error'+ response.body.toString()+response.statusCode.toString());
-    //   if (response.statusCode == 200) {
-    //     List< dynamic> result =
-    //         json.decode(response.body) as List< dynamic>;
-    //
-    //     result.forEach((element) {
-    //       Get.log('error  '+element);
-    //       paymentList.add(element);
-    //     });
-    //
-    //   } else {
-    //     Get.log('error');
-    //   }
-    // } catch (err) {
-    //   Get.log('error'+err.toString());
-    // }
-    // return paymentList;
-    final request = NetworkRequest(
-      type: NetworkRequestType.GET,
-      path: '/payment/payment/token.json',
-      data: NetworkRequestBody.json(
-          {}
-      ),
-    );
+    try {
 
+      var response =
+          await http.get(Uri.parse('$baseUrl/payment/payment/token.json'));
+      Get.log('error'+ response.body.toString()+response.statusCode.toString());
+      if (response.statusCode == 200) {
+        Map<String,dynamic> result =
+            json.decode(response.body) as Map<String,dynamic>;
+       result.forEach((key, value) {
+         Get.log('data   '+value.toString());
+         value.forEach((key,val){
+           Get.log('data  1 '+val.toString());
+           PaymentModel model=PaymentModel.fromJson(val);
+           Get.log('data  1 '+model.toString());
+           paymentList!.add(model);
+         });
+       });
 
-    NetworkResponse response = await networkService.execute(
-        request,
-        Payment.fromJson);
-    response.maybeWhen(
-        ok: (data) {
-          paymentList=data.data as List<PaymentModel>;
-          Get.log('cccccccccccc       '+paymentList!.length.toString());
-          return paymentList;
-        },
-        noData: (info) {
-          return null;
-        },
-        orElse: () {});
+      } else {
+        Get.log('error');
+      }
+    } catch (err) {
+      Get.log('error'+err.toString());
+    }
     return paymentList;
+    // final request = NetworkRequest(
+    //   type: NetworkRequestType.GET,
+    //   path: '/payment/payment/token.json',
+    //   data: NetworkRequestBody.json(
+    //       {}
+    //   ),
+    // );
+    //
+    //
+    // NetworkResponse response = await networkService.execute(
+    //     request,
+    //     Payment.fromJson);
+    // response.maybeWhen(
+    //     ok: (data) {
+    //       paymentList=data.data as List<PaymentModel>;
+    //       Get.log('cccccccccccc       '+paymentList!.length.toString());
+    //       return paymentList;
+    //     },
+    //     noData: (info) {
+    //       return null;
+    //     },
+    //     orElse: () {});
+    // return paymentList;
   }
 }

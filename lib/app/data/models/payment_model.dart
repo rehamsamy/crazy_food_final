@@ -40,7 +40,7 @@ class PaymentModel {
     id = json['id'];
     type = json['type'];
   }
-  int? id;
+  String? id;
   String? type;
 
   Map<String, dynamic> toJson() {
