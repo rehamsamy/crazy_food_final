@@ -1,9 +1,27 @@
-/// id : 1145793211566
-/// type : "visa/master"
+/// id : 1
+///
+///
+/// type : "visa1"
+import 'package:get/get.dart';
 
+class Payment {
+  List<PaymentModel>? payments;
+  Payment.fromJson(dynamic json) {
+    if (json!= null) {
+      payments = [];
+      json.forEach((v) {
+        payments?.add(PaymentModel.fromJson(v));
+      });
+      Get.log('step1');
+    }else{
+      Get.log('step2');
+    }
+  }
+
+}
 class PaymentModel {
   PaymentModel({
-      num? id, 
+      num? id,
       String? type,}){
     _id = id;
     _type = type;

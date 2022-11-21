@@ -145,28 +145,29 @@ class CheckoutView extends GetView<CheckoutController>{
         future: PaymentApis().getPayment(),
         builder: (_, snap) {
           if (snap.hasData) {
-            List<PaymentModel> paymentList = snap.data as List<PaymentModel>;
-            if (paymentList.isNotEmpty) {
-              return Container(
-                height: 200,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: paymentList.length,
-                    itemBuilder: (_, index) {
-                      // return DiscountItemLoading(index);
-                      return Container(color: Colors.blue,);
-                    }),
-              );
-            } else if (paymentList.isEmpty) {
-              return Container(
-                height: 150,
-                child: Center(
-                  child: AppText('no_cat_found'.tr),
-                ),
-              );
-            } else {
-              return SizedBox();
-            }
+            return Container(color: Colors.red,);
+            // List<PaymentModel> paymentList = snap.data as List<PaymentModel>;
+            // if (paymentList.isNotEmpty) {
+            //   return Container(
+            //     height: 200,
+            //     child: ListView.builder(
+            //         scrollDirection: Axis.horizontal,
+            //         itemCount: paymentList.length,
+            //         itemBuilder: (_, index) {
+            //           // return DiscountItemLoading(index);
+            //           return Container(color: Colors.blue,);
+            //         }),
+            //   );
+            // } else if (paymentList.isEmpty) {
+            //   return Container(
+            //     height: 150,
+            //     child: Center(
+            //       child: AppText('no_cat_found'.tr),
+            //     ),
+            //   );
+            // } else {
+            //   return SizedBox();
+            // }
           } else if (snap.connectionState == ConnectionState.waiting) {
             return Container(
               height: 200,
