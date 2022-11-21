@@ -1,9 +1,12 @@
 
+import 'dart:convert';
+
 import 'package:crazy_food/app/data/models/payment_model.dart';
 import 'package:crazy_food/app/data/models/payment_response.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:get/get.dart';
 import 'package:crazy_food/app/data/services/network_service.dart/dio_network_service.dart';
+import 'package:http/http.dart' as http;
 
 
 class PaymentApis {
@@ -11,7 +14,7 @@ class PaymentApis {
 
     final request = NetworkRequest(
       type: NetworkRequestType.POST,
-      path: '/payment.json',
+      path: '/payment/payment/token/data',
       data: NetworkRequestBody.json(
           {
             'id':id,
@@ -24,7 +27,6 @@ class PaymentApis {
     NetworkResponse response = await networkService.execute(
       request,
         PaymentResponse.fromJson);
-    Get.log('cccccccccccc       '+response.toString());
     response.maybeWhen(
         ok: (data) {
           return true;
@@ -36,32 +38,51 @@ class PaymentApis {
     return true;
   }
 
-  Future<bool?> getPayment()async{
-List<PaymentModel>? paymentList;
+  Future<List<PaymentModel>?> getPayment() async {
+    List<PaymentModel>? paymentList = [];
+    // try {
+    //
+    //   var response =
+    //       await http.get(Uri.parse('$baseUrl/payment/payment/token1.json'));
+    //   Get.log('error'+ response.body.toString()+response.statusCode.toString());
+    //   if (response.statusCode == 200) {
+    //     List< dynamic> result =
+    //         json.decode(response.body) as List< dynamic>;
+    //
+    //     result.forEach((element) {
+    //       Get.log('error  '+element);
+    //       paymentList.add(element);
+    //     });
+    //
+    //   } else {
+    //     Get.log('error');
+    //   }
+    // } catch (err) {
+    //   Get.log('error'+err.toString());
+    // }
+    // return paymentList;
     final request = NetworkRequest(
       type: NetworkRequestType.GET,
-      path: '/payment/payment/token1.json',
+      path: '/payment/payment/token.json',
       data: NetworkRequestBody.json(
-          {
-
-          }
+          {}
       ),
     );
 
 
     NetworkResponse response = await networkService.execute(
-        request,Payment.fromJson
-        );
-     Get.log('cccccccccccc       '+response.toString());
+        request,
+        Payment.fromJson);
     response.maybeWhen(
         ok: (data) {
-          Get.log('2222222222       '+response.toString());
-          return true;
+          paymentList=data.data as List<PaymentModel>;
+          Get.log('cccccccccccc       '+paymentList!.length.toString());
+          return paymentList;
         },
         noData: (info) {
           return null;
         },
         orElse: () {});
-    return false;
+    return paymentList;
   }
 }

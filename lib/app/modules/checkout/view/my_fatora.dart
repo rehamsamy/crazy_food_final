@@ -223,64 +223,63 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
         }
 
           ),
-      body: SafeArea(
-        child: Container(
-          decoration: kContainerDecoraction,
-          width: MediaQuery.of(context).size.width,
-          height:MediaQuery.of(context).size.height,
-          child: Column(children: [
-            SizedBox(
-              height: 40,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  onPressed:()=>Get.to(()=>CheckoutView()),
-                  icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
-                ),
-                AppText('checkout'.tr,color: Colors.white,fontSize: 18,),
-                SizedBox()
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-                    Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 30),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(20),bottom:  Radius.circular(20)),
-                        color: Colors.white,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 18.0),
-                      child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 0.0,
-                              mainAxisSpacing: 0.0),
-                          itemCount: paymentMethods!.length,
-                          itemBuilder: (BuildContext ctxt, int index) {
-                            return Column(
-                              children: <Widget>[
-                                Image.network(paymentMethods?[index].imageUrl??'',
-                                    width: 80.0, height: 60.0),
-                                AppText(paymentMethods?[index].paymentMethodAr??'',fontSize: 20,),
-                                Checkbox(
-                                    value: isSelected?[index],
-                                    onChanged: (bool ?value) {
-                                      setState(() {
-                                        setPaymentMethodSelected(index, value??true);
-                                      });
-                                    })
-                              ],
-                            );
-                          }),
-                    )),
+      body: Container(
+        decoration: kContainerDecoraction,
+        width: MediaQuery.of(context).size.width,
+        height:MediaQuery.of(context).size.height,
+        child: Column(children: [
+          SizedBox(
+            height: 40,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed:()=>Get.to(()=>CheckoutView()),
+                icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+              ),
+              AppText('checkout'.tr,color: Colors.white,fontSize: 18,),
+              SizedBox()
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+                  Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 30),
+                    decoration: BoxDecoration(
+                      borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(20),bottom:  Radius.circular(20)),
+                      color: Colors.white,
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 18.0),
+                    child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 0.0,
+                            mainAxisSpacing: 0.0),
+                        itemCount: paymentMethods!.length,
+                        itemBuilder: (BuildContext ctxt, int index) {
+                          return Column(
+                            children: <Widget>[
+                              Image.network(paymentMethods?[index].imageUrl??'',
+                                  width: 80.0, height: 60.0),
+                              AppText(paymentMethods?[index].paymentMethodAr??'',fontSize: 20,),
+                              Checkbox(
+                                  value: isSelected?[index],
+                                  onChanged: (bool ?value) {
+                                    setState(() {
+                                      setPaymentMethodSelected(index, value??true);
+                                    });
+                                  })
+                            ],
+                          );
+                        }),
+                  )),
    ] ),
-        )));
+      ));
   }
 }
 

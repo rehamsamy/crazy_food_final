@@ -1,50 +1,52 @@
-/// id : 1
-///
-///
-/// type : "visa1"
 import 'package:get/get.dart';
-
 class Payment {
-  List<PaymentModel>? payments;
+  Payment({
+      this.data, 
+      this.status,});
+
   Payment.fromJson(dynamic json) {
-    if (json!= null) {
-      payments = [];
-      json.forEach((v) {
-        payments?.add(PaymentModel.fromJson(v));
+    if (json['data'] != null) {
+      data = [];
+      json['data'].forEach((v) {
+        Get.log('data is ==>'+v.toString());
+        data?.add(PaymentModel.fromJson(v));
       });
-      Get.log('step1');
-    }else{
-      Get.log('step2');
     }
+    status = json['status'];
   }
-
-}
-class PaymentModel {
-  PaymentModel({
-      num? id,
-      String? type,}){
-    _id = id;
-    _type = type;
-}
-
-  PaymentModel.fromJson(dynamic json) {
-    _id = json['id'];
-    _type = json['type'];
-  }
-  num? _id;
-  String? _type;
-PaymentModel copyWith({  num? id,
-  String? type,
-}) => PaymentModel(  id: id ?? _id,
-  type: type ?? _type,
-);
-  num? get id => _id;
-  String? get type => _type;
+  List<PaymentModel>? data;
+  bool? status;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['type'] = _type;
+    if (data != null) {
+      map['data'] = data?.map((v) {
+        Get.log('data is ==>'+v.type.toString());
+        v.toJson();
+        }).toList();
+    }
+    map['status'] = status;
+    return map;
+  }
+
+}
+
+class PaymentModel {
+  PaymentModel({
+      this.id, 
+      this.type,});
+
+  PaymentModel.fromJson(dynamic json) {
+    id = json['id'];
+    type = json['type'];
+  }
+  int? id;
+  String? type;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['type'] = type;
     return map;
   }
 
