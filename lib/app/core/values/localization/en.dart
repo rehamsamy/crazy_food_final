@@ -62,5 +62,10 @@ Map<String, String> en = {
   'processing_dts':'your product is processing to deliver',
   'delivered_dts':'your product is delivered to you ',
   'pay':'Pay',
-  'add_new_payment':'ِAdd new Payment'
+  'add_new_payment':'ِAdd new Payment',
+  'order_success':'Order Successfull',
+  'track_my_order':'Track my order',
+  'go_back':'Go back',
+  'order_success_data':'your order #123456 is places successfully'
+
 };

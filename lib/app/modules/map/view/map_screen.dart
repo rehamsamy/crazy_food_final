@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:crazy_food/app/modules/map/view/widget/botom_add_address.dart';
 import 'package:crazy_food/app/modules/orders_details/view/orders_details_screen.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -23,7 +24,7 @@ class MapScreen extends StatefulWidget {
 
 class _MyAppState extends State<MapScreen> {
   GoogleMapController? mapController=null;
-
+List<Address>? addressInfo;
   LatLng _center = const LatLng(45.521563, -122.677433);
 
   // ignore: deprecated_member_use
@@ -57,7 +58,7 @@ class _MyAppState extends State<MapScreen> {
         final coordinates = new Coordinates(loc.latitude, loc.longitude);
         List<Address> add =
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
-        Get.log('loc  ==> '+add[0].countryName.toString());
+        Get.log('loc  ==> '+add[0].addressLine.toString());
         // List<geo.Placemark> placemarks = await geo.placemarkFromCoordinates(
         //   loc.latitude??0,
         //   loc.longitude??0,
@@ -138,6 +139,13 @@ class _MyAppState extends State<MapScreen> {
             child: GoogleMap(
               onMapCreated: _onMapCreated,
               myLocationEnabled: true,
+            onTap: (val) async {
+              getAddressData(val);
+              addMarkerOnpPoint(val);
+              _showDialog(context);
+
+              // BottomAddAdress(true);
+            },
             //  polylines: Set<Polyline>.of(polylines.values),
             //   markers: Set<Marker>.of(markers.values),
                markers: _markers,
@@ -241,6 +249,7 @@ class _MyAppState extends State<MapScreen> {
                         Divider(
                           color: Colors.grey,
                         ),
+                        // AppText('${addressInfo?[0].addressLine}'),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -281,10 +290,73 @@ class _MyAppState extends State<MapScreen> {
             ],
           )
         ]),
+        // bottomSheet: BottomAddAdress(true,addressInfo?[0]??null),
       ),
     );
   }
+
+
+  Future<List<Address>> getAddressData(LatLng val)async{
+  final coordinates = new Coordinates(val.latitude, val.longitude);
+  List<Address> add =
+      await Geocoder.local.findAddressesFromCoordinates(coordinates);
+  Get.log('loc  2==> '+add[0].addressLine.toString());
+  setState(() {
+    addressInfo=add;
+  });
+  return add;
+  }
+
+
+  addMarkerOnpPoint(LatLng loc)async{
+    List<Address>address=await getAddressData(loc);
+    setState(()  {
+      _markers.add(
+        Marker(
+          onTap: (){
+          },
+            markerId: MarkerId(address[0].subAdminArea.toString()),
+            position: LatLng(
+              loc.latitude ?? 0.0,
+              loc.longitude ?? 0.0,
+            ),),
+      );
+    });
+  }
+
+  void _showDialog(BuildContext context) {
+    Get.log('alerttt');
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("add_address".tr),
+          content: Row(
+            children: [
+              new Text((addressInfo![0].addressLine.toString())??'gg'),
+              Checkbox(value: true, onChanged: (val){
+
+              })
+            ],
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
 }
+
+
 
 
 
@@ -462,3 +534,5 @@ class _MyAppState extends State<MapScreen> {
 //   }
 // }
 //
+
+

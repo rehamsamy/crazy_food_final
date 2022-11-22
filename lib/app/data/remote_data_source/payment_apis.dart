@@ -54,7 +54,7 @@ class PaymentApis {
            Get.log('data  1 '+val.toString());
            PaymentModel model=PaymentModel.fromJson(val);
            Get.log('data  1 '+model.toString());
-           paymentList!.add(model);
+           paymentList.add(model);
          });
        });
 

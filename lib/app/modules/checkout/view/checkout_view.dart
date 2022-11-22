@@ -222,4 +222,7 @@ class CheckoutView extends GetView<CheckoutController>{
         });
   }
 
+
+
+
 }

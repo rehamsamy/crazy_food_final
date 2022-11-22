@@ -62,5 +62,9 @@ Map<String, String> ar = {
   'confirmed':'تم التاكيد',
   'delivered':'تم التوصيل',
   'pay':'دفع',
-  'add_new_payment':'اضافه وسبه دفع جديده'
+  'add_new_payment':'اضافه وسبه دفع جديده',
+  'order_success':'تم الطلب بنجاح',
+  'track_my_order':'تاكيد الطلب',
+  'go_back':'رجوع',
+  'order_success_data':' رقمك طلب #123456  تم الارسال بنجاح!'
 };
