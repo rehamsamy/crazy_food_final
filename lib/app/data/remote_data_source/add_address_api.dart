@@ -1,7 +1,5 @@
-
 import 'dart:convert';
-
-import 'package:crazy_food/app/data/models/payment_model.dart';
+import 'package:crazy_food/app/data/models/address_model.dart';
 import 'package:crazy_food/app/data/models/payment_response.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:get/get.dart';
@@ -9,23 +7,22 @@ import 'package:crazy_food/app/data/services/network_service.dart/dio_network_se
 import 'package:http/http.dart' as http;
 
 
-class PaymentApis {
-  Future<bool> puplishPaymentMethod(String paymentType,String id)async{
-
+class AddAddressApis {
+  Future<bool> addAddress(String address)async{
     final request = NetworkRequest(
       type: NetworkRequestType.POST,
-      path: '/payment/payment/token/data.json',
+      path: '/address/token/data.json',
       data: NetworkRequestBody.json(
           {
-            'id':id,
-            'type':paymentType
+            'addressTitle':address,
+            'status':true
           }
       ),
     );
 
 
     NetworkResponse response = await networkService.execute(
-      request,
+        request,
         PaymentResponse.fromJson);
     response.maybeWhen(
         ok: (data) {
@@ -38,25 +35,24 @@ class PaymentApis {
     return true;
   }
 
-  Future<List<PaymentModel>?> getPayment() async {
-    List<PaymentModel>? paymentList = [];
+  Future<List<Address>?> getAddress() async {
+    List<Address>? adddresList = [];
     try {
 
       var response =
-          await http.get(Uri.parse('$baseUrl/payment/payment/token.json'));
+      await http.get(Uri.parse('$baseUrl/address/token.json'));
       Get.log('error'+ response.body.toString()+response.statusCode.toString());
       if (response.statusCode == 200) {
         Map<String,dynamic> result =
-            json.decode(response.body) as Map<String,dynamic>;
-       result.forEach((key, value) {
-         Get.log('data   '+value.toString());
-         value.forEach((key,val){
-           Get.log('data  1 '+val.toString());
-           PaymentModel model=PaymentModel.fromJson(val);
-           Get.log('data  1 '+model.toString());
-           paymentList.add(model);
-         });
-       });
+        json.decode(response.body) as Map<String,dynamic>;
+        result.forEach((key, value) {
+          Get.log('data   '+value.toString());
+          value.forEach((key,val){
+            Get.log('data  1 '+val.toString());
+            Address model=Address.fromJson(val);
+            adddresList.add(model);
+          });
+        });
 
       } else {
         Get.log('error');
@@ -64,7 +60,7 @@ class PaymentApis {
     } catch (err) {
       Get.log('error'+err.toString());
     }
-    return paymentList;
+    return adddresList;
     // final request = NetworkRequest(
     //   type: NetworkRequestType.GET,
     //   path: '/payment/payment/token.json',

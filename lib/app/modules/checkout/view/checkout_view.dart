@@ -1,11 +1,16 @@
+import 'package:crazy_food/app/data/models/address_model.dart';
 import 'package:crazy_food/app/data/models/payment_model.dart';
+import 'package:crazy_food/app/data/remote_data_source/add_address_api.dart';
 import 'package:crazy_food/app/data/remote_data_source/payment_apis.dart';
+import 'package:crazy_food/app/modules/address/view/address_screen.dart';
 import 'package:crazy_food/app/modules/checkout/controller/checkout_controller.dart';
 import 'package:crazy_food/app/modules/checkout/view/my_fatora.dart';
+import 'package:crazy_food/app/modules/checkout/view/widget/address_widget.dart';
 import 'package:crazy_food/app/modules/checkout/view/widget/payment_widget.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/discount_item_loading.dart';
-import 'package:crazy_food/app/modules/map/view/map_screen.dart';
+import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
+import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +31,7 @@ class CheckoutView extends GetView<CheckoutController>{
               child: Column(
                 children: [
                   SizedBox(
-                    height: 40,
+                    height: 35,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -43,7 +48,7 @@ class CheckoutView extends GetView<CheckoutController>{
                     height: 10,
                   ),
                   Container(
-                    height: Get.height-100,
+                    height: Get.height-90,
                     width: Get.width,
                     decoration: BoxDecoration(
                       borderRadius:
@@ -66,6 +71,8 @@ class CheckoutView extends GetView<CheckoutController>{
                               child:Column(
                                 children: [
                                   ListTile(
+                                    contentPadding: EdgeInsets.only(top: 0,left: 10,right: 10,bottom: 0),
+                                    minVerticalPadding: 0,
                                     title: AppText(
                                       'address'.tr,
                                       fontWeight: FontWeight.bold,
@@ -73,7 +80,7 @@ class CheckoutView extends GetView<CheckoutController>{
                                       fontSize: 15,
                                     ),
                                     trailing: InkWell(
-                                      onTap: () => Get.to(() => MapScreen()),
+                                      onTap: () => Get.to(() => AddressScreen()),
                                       child: AppText(
                                         'add_new'.tr,
                                         color: kPrimaryColor,
@@ -87,7 +94,7 @@ class CheckoutView extends GetView<CheckoutController>{
                           ),
                         ),
                         SizedBox(
-                          height:Get.height *0.40,
+                          height:Get.height *0.35,
                           child: Card(
                               elevation: 8,
                               color: Colors.white,
@@ -98,6 +105,8 @@ class CheckoutView extends GetView<CheckoutController>{
                               child:Column(
                                 children: [
                                   ListTile(
+                                    contentPadding: EdgeInsets.only(top: 0,left: 10,right: 10,bottom: 0),
+                                    minVerticalPadding: 0,
                                     title: AppText(
                                       'payment'.tr,
                                       fontWeight: FontWeight.bold,
@@ -118,9 +127,12 @@ class CheckoutView extends GetView<CheckoutController>{
                               )
                           ),
                         ),
+                        SizedBox(height: 10,),
+                        checkOrderButton(context)
                       ],
                     ),
                   ),
+
                 ],
               ),
             ),
@@ -131,25 +143,24 @@ class CheckoutView extends GetView<CheckoutController>{
 
   getAddressList() {
     return FutureBuilder(
-        future: PaymentApis().getPayment(),
+        future: AddAddressApis().getAddress(),
         builder: (_, snap) {
           if (snap.hasData) {
-            List<PaymentModel> paymentList = snap.data as List<PaymentModel>;
-            if (paymentList.isNotEmpty) {
-              return Container(
-                height: 200,
+            List<Address> addressList = snap.data as List<Address>;
+            if (addressList.isNotEmpty) {
+              return Expanded(
+                // height: 150,
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: paymentList.length,
+                    itemCount: addressList.length,
                     itemBuilder: (_, index) {
                       return InkWell(
                           onTap: (){
-
                           },
-                          child: PaymentWidget(paymentList[index],index,index==controller.paymentIndex));
+                          child: AddressWidget(addressList[index],index,index==controller.addressIndex));
                     }),
               );
-            } else if (paymentList.isEmpty) {
+            } else if (addressList.isEmpty) {
               return Container(
                 height: 150,
                 child: Center(
@@ -161,7 +172,7 @@ class CheckoutView extends GetView<CheckoutController>{
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
             return Container(
-              height: 200,
+              height: 150,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
@@ -182,8 +193,8 @@ class CheckoutView extends GetView<CheckoutController>{
           if (snap.hasData) {
             List<PaymentModel> paymentList = snap.data as List<PaymentModel>;
             if (paymentList.isNotEmpty) {
-              return Container(
-                height: 200,
+              return Expanded(
+                // height: 150,
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: paymentList.length,
@@ -207,7 +218,7 @@ class CheckoutView extends GetView<CheckoutController>{
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
             return Container(
-              height: 200,
+              height: 150,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
@@ -222,7 +233,72 @@ class CheckoutView extends GetView<CheckoutController>{
         });
   }
 
+  checkOrderButton(BuildContext context) {
+    return    AppProgressButton(
+      onPressed: (animationController) async {
+        animationController.forward();
+        await Future.delayed(Duration(seconds: 2));
+       _showDialog(context);
+      },
+      text: ("checkout".tr),
+      textColor: Colors.white,
+      backgroundColor: kPrimaryColor,
+      height: 40,
+    );
+  }
+  void _showDialog(BuildContext context) {
+    Get.log('alerttt');
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildCircle(),
+                  SizedBox(width: 2,),
+                  buildCircle(),
+                  SizedBox(width: 2,),
+                  buildCircle()
+                ],),
+              SizedBox(height: 20,),
+              Image.asset('assets/images/shopping-cart.png'),
+              AppText('order_success'.tr,fontSize: 25,color: Colors.black,fontWeight: FontWeight.bold,),
+              SizedBox(height: 8,),
+              AppText('order_success_data'.tr,fontSize: 15,color: Colors.grey,),
+              SizedBox(height: 20,),
+              AppElevatedButton(text: 'track_my_order'.tr, onPressed: (){
+
+                ////   add order to firebase ///////
+
+              },backgroundColor: kPrimaryColor,
+                textColor: Colors.white,),
+              SizedBox(height: 20,),
+              InkWell(child: AppText('go_back'.tr,color: kPrimaryColor,),
+                onTap: (){
+                  Navigator.of(context).pop();
+                  Get.offAll(()=>HomeScreenView());
+                },)
+            ],
+          ),
+        );
+      },
+    );
+  }
 
 
+  buildCircle(){
+    return Container(
+      width: 15,
+      height: 15,
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: kAccentColor.withOpacity(0.4)
+      ),
+    );
+  }
 
 }

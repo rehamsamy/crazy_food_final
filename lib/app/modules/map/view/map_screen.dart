@@ -1,7 +1,4 @@
 import 'dart:async';
-
-import 'package:crazy_food/app/modules/map/view/widget/botom_add_address.dart';
-import 'package:crazy_food/app/modules/orders_details/view/orders_details_screen.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
@@ -249,7 +246,7 @@ List<Address>? addressInfo;
                         Divider(
                           color: Colors.grey,
                         ),
-                        // AppText('${addressInfo?[0].addressLine}'),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -317,8 +314,8 @@ List<Address>? addressInfo;
           },
             markerId: MarkerId(address[0].subAdminArea.toString()),
             position: LatLng(
-              loc.latitude ?? 0.0,
-              loc.longitude ?? 0.0,
+              loc.latitude ,
+              loc.longitude ,
             ),),
       );
     });
@@ -333,9 +330,8 @@ List<Address>? addressInfo;
           title: new Text("add_address".tr),
           content: Row(
             children: [
-              new Text((addressInfo![0].addressLine.toString())??'gg'),
+              new Text((addressInfo![0].addressLine.toString())),
               Checkbox(value: true, onChanged: (val){
-
               })
             ],
           ),

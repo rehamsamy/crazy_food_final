@@ -66,6 +66,9 @@ Map<String, String> en = {
   'order_success':'Order Successfull',
   'track_my_order':'Track my order',
   'go_back':'Go back',
-  'order_success_data':'your order #123456 is places successfully'
+  'order_success_data':'your order #123456 is places successfully',
+  'selected_location':'Selected Location:',
+  'current_location':'Current Location:',
+  'add_address':'Add Address'
 
 };
