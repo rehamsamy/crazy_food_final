@@ -11,8 +11,19 @@ class BottomAddAdress extends StatefulWidget {
   bool _show;
   Address? _address;
   String? currentLocationText;
+  double? currentLatitude;
+  double? chooseLongitude;
+  double? chooseLatitude;
+  double? currentLongitude;
 
-  BottomAddAdress(this._show, this._address, this.currentLocationText);
+  BottomAddAdress(
+      this._show,
+      this._address,
+      this.currentLocationText,
+      this.currentLatitude,
+      this.currentLongitude,
+      this.chooseLatitude,
+      this.chooseLongitude);
 
   @override
   State<BottomAddAdress> createState() => _BottomAddAdressState();
@@ -22,6 +33,8 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
   bool? isCurrentSelected = false;
   bool? isChooseSelected = false;
   String ? finalAddress;
+  double ? finalLatitude;
+  double ? finalLongitude;
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +119,17 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
                 await Future.delayed(Duration(seconds: 2));
                 if(isChooseSelected!){
                   finalAddress=(widget._address?.addressLine).toString();
+                  finalLatitude=widget.chooseLatitude;
+                  finalLongitude=widget.chooseLongitude;
                 }else{
                   finalAddress=widget.currentLocationText;
+                  finalLatitude=widget.currentLatitude;
+                  finalLongitude=widget.currentLongitude;
                 }
-                AddAddressApis().addAddress(finalAddress??'').then((value) => Get.off(()=>CheckoutView()));
+                AddAddressApis()
+                    .addAddress(finalAddress ?? '', finalLatitude ?? 0.0,
+                        finalLongitude ?? 0.0)
+                    .then((value) => Get.off(() => CheckoutView(), ));
                 widget._show = false;
                 setState(() {});
               },

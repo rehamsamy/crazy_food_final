@@ -8,7 +8,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:get/get.dart';
-import 'package:geocoding/geocoding.dart' as geo;
 import 'package:flutter_geocoder/geocoder.dart';
 
 
@@ -44,7 +43,6 @@ List<Address>? addressInfo;
 
 
   void getLocation() async {
-    var location = await currentLocation.getLocation();
     currentLocation.onLocationChanged.listen((LocationData loc) async {
       mapController?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
         target: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
@@ -336,12 +334,12 @@ List<Address>? addressInfo;
             ],
           ),
           actions: <Widget>[
-            new FlatButton(
-              child: new Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            // new Flat(
+            //   child: new Text("OK"),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
           ],
         );
       },

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:crazy_food/app/data/models/address_model.dart';
 import 'package:crazy_food/app/data/models/cart_model.dart';
 import 'package:crazy_food/app/data/models/order_model.dart';
 import 'package:crazy_food/app/data/models/payment_response.dart';
@@ -10,8 +9,13 @@ import 'package:http/http.dart' as http;
 
 class AddOrdersApis {
   Future<bool> addOrder(
-      {required List<CartModel> carts, required double total,required String address,required payment}) async {
-    String dateTime = DateTime.now().toIso8601String();
+      {required List<CartModel> carts,
+      required double total,
+      required String address,
+      required payment,
+      required double latitude,
+      required double longitude}) async {
+    // String dateTime = DateTime.now().toIso8601String();
 
     final request = NetworkRequest(
       type: NetworkRequestType.POST,
@@ -47,6 +51,52 @@ class AddOrdersApis {
         orElse: () {});
     return true;
   }
+
+
+  Future<bool> updateOrder(
+      {required List<Products> carts,
+        required double total,
+        required String address,
+        required payment,
+        required double latitude,
+        required double longitude}) async {
+
+    final request = NetworkRequest(
+      type: NetworkRequestType.PATCH,
+      path: '/orders/token.json',
+      data: NetworkRequestBody.json({
+        'products': carts
+            .map((e) => {
+          'productId': e.productId,
+          'productName': e.productName,
+          'productImage': e.productImage,
+          'price': e.price,
+          'quantity': e.quantity,
+          'caleories': e.caleories
+        })
+            .toList(),
+        'dateTime':DateTime.now().toString(),
+        'totalAmount':total,
+        'order_status':'processing',
+        'statusId':2,
+        'address':address,
+        'payment':payment
+      }),
+    );
+
+    NetworkResponse response =
+    await networkService.execute(request, PaymentResponse.fromJson);
+    response.maybeWhen(
+        ok: (data) {
+          return true;
+        },
+        noData: (info) {
+          return null;
+        },
+        orElse: () {});
+    return true;
+  }
+
 
   Future<List<OrderModel>?> getOrders() async {
     List<OrderModel>? ordersList = [];

@@ -8,13 +8,15 @@ import 'package:http/http.dart' as http;
 
 
 class AddAddressApis {
-  Future<bool> addAddress(String address)async{
+  Future<bool> addAddress(String address,double latitude,double longitude)async{
     final request = NetworkRequest(
       type: NetworkRequestType.POST,
       path: '/address/token/data.json',
       data: NetworkRequestBody.json(
           {
             'addressTitle':address,
+            'latitude':latitude,
+            'longitude':longitude,
             'status':true
           }
       ),

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:get/get.dart';
-import 'package:geocoding/geocoding.dart' as geo;
 import 'package:flutter_geocoder/geocoder.dart';
 
 
@@ -27,10 +26,11 @@ List<Address>? addressInfo;
   Map<MarkerId, Marker> markers = {};
    Set<Marker> _markers = {};
     String ? currentLocationText;
-
-
+  double ? currentLatitude;
+  double ? chooseLongitude;
+  double ? chooseLatitude;
+  double ? currentLongitude;
   Location currentLocation = Location();
-  LatLng _lastMapPosition = const LatLng(45.521563, -122.677433);
   List<LatLng> latlng = [];
   late LocationData locationData;
 
@@ -43,7 +43,6 @@ List<Address>? addressInfo;
 
 
   void getLocation() async {
-    var location = await currentLocation.getLocation();
     currentLocation.onLocationChanged.listen((LocationData loc) async {
       mapController?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
         target: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
@@ -56,6 +55,8 @@ List<Address>? addressInfo;
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
         currentLocationText=add[0].addressLine.toString();
         Get.log('loc  ==> '+add[0].addressLine.toString());
+        currentLongitude=loc.longitude;
+        currentLatitude=loc.latitude;
 
       }catch(err){
         print('vvvv =>'+err.toString());
@@ -113,7 +114,13 @@ List<Address>? addressInfo;
             onTap: (val) async {
               getAddressData(val);
               addMarkerOnpPoint(val);
-               BottomAddAdress(true,addressInfo![0],currentLocationText);
+               BottomAddAdress(true,addressInfo![0],currentLocationText,
+                   currentLatitude,currentLongitude,
+                   chooseLatitude,chooseLongitude);
+               setState(() {
+                 chooseLongitude=val.longitude;
+                 chooseLatitude=val.latitude;
+               });
             },
                markers: _markers,
               initialCameraPosition: CameraPosition(
@@ -132,7 +139,9 @@ List<Address>? addressInfo;
                   height: 155,
                   decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.5), borderRadius: BorderRadius.circular(20)),
-                  child: BottomAddAdress(true,addressInfo?[0],currentLocationText)),
+                  child: BottomAddAdress(true,addressInfo?[0],currentLocationText,
+                            currentLatitude,currentLongitude,
+                            chooseLatitude,chooseLongitude)),
 
             ],
           )

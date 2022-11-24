@@ -18,6 +18,9 @@ import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+
+import 'package:fluttertoast/fluttertoast.dart';
+
 class CheckoutView extends GetView<CheckoutController>{
 var controller =Get.find();
 List<PaymentModel> paymentList=[];
@@ -243,7 +246,17 @@ List<Address> addressList=[];
       onPressed: (animationController) async {
         animationController.forward();
         await Future.delayed(Duration(seconds: 2));
-       _showDialog(context);
+        if(addressList.isNotEmpty&& paymentList.isNotEmpty) {
+          _showDialog(context);
+        }else{
+          Fluttertoast.showToast(
+            msg: "cart_empty".tr,
+            toastLength: Toast.LENGTH_LONG,
+            backgroundColor: kPrimaryColor,
+            textColor: Colors.white,
+            gravity: ToastGravity.CENTER,);
+        }
+
       },
       text: ("checkout".tr),
       textColor: Colors.white,
@@ -276,14 +289,23 @@ List<Address> addressList=[];
               AppText('order_success_data'.tr,fontSize: 15,color: Colors.grey,),
               SizedBox(height: 20,),
               AppElevatedButton(text: 'track_my_order'.tr, onPressed: () async {
-              bool result=  await AddOrdersApis().addOrder(carts:controller.cartProducts??[],
-                  total:controller.total??0.0,
-                address:addressList[controller.addressIndex].addressTitle??'',
-                payment:paymentList[controller.paymentIndex].type);
-                 if(result){
-                   Navigator.of(context).pop();
-                   Get.offAll(()=>OrdersScreen());
-                 }
+                  bool result = await AddOrdersApis().addOrder(
+                      carts: controller.cartProducts ?? [],
+                      total: controller.total ?? 0.0,
+                      address:
+                          addressList[controller.addressIndex].addressTitle ??
+                              '',
+                      payment: paymentList[controller.paymentIndex].type,
+                      latitude:
+                          addressList[controller.addressIndex].latitude ?? 0.0,
+                      longitude:
+                          addressList[controller.addressIndex].longitude ??
+                              0.0);
+                  if (result) {
+                    Navigator.of(context).pop();
+                    Get.offAll(() => OrdersScreen());
+                  }
+             
                    // ????????????????
                 ////   add order to firebase ///////
 

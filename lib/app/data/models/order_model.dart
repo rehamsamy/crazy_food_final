@@ -2,8 +2,11 @@ class OrderModel {
   OrderModel({
       this.address, 
       this.dateTime, 
-      this.orderStatus, 
-      this.payment, 
+      this.orderStatus,
+      this.statusId,
+      this.payment,
+      this.latitude,
+      this.longitude,
       this.products, 
       this.totalAmount,});
 
@@ -11,7 +14,10 @@ class OrderModel {
     address = json['address'];
     dateTime = json['dateTime'];
     orderStatus = json['order_status'];
+    statusId = json['statusId'];
     payment = json['payment'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
     if (json['products'] != null) {
       products = [];
       json['products'].forEach((v) {
@@ -23,16 +29,22 @@ class OrderModel {
   String? address;
   String? dateTime;
   String? orderStatus;
+  int? statusId;
   String? payment;
   List<Products>? products;
   double? totalAmount;
+  double? longitude;
+  double? latitude;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['address'] = address;
     map['dateTime'] = dateTime;
     map['order_status'] = orderStatus;
+    map['statusId'] = statusId;
     map['payment'] = payment;
+    map['latitude'] = latitude;
+    map['longitude'] = longitude;
     if (products != null) {
       map['products'] = products?.map((v) => v.toJson()).toList();
     }

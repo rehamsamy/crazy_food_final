@@ -33,16 +33,24 @@ class AddressModel {
 class Address {
   Address({
     this.addressTitle,
+    this.latitude,
+    this.longitude
   });
 
   Address.fromJson(dynamic json) {
     addressTitle = json['addressTitle'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
   }
   String? addressTitle;
+  double? longitude;
+  double? latitude;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['addressTitle'] = addressTitle;
+    map['latitude'] = latitude;
+    map['longitude'] = longitude;
     return map;
   }
 
