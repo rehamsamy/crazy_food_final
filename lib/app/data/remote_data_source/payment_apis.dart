@@ -49,11 +49,8 @@ class PaymentApis {
         Map<String,dynamic> result =
             json.decode(response.body) as Map<String,dynamic>;
        result.forEach((key, value) {
-         Get.log('data   '+value.toString());
          value.forEach((key,val){
-           Get.log('data  1 '+val.toString());
            PaymentModel model=PaymentModel.fromJson(val);
-           Get.log('data  1 '+model.toString());
            paymentList.add(model);
          });
        });

@@ -29,7 +29,7 @@ class AddressWidget extends GetView<CheckoutController>{
                 activeColor: kPrimaryColor,
                 onChanged: (val){
               controller.setAddressIndex(index);
-              _showDialog(contextt);
+              // _showDialog(contextt);
                controller.changeAddressTypeSelected(index, val);
             }),
             Column(

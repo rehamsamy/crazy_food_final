@@ -1,4 +1,8 @@
+import 'package:crazy_food/app/data/models/order_model.dart';
+import 'package:crazy_food/app/data/remote_data_source/add_orders_apis.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
+import 'package:crazy_food/app/modules/home/view/home_screen.dart';
+import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/discount_item_loading.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/modules/orders_tab/view/widget/order_item.dart';
@@ -25,12 +29,18 @@ class OrdersScreen extends GetView<HomeController> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 50,
+                          height: 40,
                         ),
-                        AppText(
-                          'orders_tab'.tr,
-                          color: Colors.white,
-                          fontSize: 18,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            IconButton(
+                              onPressed:()=>Get.offAll(()=>HomeScreenView()),
+                              icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+                            ),
+                            AppText('orders_tab'.tr,color: Colors.white,fontSize: 18,),
+                            SizedBox()
+                          ],
                         ),
                         SizedBox(
                           height: 15,
@@ -80,22 +90,7 @@ class OrdersScreen extends GetView<HomeController> {
                                   ),
                                 ),
                                 SizedBox(height: 20,),
-                                Expanded(
-                                    child: TabBarView(
-                                  children: [
-                                    ListView.builder(
-                                        padding: EdgeInsets.all(0),itemBuilder: (_, index) {
-                                   //   return OrderItemLoading();
-                                      return OrderItem();
-                                    }),
-                                   Container(
-                                     color: Colors.grey,
-                                     height: 50,
-                                   ),
-                                    AppText(''),
-                                    AppText(''),
-                                  ],
-                                ))
+                               getOrdersList()
                               ],
                             ),
                           ),
@@ -110,5 +105,55 @@ class OrdersScreen extends GetView<HomeController> {
           )
       ),
     );
+  }
+  getOrdersList() {
+    return FutureBuilder(
+        future: AddOrdersApis().getOrders(),
+        builder: (_, snap) {
+          if (snap.hasData) {
+            List<OrderModel> ordersList = snap.data as List<OrderModel>;
+            if (ordersList.isNotEmpty) {
+            return  Expanded(
+                  child: TabBarView(
+                    children: [
+                      ListView.builder(
+                        itemCount: ordersList[0].products?.length,
+                          padding: EdgeInsets.all(0),itemBuilder: (_, index) {
+                        //   return OrderItemLoading();
+                        return OrderItem(ordersList[0].products![index]);
+                      }),
+                      Container(
+                        color: Colors.grey,
+                        height: 50,
+                      ),
+                      AppText(''),
+                      AppText(''),
+                    ],
+                  ));
+            } else if (ordersList.isEmpty) {
+              return Container(
+                height: 150,
+                child: Center(
+                  child: AppText('no_cat_found'.tr),
+                ),
+              );
+            } else {
+              return SizedBox();
+            }
+          } else if (snap.connectionState == ConnectionState.waiting) {
+            return Container(
+              height: 150,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (_, index) {
+                    // return DiscountItemLoading(index);
+                    return DiscountItemLoading(index);
+                  }),
+            );
+          } else {
+            return SizedBox();
+          }
+        });
   }
 }

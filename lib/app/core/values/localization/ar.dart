@@ -69,6 +69,7 @@ Map<String, String> ar = {
   'order_success_data':' رقمك طلب #123456  تم الارسال بنجاح!',
   'selected_location':'العنوان المختار:',
   'current_location':'العنوان الحالي:',
-  'add_address':'اضافه العنوان'
+  'add_address':'اضافه العنوان',
+  'cart_empty':'!السلة فارغة'
 
 };

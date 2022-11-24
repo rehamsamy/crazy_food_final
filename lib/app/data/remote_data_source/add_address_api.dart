@@ -46,9 +46,7 @@ class AddAddressApis {
         Map<String,dynamic> result =
         json.decode(response.body) as Map<String,dynamic>;
         result.forEach((key, value) {
-          Get.log('data   '+value.toString());
           value.forEach((key,val){
-            Get.log('data  1 '+val.toString());
             Address model=Address.fromJson(val);
             adddresList.add(model);
           });

@@ -1,3 +1,5 @@
+import 'package:crazy_food/app/data/models/category_items_model.dart';
+import 'package:crazy_food/app/data/models/order_model.dart';
 import 'package:crazy_food/app/modules/orders_details/view/orders_details_screen.dart';
 import 'package:crazy_food/app/modules/orders_tab/controller/order_controller.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
@@ -9,12 +11,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class OrderItem extends GetView<OrderController> {
+  Products productModel;
+  OrderItem(this.productModel);
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: ()=>Get.to(()=>OrdersDetailsScreen()),
       child: Container(
-        height: 120,
+        height: 130,
         margin: EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -23,7 +27,7 @@ class OrderItem extends GetView<OrderController> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 AppCashedImage(
-                  imageUrl: 'https://knoww.cc/wp-content/uploads/2018/06/2718.jpg',
+                  imageUrl: productModel.productImage??'https://knoww.cc/wp-content/uploads/2018/06/2718.jpg',
                   width: Get.width * 0.30,
                   height: 80,
                   fit: BoxFit.cover,
@@ -37,7 +41,7 @@ class OrderItem extends GetView<OrderController> {
                       Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: AppText(
-                          'Meat new food',
+                         productModel.productName?? 'Meat new food',
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -45,7 +49,7 @@ class OrderItem extends GetView<OrderController> {
                       Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: AppText(
-                          '25\$',
+                          '${productModel.price}\$',
                           color: kPrimaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,

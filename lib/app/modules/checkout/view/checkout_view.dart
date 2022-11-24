@@ -1,6 +1,7 @@
 import 'package:crazy_food/app/data/models/address_model.dart';
 import 'package:crazy_food/app/data/models/payment_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/add_address_api.dart';
+import 'package:crazy_food/app/data/remote_data_source/add_orders_apis.dart';
 import 'package:crazy_food/app/data/remote_data_source/payment_apis.dart';
 import 'package:crazy_food/app/modules/address/view/address_screen.dart';
 import 'package:crazy_food/app/modules/checkout/controller/checkout_controller.dart';
@@ -9,6 +10,7 @@ import 'package:crazy_food/app/modules/checkout/view/widget/address_widget.dart'
 import 'package:crazy_food/app/modules/checkout/view/widget/payment_widget.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/discount_item_loading.dart';
+import 'package:crazy_food/app/modules/orders_tab/view/orders_screen.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -17,6 +19,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 class CheckoutView extends GetView<CheckoutController>{
+var controller =Get.find();
+List<PaymentModel> paymentList=[];
+List<Address> addressList=[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,7 +151,7 @@ class CheckoutView extends GetView<CheckoutController>{
         future: AddAddressApis().getAddress(),
         builder: (_, snap) {
           if (snap.hasData) {
-            List<Address> addressList = snap.data as List<Address>;
+            addressList = snap.data as List<Address>;
             if (addressList.isNotEmpty) {
               return Expanded(
                 // height: 150,
@@ -191,7 +196,7 @@ class CheckoutView extends GetView<CheckoutController>{
         future: PaymentApis().getPayment(),
         builder: (_, snap) {
           if (snap.hasData) {
-            List<PaymentModel> paymentList = snap.data as List<PaymentModel>;
+             paymentList = snap.data as List<PaymentModel>;
             if (paymentList.isNotEmpty) {
               return Expanded(
                 // height: 150,
@@ -270,8 +275,16 @@ class CheckoutView extends GetView<CheckoutController>{
               SizedBox(height: 8,),
               AppText('order_success_data'.tr,fontSize: 15,color: Colors.grey,),
               SizedBox(height: 20,),
-              AppElevatedButton(text: 'track_my_order'.tr, onPressed: (){
-
+              AppElevatedButton(text: 'track_my_order'.tr, onPressed: () async {
+              bool result=  await AddOrdersApis().addOrder(carts:controller.cartProducts??[],
+                  total:controller.total??0.0,
+                address:addressList[controller.addressIndex].addressTitle??'',
+                payment:paymentList[controller.paymentIndex].type);
+                 if(result){
+                   Navigator.of(context).pop();
+                   Get.offAll(()=>OrdersScreen());
+                 }
+                   // ????????????????
                 ////   add order to firebase ///////
 
               },backgroundColor: kPrimaryColor,

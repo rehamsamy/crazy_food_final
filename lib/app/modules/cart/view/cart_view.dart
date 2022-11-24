@@ -1,5 +1,6 @@
 import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:crazy_food/app/modules/cart/view/widget/cart_item.dart';
+import 'package:crazy_food/app/modules/checkout/view/checkout_view.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CartScreen extends GetView<CartController> {
    String ? fabFlag;
@@ -91,7 +93,18 @@ class CartScreen extends GetView<CartController> {
                                           fontSize: 15,
                                           fontWeight: FontWeight.w800,
                                           backgroundColor: kPrimaryColor,
-                                          onPressed: (){},
+                                          onPressed: (){
+                                            if(controller.cartItemMap.values.isEmpty){
+                                              Fluttertoast.showToast(
+                                                  msg: "cart_empty".tr,
+                                                  toastLength: Toast.LENGTH_LONG,
+                                                  backgroundColor: kPrimaryColor,
+                                                  textColor: Colors.white,
+                                                  gravity: ToastGravity.CENTER,);
+                                            }else{
+                                              Get.off(()=>CheckoutView(),arguments: {'total':2000.0,'products':(controller.cartItemMap.values).toList() });
+                                            }
+                                             },
 
                                         )
                                       ],

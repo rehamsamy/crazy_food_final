@@ -30,7 +30,7 @@ class PaymentWidget extends GetView<CheckoutController>{
                 activeColor: kPrimaryColor,
                 onChanged: (val){
               controller.setPaymentIndex(index);
-              _showDialog(contextt);
+              // _showDialog(contextt);
               // isSelected?controller.paymentTypeSelected![index]=true:
               // controller.paymentTypeSelected![index]=false;
                controller.changePaymentTypeSelected(index, val);
