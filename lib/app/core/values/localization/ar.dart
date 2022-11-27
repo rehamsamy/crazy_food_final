@@ -70,6 +70,7 @@ Map<String, String> ar = {
   'selected_location':'العنوان المختار:',
   'current_location':'العنوان الحالي:',
   'add_address':'اضافه العنوان',
-  'cart_empty':'!السلة فارغة'
+  'cart_empty':'!السلة فارغة',
+  'create_order_sucess':'تم ارسال الطلب بنجاح'
 
 };

@@ -20,73 +20,81 @@ class CartItem extends GetView<HomeController> {
       onDismissed: (_){
         showAlertDialog(context);
       },
-      child: Container(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: GetBuilder<HomeController>(
+        builder: (context) {
+          return Container(
+            child: Column(
               children: [
-                AppCashedImage(
-                  imageUrl:
-                     model?.imagePath?? 'https://cdn.pixabay.com/photo/2020/05/17/04/22/pizza-5179939__340.jpg',
-                  fit: BoxFit.cover,
-                  width: 135,
-                  height: 120,
-                  radius: 15,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppText(
-                      model?.title??'',
-                      fontSize: 16,
-                      color: Colors.black,
-                      textOverflow: TextOverflow.ellipsis,
+                    AppCashedImage(
+                      imageUrl:
+                         model?.imagePath?? 'https://cdn.pixabay.com/photo/2020/05/17/04/22/pizza-5179939__340.jpg',
+                      fit: BoxFit.cover,
+                      width: 135,
+                      height: 120,
+                      radius: 15,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: AppText(
-                        (model?.caleories).toString(),
-                        fontSize: 10,
-                        color: Colors.grey.shade400,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 120,
+                          child: AppText(
+                            model?.title??'',
+                            fontSize: 16,
+                            color: Colors.black,
+                            textOverflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: AppText(
+                            (model?.caleories).toString(),
+                            fontSize: 10,
+                            color: Colors.grey.shade400,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: AppText(
+                            (model?.price).toString(),
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
-                      height: 10,
+                      width: 20,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: AppText(
-                        (model?.price).toString(),
-                        color: kPrimaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
+                    getIncrementWIdget(double.parse((model?.price).toString()) as double),
                   ],
                 ),
-                SizedBox(
-                  width: 20,
-                ),
-                getIncrementWIdget(),
+                Divider(
+                  color: Colors.grey,
+                )
               ],
             ),
-            Divider(
-              color: Colors.grey,
-            )
-          ],
-        ),
+          );
+        }
       ),
     );
   }
 
-  getIncrementWIdget() {
+  getIncrementWIdget(double price) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         IconButton(
           onPressed: () {
             controller.changeItemQuantity('increment');
+            controller.changeTotalCartPrice(price);
           },
           icon: Icon(
             Icons.add,
@@ -118,6 +126,7 @@ class CartItem extends GetView<HomeController> {
         IconButton(
           onPressed: () {
             controller.changeItemQuantity('decrement');
+            controller.changeTotalCartPrice(price);
           },
           icon: Icon(
             Icons.minimize,

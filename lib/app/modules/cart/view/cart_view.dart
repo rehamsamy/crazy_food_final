@@ -1,6 +1,7 @@
 import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:crazy_food/app/modules/cart/view/widget/cart_item.dart';
 import 'package:crazy_food/app/modules/checkout/view/checkout_view.dart';
+import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
@@ -12,6 +13,7 @@ import 'package:crazy_food/app_constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CartScreen extends GetView<CartController> {
+  HomeController homeController=Get.find();
    String ? fabFlag;
    CartScreen({this.fabFlag});
   @override
@@ -79,38 +81,43 @@ class CartScreen extends GetView<CartController> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            child: GetBuilder<HomeController>(
+                              builder: (context) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        AppText('Total: 14.25',fontSize: 15,),
-                                        AppElevatedButton(
-                                          text: 'checkout'.tr,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w800,
-                                          backgroundColor: kPrimaryColor,
-                                          onPressed: (){
-                                            if(controller.cartItemMap.values.isEmpty){
-                                              Fluttertoast.showToast(
-                                                  msg: "cart_empty".tr,
-                                                  toastLength: Toast.LENGTH_LONG,
-                                                  backgroundColor: kPrimaryColor,
-                                                  textColor: Colors.white,
-                                                  gravity: ToastGravity.CENTER,);
-                                            }else{
-                                              Get.off(()=>CheckoutView(),arguments: {'total':2000.0,'products':(controller.cartItemMap.values).toList() });
-                                            }
-                                             },
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            AppText('${'total'.tr}:${homeController.totalCartPrice}',fontSize: 15,),
+                                            AppElevatedButton(
+                                              text: 'checkout'.tr,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w800,
+                                              backgroundColor: kPrimaryColor,
+                                              onPressed: (){
+                                                if(controller.cartItemMap.values.isEmpty){
+                                                  Fluttertoast.showToast(
+                                                      msg: "cart_empty".tr,
+                                                      toastLength: Toast.LENGTH_LONG,
+                                                      backgroundColor: kPrimaryColor,
+                                                      textColor: Colors.white,
+                                                      gravity: ToastGravity.CENTER,);
+                                                }else{
+                                                  double total=homeController.totalCartPrice;
+                                                  Get.off(()=>CheckoutView(),arguments: {'total':total,'products':(controller.cartItemMap.values).toList() });
+                                                }
+                                                 },
 
-                                        )
-                                      ],
-                                    ),
-                                  ]
-                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ]
+                                  ),
+                                );
+                              }
                             ),
                           ),
                         ),

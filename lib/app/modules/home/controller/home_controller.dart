@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 class HomeController extends GetxController{
   int index=0;
+  double totalCartPrice=0;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -22,6 +23,11 @@ class HomeController extends GetxController{
     update();
   }
 
+  changeTotalCartPrice(double price){
+    totalCartPrice=itemQuantity*price;
+    update();
+  }
+
   changeItemQuantity(String type){
     if(type=='increment'){
       itemQuantity++;
@@ -32,6 +38,7 @@ class HomeController extends GetxController{
         itemQuantity--;
       }
     }
+
     update();
   }
 

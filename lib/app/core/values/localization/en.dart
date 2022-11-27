@@ -70,6 +70,7 @@ Map<String, String> en = {
   'selected_location':'Selected Location:',
   'current_location':'Current Location:',
   'add_address':'Add Address',
-  'cart_empty':'Cart is empty!!'
+  'cart_empty':'Cart is empty!!',
+  'create_order_sucess':'Order created successfully'
 
 };

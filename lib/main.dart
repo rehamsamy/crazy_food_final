@@ -3,6 +3,7 @@ import 'package:crazy_food/app/core/values/localization/translation.dart';
 import 'package:crazy_food/app/modules/cart/view/cart_view.dart';
 import 'package:crazy_food/app/modules/checkout/view/checkout_view.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
+import 'package:crazy_food/app/modules/notification/view/notification_screen.dart';
 import 'package:crazy_food/app/views/network_error.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -87,6 +88,10 @@ class _CrazyAppState extends State<CrazyApp> {
   }
     });
   }
+
+
+
+
 }
 
 

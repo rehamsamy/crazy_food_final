@@ -59,11 +59,11 @@ class AddOrdersApis {
         required String address,
         required payment,
         required double latitude,
-        required double longitude}) async {
+        required double longitude,required String bath}) async {
 
     final request = NetworkRequest(
-      type: NetworkRequestType.PATCH,
-      path: '/orders/token.json',
+      type: NetworkRequestType.PUT,
+      path: '/orders/token/$bath.json',
       data: NetworkRequestBody.json({
         'products': carts
             .map((e) => {
@@ -78,7 +78,7 @@ class AddOrdersApis {
         'dateTime':DateTime.now().toString(),
         'totalAmount':total,
         'order_status':'processing',
-        'statusId':2,
+        // 'statusId':2,
         'address':address,
         'payment':payment
       }),
@@ -111,13 +111,44 @@ class AddOrdersApis {
           Get.log('orders data ==> step 1 '+value.toString() );
           OrderModel model = OrderModel.fromJson(value);
           Get.log('orders data ==> step 1 '+model.toString() );
+
+       //   ---------  change order status ------------------------------
+        Future.delayed(Duration(seconds: 10));
+          AddOrdersApis().updateOrder(
+              carts: model.products ?? [],
+              total: model.totalAmount ?? 0.0,
+              address: model.address ?? '',
+              payment: model.payment ?? '',
+              latitude: model.latitude ?? 0.0,
+              longitude: model.longitude ?? 0.0,bath: key);
+          Get.log('error '+key);
+          ordersList?.add(model);
+        });
+
+        ordersList=await getFinalOrders();
+      } else {
+        Get.log('error');
+      }
+    } catch (err) {
+      Get.log('error' + err.toString());
+    }
+    return ordersList;
+  }
+
+  Future<List<OrderModel>?> getFinalOrders() async {
+    List<OrderModel>? ordersList = [];
+    try {
+      var response = await http.get(Uri.parse('$baseUrl/orders/token.json'));
+      Get.log(
+          'orders data ==>' + response.body.toString() + response.statusCode.toString());
+      if (response.statusCode == 200) {
+        Map<String, dynamic> result =
+        json.decode(response.body) as Map<String, dynamic>;
+        result.forEach((key, value) {
+          Get.log('orders data ==> step 1 '+value.toString() );
+          OrderModel model = OrderModel.fromJson(value);
+          Get.log('orders data ==> step 1 '+model.toString() );
           ordersList.add(model);
-          // value.forEach((key, val) {
-          //   Get.log('orders data ==> step 2 '+val.toString() );
-          //   OrderModel model = OrderModel.fromJson(val);
-          //   Get.log('orders data ==> step 3 '+model.toString() );
-          //   ordersList.add(model);
-          // });
         });
       } else {
         Get.log('error');

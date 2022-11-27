@@ -21,10 +21,11 @@ import 'package:get/get.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 
-class CheckoutView extends GetView<CheckoutController>{
-var controller =Get.find();
-List<PaymentModel> paymentList=[];
-List<Address> addressList=[];
+class CheckoutView extends GetView<CheckoutController> {
+  var controller = Get.find();
+  List<PaymentModel> paymentList = [];
+  List<Address> addressList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +46,17 @@ List<Address> addressList=[];
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed:()=>Get.to(()=>HomeScreenView()),
-                        icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+                        onPressed: () => Get.to(() => HomeScreenView()),
+                        icon: Icon(
+                          Icons.arrow_back_ios_sharp,
+                          color: Colors.white,
+                        ),
                       ),
-                      AppText('checkout'.tr,color: Colors.white,fontSize: 18,),
+                      AppText(
+                        'checkout'.tr,
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
                       SizedBox()
                     ],
                   ),
@@ -56,11 +64,12 @@ List<Address> addressList=[];
                     height: 10,
                   ),
                   Container(
-                    height: Get.height-90,
+                    height: Get.height - 90,
                     width: Get.width,
                     decoration: BoxDecoration(
-                      borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(20),bottom:  Radius.circular(20)),
+                      borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                          bottom: Radius.circular(20)),
                       color: Colors.grey.shade50,
                     ),
                     padding: const EdgeInsets.symmetric(
@@ -68,7 +77,7 @@ List<Address> addressList=[];
                     child: Column(
                       children: [
                         SizedBox(
-                          height: Get.height *0.40,
+                          height: Get.height * 0.40,
                           child: Card(
                               elevation: 8,
                               color: Colors.white,
@@ -76,10 +85,11 @@ List<Address> addressList=[];
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child:Column(
+                              child: Column(
                                 children: [
                                   ListTile(
-                                    contentPadding: EdgeInsets.only(top: 0,left: 10,right: 10,bottom: 0),
+                                    contentPadding: EdgeInsets.only(
+                                        top: 0, left: 10, right: 10, bottom: 0),
                                     minVerticalPadding: 0,
                                     title: AppText(
                                       'address'.tr,
@@ -88,21 +98,23 @@ List<Address> addressList=[];
                                       fontSize: 15,
                                     ),
                                     trailing: InkWell(
-                                      onTap: () => Get.to(() => AddressScreen()),
+                                      onTap: () =>
+                                          Get.to(() => AddressScreen()),
                                       child: AppText(
                                         'add_new'.tr,
                                         color: kPrimaryColor,
                                       ),
                                     ),
                                   ),
-                                  Divider(color: kPrimaryColor,),
+                                  Divider(
+                                    color: kPrimaryColor,
+                                  ),
                                   getAddressList(),
                                 ],
-                              )
-                          ),
+                              )),
                         ),
                         SizedBox(
-                          height:Get.height *0.35,
+                          height: Get.height * 0.35,
                           child: Card(
                               elevation: 8,
                               color: Colors.white,
@@ -110,10 +122,11 @@ List<Address> addressList=[];
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child:Column(
+                              child: Column(
                                 children: [
                                   ListTile(
-                                    contentPadding: EdgeInsets.only(top: 0,left: 10,right: 10,bottom: 0),
+                                    contentPadding: EdgeInsets.only(
+                                        top: 0, left: 10, right: 10, bottom: 0),
                                     minVerticalPadding: 0,
                                     title: AppText(
                                       'payment'.tr,
@@ -122,31 +135,33 @@ List<Address> addressList=[];
                                       fontSize: 15,
                                     ),
                                     trailing: InkWell(
-                                      onTap: () => Get.to(() => MyFatora(double.parse('50'))),
+                                      onTap: () => Get.to(
+                                          () => MyFatora(double.parse('50'))),
                                       child: AppText(
                                         'add_new'.tr,
                                         color: kPrimaryColor,
                                       ),
                                     ),
                                   ),
-                                  Divider(color: kPrimaryColor,),
+                                  Divider(
+                                    color: kPrimaryColor,
+                                  ),
                                   getPaymentList(),
                                 ],
-                              )
-                          ),
+                              )),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         checkOrderButton(context)
                       ],
                     ),
                   ),
-
                 ],
               ),
             ),
           ),
         ));
-
   }
 
   getAddressList() {
@@ -163,9 +178,9 @@ List<Address> addressList=[];
                     itemCount: addressList.length,
                     itemBuilder: (_, index) {
                       return InkWell(
-                          onTap: (){
-                          },
-                          child: AddressWidget(addressList[index],index,index==controller.addressIndex));
+                          onTap: () {},
+                          child: AddressWidget(addressList[index], index,
+                              index == controller.addressIndex));
                     }),
               );
             } else if (addressList.isEmpty) {
@@ -194,12 +209,13 @@ List<Address> addressList=[];
           }
         });
   }
+
   getPaymentList() {
     return FutureBuilder(
         future: PaymentApis().getPayment(),
         builder: (_, snap) {
           if (snap.hasData) {
-             paymentList = snap.data as List<PaymentModel>;
+            paymentList = snap.data as List<PaymentModel>;
             if (paymentList.isNotEmpty) {
               return Expanded(
                 // height: 150,
@@ -208,10 +224,9 @@ List<Address> addressList=[];
                     itemCount: paymentList.length,
                     itemBuilder: (_, index) {
                       return InkWell(
-                        onTap: (){
-
-                        },
-                          child: PaymentWidget(paymentList[index],index,index==controller.paymentIndex));
+                          onTap: () {},
+                          child: PaymentWidget(paymentList[index], index,
+                              index == controller.paymentIndex));
                     }),
               );
             } else if (paymentList.isEmpty) {
@@ -242,21 +257,22 @@ List<Address> addressList=[];
   }
 
   checkOrderButton(BuildContext context) {
-    return    AppProgressButton(
+    return AppProgressButton(
       onPressed: (animationController) async {
         animationController.forward();
         await Future.delayed(Duration(seconds: 2));
-        if(addressList.isNotEmpty&& paymentList.isNotEmpty) {
+        animationController.reverse();
+        if (addressList.isNotEmpty && paymentList.isNotEmpty) {
           _showDialog(context);
-        }else{
+        } else {
           Fluttertoast.showToast(
             msg: "cart_empty".tr,
             toastLength: Toast.LENGTH_LONG,
             backgroundColor: kPrimaryColor,
             textColor: Colors.white,
-            gravity: ToastGravity.CENTER,);
+            gravity: ToastGravity.CENTER,
+          );
         }
-
       },
       text: ("checkout".tr),
       textColor: Colors.white,
@@ -264,6 +280,7 @@ List<Address> addressList=[];
       height: 40,
     );
   }
+
   void _showDialog(BuildContext context) {
     Get.log('alerttt');
     showDialog(
@@ -277,18 +294,46 @@ List<Address> addressList=[];
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   buildCircle(),
-                  SizedBox(width: 2,),
+                  SizedBox(
+                    width: 2,
+                  ),
                   buildCircle(),
-                  SizedBox(width: 2,),
+                  SizedBox(
+                    width: 2,
+                  ),
                   buildCircle()
-                ],),
-              SizedBox(height: 20,),
-              Image.asset('assets/images/shopping-cart.png'),
-              AppText('order_success'.tr,fontSize: 25,color: Colors.black,fontWeight: FontWeight.bold,),
-              SizedBox(height: 8,),
-              AppText('order_success_data'.tr,fontSize: 15,color: Colors.grey,),
-              SizedBox(height: 20,),
-              AppElevatedButton(text: 'track_my_order'.tr, onPressed: () async {
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Image.asset(
+                'assets/images/shopping-cart.png',
+                width: 200,
+                height: 200,
+              ),
+              AppText(
+                'order_success'.tr,
+                fontSize: 30,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              AppText(
+                'order_success_data'.tr,
+                fontSize: 15,
+                color: Colors.grey,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              AppProgressButton(
+                text: 'track_my_order'.tr,
+                onPressed: (animationController) async {
+                  animationController.forward();
+                  await Future.delayed(Duration(seconds: 4));
                   bool result = await AddOrdersApis().addOrder(
                       carts: controller.cartProducts ?? [],
                       total: controller.total ?? 0.0,
@@ -304,19 +349,42 @@ List<Address> addressList=[];
                   if (result) {
                     Navigator.of(context).pop();
                     Get.offAll(() => OrdersScreen());
+                    Fluttertoast.showToast(
+                      msg: "create_order_sucess".tr,
+                      toastLength: Toast.LENGTH_LONG,
+                      backgroundColor: kPrimaryColor,
+                      textColor: Colors.white,
+                      gravity: ToastGravity.CENTER,
+                    );
+                  } else {
+                    Fluttertoast.showToast(
+                      msg: "general_error".tr,
+                      toastLength: Toast.LENGTH_LONG,
+                      backgroundColor: kPrimaryColor,
+                      textColor: Colors.white,
+                      gravity: ToastGravity.CENTER,
+                    );
                   }
-             
-                   // ????????????????
-                ////   add order to firebase ///////
 
-              },backgroundColor: kPrimaryColor,
-                textColor: Colors.white,),
-              SizedBox(height: 20,),
-              InkWell(child: AppText('go_back'.tr,color: kPrimaryColor,),
-                onTap: (){
+                  // ????????????????
+                  ////   add order to firebase ///////
+                },
+                backgroundColor: kPrimaryColor,
+                textColor: Colors.white,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              InkWell(
+                child: AppText(
+                  'go_back'.tr,
+                  color: kPrimaryColor,
+                ),
+                onTap: () {
                   Navigator.of(context).pop();
-                  Get.offAll(()=>HomeScreenView());
-                },)
+                  Get.offAll(() => HomeScreenView());
+                },
+              )
             ],
           ),
         );
@@ -324,16 +392,12 @@ List<Address> addressList=[];
     );
   }
 
-
-  buildCircle(){
+  buildCircle() {
     return Container(
       width: 15,
       height: 15,
       decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: kAccentColor.withOpacity(0.4)
-      ),
+          shape: BoxShape.circle, color: kAccentColor.withOpacity(0.4)),
     );
   }
-
 }

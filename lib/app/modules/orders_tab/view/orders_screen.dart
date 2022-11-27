@@ -184,17 +184,17 @@ class OrdersScreen extends GetView<HomeController> {
     ordersList.where((element)  {
       Get.log('date =>'+(element.dateTime).toString());
       if(true){
-        Future.delayed(Duration(seconds: 10)).then((value) {
-          // AddOrdersApis().updateOrder(
-          //     carts: element.products ?? [],
-          //     total: element.totalAmount ??0.0,
-          //     address:
-          //     element.address ?? '',
-          //     payment: element.payment??'',
-          //     latitude:element.latitude?? 0.0,
-          //     longitude:element.longitude ??
-          //         0.0);
-        });
+        // Future.delayed(Duration(seconds: 10)).then((value) {
+        //   AddOrdersApis().updateOrder(
+        //       carts: element.products ?? [],
+        //       total: element.totalAmount ??0.0,
+        //       address:
+        //       element.address ?? '',
+        //       payment: element.payment??'',
+        //       latitude:element.latitude?? 0.0,
+        //       longitude:element.longitude ??
+        //           0.0);
+        // });
 
         return true;
       }else{
