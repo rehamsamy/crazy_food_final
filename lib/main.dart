@@ -1,7 +1,5 @@
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/core/values/localization/translation.dart';
-import 'package:crazy_food/app/modules/cart/view/cart_view.dart';
-import 'package:crazy_food/app/modules/checkout/view/checkout_view.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/notification/view/notification_screen.dart';
 import 'package:crazy_food/app/views/network_error.dart';
@@ -10,6 +8,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +27,8 @@ class _CrazyAppState extends State<CrazyApp> {
   bool _backViewOn = true;
   @override
   Widget build(BuildContext context) {
+    WidgetsFlutterBinding.ensureInitialized();
+    Firebase.initializeApp();
     return  MaterialApp(
       home: ScreenUtilInit(
         designSize: const Size(360, 690),

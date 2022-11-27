@@ -53,6 +53,7 @@ class _NotificationBadgeState extends State<NotificationBadge> {
   }
 
   void requestPermission() async {
+    Firebase.initializeApp();
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     NotificationSettings settings = await messaging.requestPermission(
@@ -132,7 +133,7 @@ class _NotificationBadgeState extends State<NotificationBadge> {
   void initState() {
     super.initState();
     Firebase.initializeApp();
-    requestPermission();
+    // requestPermission();
     loadFCM();
     listenFCM();
   }
