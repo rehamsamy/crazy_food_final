@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class NotificationApis{
   void sendPushMessage(String body, String title, String token) async {
     try {
-      await http.post(
+      http.Response response= await http.post(
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
         headers: <String, String>{
           'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ class NotificationApis{
           },
         ),
       );
-      print('done');
+      print('done  =>'+response.body.toString());
     } catch (e) {
       print("error push notification"+e.toString());
     }

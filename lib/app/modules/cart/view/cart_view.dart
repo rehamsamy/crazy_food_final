@@ -13,11 +13,11 @@ import 'package:crazy_food/app_constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CartScreen extends GetView<CartController> {
-  HomeController homeController=Get.find();
    String ? fabFlag;
    CartScreen({this.fabFlag});
   @override
   Widget build(BuildContext context) {
+    controller.changeTotalCartPrice();
     return Scaffold(
         appBar: null,
         body: GetBuilder<CartController>(
@@ -91,7 +91,7 @@ class CartScreen extends GetView<CartController> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            AppText('${'total'.tr}:${homeController.totalCartPrice}',fontSize: 15,),
+                                            AppText('${'total'.tr}:${controller.totalCartPrice}',fontSize: 15,),
                                             AppElevatedButton(
                                               text: 'checkout'.tr,
                                               fontSize: 15,
@@ -106,7 +106,7 @@ class CartScreen extends GetView<CartController> {
                                                       textColor: Colors.white,
                                                       gravity: ToastGravity.CENTER,);
                                                 }else{
-                                                  double total=homeController.totalCartPrice;
+                                                  double total=controller.totalCartPrice;
                                                   Get.off(()=>CheckoutView(),arguments: {'total':total,'products':(controller.cartItemMap.values).toList() });
                                                 }
                                                  },
@@ -142,7 +142,7 @@ class CartScreen extends GetView<CartController> {
         padding: EdgeInsets.all(5),
         child: ListView.builder(
             padding: EdgeInsets.all(10),
-            itemBuilder: (_, index) => CartItem((controller.cartItemMap.values.toList())[index]),
+            itemBuilder: (_, index) => CartItem((controller.cartItemMap.values.toList())[index],index,controller.cartItemMap),
             itemCount: (controller.cartItemMap.values.toList()).length),
       );
     }else{

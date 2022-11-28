@@ -3,6 +3,7 @@ import 'package:crazy_food/app/data/remote_data_source/add_orders_apis.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/discount_item_loading.dart';
+import 'package:crazy_food/app/modules/orders_tab/controller/order_controller.dart';
 import 'package:crazy_food/app/modules/orders_tab/view/widget/order_item.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
@@ -12,6 +13,7 @@ import 'package:get/get.dart';
 
 class OrdersScreen extends GetView<HomeController> {
   List<OrderModel> ordersList=[];
+  OrderController controller1=Get.find();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,7 +37,7 @@ class OrdersScreen extends GetView<HomeController> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 IconButton(
-                                  onPressed:()=>Get.offAll(()=>HomeScreenView()),
+                                  onPressed:()=>Get.off(()=>HomeScreenView()),
                                   icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                                 ),
                                 AppText('orders_tab'.tr,color: Colors.white,fontSize: 18,),
@@ -122,8 +124,7 @@ class OrdersScreen extends GetView<HomeController> {
                       ListView.builder(
                         itemCount: ordersList.length,
                           padding: EdgeInsets.all(0),itemBuilder: (_, index) {
-                        //   return OrderItemLoading();
-                        return OrderItem(ordersList[index]);
+                         return OrderItem(ordersList[index]);
                       }),
                       getPendingList('pending'),
                       getPendingList('processing'),
@@ -144,8 +145,7 @@ class OrdersScreen extends GetView<HomeController> {
             return Container(
               height: 150,
               child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
+                  itemCount: 5,
                   itemBuilder: (_, index) {
                     // return DiscountItemLoading(index);
                     return DiscountItemLoading(index);

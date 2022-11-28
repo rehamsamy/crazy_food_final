@@ -20,7 +20,7 @@ class OrderItem extends GetView<OrderController> {
       onTap: (){},
       child: Container(
         padding: EdgeInsets.all(4),
-        margin: EdgeInsets.all(6),
+        margin: EdgeInsets.all(8),
         decoration: BoxDecoration(
           border: Border.all(color: kPrimaryColor,width: 0.8),
           borderRadius: BorderRadius.circular(15)

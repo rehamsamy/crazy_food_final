@@ -20,8 +20,8 @@ class _NotificationBadgeState extends State<NotificationBadge> {
   Widget build(BuildContext context) {
     getToken();
     return Container(
-      width: 40.0,
-      height: 40.0,
+      width: 10.0,
+      height: 10.0,
       decoration: new BoxDecoration(
         color: Colors.red,
         shape: BoxShape.circle,
@@ -41,6 +41,7 @@ class _NotificationBadgeState extends State<NotificationBadge> {
   String? mtoken = " ";
 
   void getToken() async {
+    Firebase.initializeApp();
     final fcmToken = await FirebaseMessaging.instance.getToken(vapidKey: "AIzaSyBpaqzorW0S3p9Jot7rjpwFmr0L0DGW_RA");
     print('ddddd  '+fcmToken.toString());
     await FirebaseMessaging.instance.getToken().then((token) {

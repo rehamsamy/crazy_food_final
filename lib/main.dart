@@ -57,7 +57,7 @@ class _CrazyAppState extends State<CrazyApp> {
             title: 'Crazy Food',
             theme: ThemeData(primarySwatch: Colors.green),
             home:MaterialApp(
-              home:HomeScreenView() ,
+              home:NotificationBadge() ,
             ),
 
             //LocalStorage.userModel!=null?

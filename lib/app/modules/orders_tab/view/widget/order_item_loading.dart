@@ -2,8 +2,6 @@ import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_i
 import 'package:crazy_food/app/shared/shimmer_ui_effect.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-
-
 class OrderItemLoading extends StatelessWidget {
   const OrderItemLoading({Key? key}) : super(key: key);
 

@@ -14,6 +14,7 @@ DiscountItemLoading(this.index);
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 140,
         margin: EdgeInsets.all(5.0),
     padding: EdgeInsets.all(5.0),
     decoration: BoxDecoration(
@@ -33,6 +34,13 @@ DiscountItemLoading(this.index);
                 ),
               ),
           SizedBox(width: 15,),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: MyShimmerEffectUI.rectangular(
+              height: CategoryItem.height - 70,
+            ),
+          ),
+          SizedBox(width: 5,),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
