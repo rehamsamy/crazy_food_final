@@ -29,7 +29,9 @@ class _CrazyAppState extends State<CrazyApp> {
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
     Firebase.initializeApp();
+    final navigatorKey=GlobalKey<NavigatorState>();
     return  MaterialApp(
+      navigatorKey: navigatorKey,
       home: ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,
@@ -37,15 +39,15 @@ class _CrazyAppState extends State<CrazyApp> {
         builder: (_,child)=> MaterialApp(
           home: GetMaterialApp(
               debugShowCheckedModeBanner: false,
-            // localizationsDelegates: const [
-            //   GlobalMaterialLocalizations.delegate,
-            //   GlobalWidgetsLocalizations.delegate, // ONLY if it's a RTL language
-            // ],
+            localizationsDelegates: const [
+              // GlobalMaterialLocalizations.delegate,
+              // GlobalWidgetsLocalizations.delegate, // ONLY if it's a RTL language
+            ],
             supportedLocales: const [
               Locale('en', 'US'), // include country code too
               Locale('ar', 'EG'), // include country code too
             ],
-
+              locale:  Locale('ar', 'EG'),
             defaultTransition: Transition.cupertino,
             transitionDuration: const Duration(milliseconds: 500),
             translations: Translation(),
@@ -57,7 +59,7 @@ class _CrazyAppState extends State<CrazyApp> {
             title: 'Crazy Food',
             theme: ThemeData(primarySwatch: Colors.green),
             home:MaterialApp(
-              home:NotificationBadge() ,
+              home:HomeScreenView() ,
             ),
 
             //LocalStorage.userModel!=null?

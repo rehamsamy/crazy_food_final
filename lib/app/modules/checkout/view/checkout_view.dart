@@ -29,139 +29,140 @@ class CheckoutView extends GetView<CheckoutController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: null,
-        body: GetBuilder<CheckoutController>(
-          builder: (_) => Container(
-            decoration: kContainerDecoraction,
-            width: Get.width,
-            height: Get.height,
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 35,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        onPressed: () => Get.to(() => HomeScreenView()),
-                        icon: Icon(
-                          Icons.arrow_back_ios_sharp,
-                          color: Colors.white,
-                        ),
-                      ),
-                      AppText(
-                        'checkout'.tr,
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                      SizedBox()
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: Get.height - 90,
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20),
-                          bottom: Radius.circular(20)),
-                      color: Colors.grey.shade50,
+          appBar: null,
+          body: GetBuilder<CheckoutController>(
+            builder: (_) => Container(
+              decoration: kContainerDecoraction,
+              width: Get.width,
+              height: Get.height,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 35,
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 18.0),
-                    child: Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        SizedBox(
-                          height: Get.height * 0.40,
-                          child: Card(
-                              elevation: 8,
-                              color: Colors.white,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    contentPadding: EdgeInsets.only(
-                                        top: 0, left: 10, right: 10, bottom: 0),
-                                    minVerticalPadding: 0,
-                                    title: AppText(
-                                      'address'.tr,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontSize: 15,
-                                    ),
-                                    trailing: InkWell(
-                                      onTap: () =>
-                                          Get.to(() => AddressScreen()),
-                                      child: AppText(
-                                        'add_new'.tr,
-                                        color: kPrimaryColor,
-                                      ),
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: kPrimaryColor,
-                                  ),
-                                  getAddressList(),
-                                ],
-                              )),
+                        IconButton(
+                          onPressed: () => Get.to(() => HomeScreenView()),
+                          icon: Icon(
+                            Icons.arrow_back_ios_sharp,
+                            color: Colors.white,
+                          ),
                         ),
-                        SizedBox(
-                          height: Get.height * 0.35,
-                          child: Card(
-                              elevation: 8,
-                              color: Colors.white,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    contentPadding: EdgeInsets.only(
-                                        top: 0, left: 10, right: 10, bottom: 0),
-                                    minVerticalPadding: 0,
-                                    title: AppText(
-                                      'payment'.tr,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontSize: 15,
-                                    ),
-                                    trailing: InkWell(
-                                      onTap: () => Get.to(
-                                          () => MyFatora(double.parse('50'))),
-                                      child: AppText(
-                                        'add_new'.tr,
-                                        color: kPrimaryColor,
-                                      ),
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: kPrimaryColor,
-                                  ),
-                                  getPaymentList(),
-                                ],
-                              )),
+                        AppText(
+                          'checkout'.tr,
+                          color: Colors.white,
+                          fontSize: 18,
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        checkOrderButton(context)
+                        SizedBox()
                       ],
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: Get.height - 90,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                            bottom: Radius.circular(20)),
+                        color: Colors.grey.shade50,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 18.0),
+                      child: Column(
+                        children: [
+                          Card(
+                              elevation: 8,
+                              color: Colors.white,
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Container(
+                                height: Get.height *0.30,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      contentPadding: EdgeInsets.only(
+                                          top: 0, left: 10, right: 10, bottom: 0),
+                                      minVerticalPadding: 0,
+                                      title: AppText(
+                                        'address'.tr,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                      ),
+                                      trailing: InkWell(
+                                        onTap: () =>
+                                            Get.to(() => AddressScreen()),
+                                        child: AppText(
+                                          'add_new'.tr,
+                                          color: kPrimaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      color: kPrimaryColor,
+                                    ),
+                                    getAddressList(),
+                                  ],
+                                ),
+                              )),
+                          SizedBox(
+                            height: Get.height * 0.35,
+                            child: Card(
+                                elevation: 8,
+                                color: Colors.white,
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      contentPadding: EdgeInsets.only(
+                                          top: 0, left: 10, right: 10, bottom: 0),
+                                      minVerticalPadding: 0,
+                                      title: AppText(
+                                        'payment'.tr,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                      ),
+                                      trailing: InkWell(
+                                        onTap: () => Get.to(
+                                            () => MyFatora(double.parse('50'))),
+                                        child: AppText(
+                                          'add_new'.tr,
+                                          color: kPrimaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      color: kPrimaryColor,
+                                    ),
+                                    getPaymentList(),
+                                  ],
+                                )),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                            checkOrderButton(context)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ));
+          ));
+
   }
 
   getAddressList() {
@@ -177,10 +178,13 @@ class CheckoutView extends GetView<CheckoutController> {
                     scrollDirection: Axis.vertical,
                     itemCount: addressList.length,
                     itemBuilder: (_, index) {
-                      return InkWell(
-                          onTap: () {},
-                          child: AddressWidget(addressList[index], index,
-                              index == controller.addressIndex));
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 15),
+                        child: InkWell(
+                            onTap: () {},
+                            child: AddressWidget(addressList[index], index,
+                                index == controller.addressIndex)),
+                      );
                     }),
               );
             } else if (addressList.isEmpty) {
@@ -223,10 +227,13 @@ class CheckoutView extends GetView<CheckoutController> {
                     scrollDirection: Axis.vertical,
                     itemCount: paymentList.length,
                     itemBuilder: (_, index) {
-                      return InkWell(
-                          onTap: () {},
-                          child: PaymentWidget(paymentList[index], index,
-                              index == controller.paymentIndex));
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: InkWell(
+                            onTap: () {},
+                            child: PaymentWidget(paymentList[index], index,
+                                index == controller.paymentIndex)),
+                      );
                     }),
               );
             } else if (paymentList.isEmpty) {
@@ -263,7 +270,7 @@ class CheckoutView extends GetView<CheckoutController> {
         await Future.delayed(Duration(seconds: 2));
         animationController.reverse();
         if (addressList.isNotEmpty && paymentList.isNotEmpty) {
-          _showDialog(context);
+          // _showDialog(context);
         } else {
           Fluttertoast.showToast(
             msg: "cart_empty".tr,

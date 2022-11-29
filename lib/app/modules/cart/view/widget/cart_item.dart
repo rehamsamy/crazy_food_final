@@ -34,7 +34,7 @@ class CartItem extends GetView<CartController> {
                     imageUrl: model?.imagePath ??
                         'https://cdn.pixabay.com/photo/2020/05/17/04/22/pizza-5179939__340.jpg',
                     fit: BoxFit.cover,
-                    width: 135,
+                    width: 120,
                     height: 120,
                     radius: 15,
                   ),

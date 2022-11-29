@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:crazy_food/app/data/models/cart_model.dart';
 import 'package:crazy_food/app/data/models/order_model.dart';
 import 'package:crazy_food/app/data/models/payment_response.dart';
+import 'package:crazy_food/app/data/remote_data_source/notification_api.dart';
 import 'package:crazy_food/app_constant.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:crazy_food/app/data/services/network_service.dart/dio_network_service.dart';
 import 'package:http/http.dart' as http;
@@ -107,20 +109,23 @@ class AddOrdersApis {
       if (response.statusCode == 200) {
         Map<String, dynamic> result =
             json.decode(response.body) as Map<String, dynamic>;
-        result.forEach((key, value) {
+        result.forEach((key, value) async {
           Get.log('orders data ==> step 1 '+value.toString() );
           OrderModel model = OrderModel.fromJson(value);
           Get.log('orders data ==> step 1 '+model.toString() );
 
        //   ---------  change order status ------------------------------
         Future.delayed(Duration(seconds: 10));
-          AddOrdersApis().updateOrder(
+        await  AddOrdersApis().updateOrder(
               carts: model.products ?? [],
               total: model.totalAmount ?? 0.0,
               address: model.address ?? '',
               payment: model.payment ?? '',
               latitude: model.latitude ?? 0.0,
-              longitude: model.longitude ?? 0.0,bath: key);
+              longitude: model.longitude ?? 0.0,bath: key).then((value) async  {
+              String ? token=await getToken();
+                NotificationApis().sendPushMessage('Crazy Food', 'your order processed successfully', token??'');
+        });
           Get.log('error '+key);
           ordersList?.add(model);
         });
@@ -158,4 +163,17 @@ class AddOrdersApis {
     }
     return ordersList;
   }
+
+  Future<String?> getToken() async {
+    String? mtoken;
+    // Firebase.initializeApp();
+    final fcmToken = await FirebaseMessaging.instance.getToken(vapidKey: "AIzaSyBpaqzorW0S3p9Jot7rjpwFmr0L0DGW_RA");
+    print('ddddd  '+fcmToken.toString());
+    await FirebaseMessaging.instance.getToken().then((token) {
+        mtoken = token;
+        // NotificationApis().sendPushMessage('ggggggg', 'ggggggggg', token??'');
+    });
+    return mtoken;
+  }
+
 }
