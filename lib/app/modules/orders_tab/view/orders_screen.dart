@@ -142,8 +142,7 @@ class OrdersScreen extends GetView<HomeController> {
               return SizedBox();
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
-            return Container(
-              height: 150,
+            return Expanded(
               child: ListView.builder(
                   itemCount: 5,
                   itemBuilder: (_, index) {

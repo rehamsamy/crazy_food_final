@@ -33,11 +33,11 @@ class AddOrdersApis {
                   'caleories': e.caleories
                 })
             .toList(),
-        'dateTime':DateTime.now().toString(),
-        'totalAmount':total,
-        'order_status':'pending',
-        'address':address,
-        'payment':payment
+        'dateTime': DateTime.now().toString(),
+        'totalAmount': total,
+        'order_status': 'pending',
+        'address': address,
+        'payment': payment
       }),
     );
 
@@ -54,40 +54,40 @@ class AddOrdersApis {
     return true;
   }
 
-
   Future<bool> updateOrder(
       {required List<Products> carts,
-        required double total,
-        required String address,
-        required payment,
-        required double latitude,
-        required double longitude,required String bath}) async {
-
+      required double total,
+      required String address,
+      required payment,
+      required double latitude,
+      required double longitude,
+      required String bath,
+      String? status}) async {
     final request = NetworkRequest(
       type: NetworkRequestType.PUT,
       path: '/orders/token/$bath.json',
       data: NetworkRequestBody.json({
         'products': carts
             .map((e) => {
-          'productId': e.productId,
-          'productName': e.productName,
-          'productImage': e.productImage,
-          'price': e.price,
-          'quantity': e.quantity,
-          'caleories': e.caleories
-        })
+                  'productId': e.productId,
+                  'productName': e.productName,
+                  'productImage': e.productImage,
+                  'price': e.price,
+                  'quantity': e.quantity,
+                  'caleories': e.caleories
+                })
             .toList(),
-        'dateTime':DateTime.now().toString(),
-        'totalAmount':total,
-        'order_status':'processing',
+        'dateTime': DateTime.now().toString(),
+        'totalAmount': total,
+        'order_status': status,
         // 'statusId':2,
-        'address':address,
-        'payment':payment
+        'address': address,
+        'payment': payment
       }),
     );
 
     NetworkResponse response =
-    await networkService.execute(request, PaymentResponse.fromJson);
+        await networkService.execute(request, PaymentResponse.fromJson);
     response.maybeWhen(
         ok: (data) {
           return true;
@@ -99,38 +99,62 @@ class AddOrdersApis {
     return true;
   }
 
-
   Future<List<OrderModel>?> getOrders() async {
     List<OrderModel>? ordersList = [];
     try {
       var response = await http.get(Uri.parse('$baseUrl/orders/token.json'));
-      Get.log(
-          'orders data ==>' + response.body.toString() + response.statusCode.toString());
+      Get.log('orders data ==>' +
+          response.body.toString() +
+          response.statusCode.toString());
       if (response.statusCode == 200) {
         Map<String, dynamic> result =
             json.decode(response.body) as Map<String, dynamic>;
         result.forEach((key, value) async {
-          Get.log('orders data ==> step 1 '+value.toString() );
+          Get.log('orders data ==> step 1 ' + value.toString());
           OrderModel model = OrderModel.fromJson(value);
-          Get.log('orders data ==> step 1 '+model.toString() );
+          Get.log('orders data ==> step 1 ' + model.toString());
 
-       //   ---------  change order status ------------------------------
-        Future.delayed(Duration(seconds: 10));
-        await  AddOrdersApis().updateOrder(
-              carts: model.products ?? [],
-              total: model.totalAmount ?? 0.0,
-              address: model.address ?? '',
-              payment: model.payment ?? '',
-              latitude: model.latitude ?? 0.0,
-              longitude: model.longitude ?? 0.0,bath: key).then((value) async  {
-              String ? token=await getToken();
-                NotificationApis().sendPushMessage('Crazy Food', 'your order processed successfully', token??'');
-        });
-          Get.log('error '+key);
+          //   ---------  change order status ------------------------------
+          Future.delayed(Duration(seconds: 10));
+          await AddOrdersApis()
+              .updateOrder(
+                  carts: model.products ?? [],
+                  total: model.totalAmount ?? 0.0,
+                  address: model.address ?? '',
+                  payment: model.payment ?? '',
+                  latitude: model.latitude ?? 0.0,
+                  longitude: model.longitude ?? 0.0,
+                  bath: key,
+                  status: 'processing')
+              .then((value) async {
+            String? token = await getToken();
+            NotificationApis().sendPushMessage(
+                'Crazy Food', 'your order processed successfully', token ?? '');
+          }).then((value) async {
+            //   ---------  change order status  22 ------------------------------
+
+            Future.delayed(Duration(minutes: 30));
+            await AddOrdersApis()
+                .updateOrder(
+                    carts: model.products ?? [],
+                    total: model.totalAmount ?? 0.0,
+                    address: model.address ?? '',
+                    payment: model.payment ?? '',
+                    latitude: model.latitude ?? 0.0,
+                    longitude: model.longitude ?? 0.0,
+                    bath: key,
+                    status: 'delivered')
+                .then((value) async {
+              String? token = await getToken();
+              NotificationApis().sendPushMessage('Crazy Food',
+                  'your order processed successfully', token ?? '');
+            });
+          });
+          Get.log('error ' + key);
           ordersList?.add(model);
         });
 
-        ordersList=await getFinalOrders();
+        ordersList = await getFinalOrders();
       } else {
         Get.log('error');
       }
@@ -144,15 +168,16 @@ class AddOrdersApis {
     List<OrderModel>? ordersList = [];
     try {
       var response = await http.get(Uri.parse('$baseUrl/orders/token.json'));
-      Get.log(
-          'orders data ==>' + response.body.toString() + response.statusCode.toString());
+      Get.log('orders data ==>' +
+          response.body.toString() +
+          response.statusCode.toString());
       if (response.statusCode == 200) {
         Map<String, dynamic> result =
-        json.decode(response.body) as Map<String, dynamic>;
+            json.decode(response.body) as Map<String, dynamic>;
         result.forEach((key, value) {
-          Get.log('orders data ==> step 1 '+value.toString() );
+          Get.log('orders data ==> step 1 ' + value.toString());
           OrderModel model = OrderModel.fromJson(value);
-          Get.log('orders data ==> step 1 '+model.toString() );
+          Get.log('orders data ==> step 1 ' + model.toString());
           ordersList.add(model);
         });
       } else {
@@ -167,13 +192,13 @@ class AddOrdersApis {
   Future<String?> getToken() async {
     String? mtoken;
     // Firebase.initializeApp();
-    final fcmToken = await FirebaseMessaging.instance.getToken(vapidKey: "AIzaSyBpaqzorW0S3p9Jot7rjpwFmr0L0DGW_RA");
-    print('ddddd  '+fcmToken.toString());
+    final fcmToken = await FirebaseMessaging.instance
+        .getToken(vapidKey: "AIzaSyBpaqzorW0S3p9Jot7rjpwFmr0L0DGW_RA");
+    print('ddddd  ' + fcmToken.toString());
     await FirebaseMessaging.instance.getToken().then((token) {
-        mtoken = token;
-        // NotificationApis().sendPushMessage('ggggggg', 'ggggggggg', token??'');
+      mtoken = token;
+      // NotificationApis().sendPushMessage('ggggggg', 'ggggggggg', token??'');
     });
     return mtoken;
   }
-
 }

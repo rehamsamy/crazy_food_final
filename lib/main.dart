@@ -31,7 +31,7 @@ class _CrazyAppState extends State<CrazyApp> {
     Firebase.initializeApp();
     final navigatorKey=GlobalKey<NavigatorState>();
     return  MaterialApp(
-      navigatorKey: navigatorKey,
+       navigatorKey: navigatorKey,
       home: ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,
@@ -47,7 +47,7 @@ class _CrazyAppState extends State<CrazyApp> {
               Locale('en', 'US'), // include country code too
               Locale('ar', 'EG'), // include country code too
             ],
-              locale:  Locale('ar', 'EG'),
+              // locale:  Locale('ar', 'EG'),
             defaultTransition: Transition.cupertino,
             transitionDuration: const Duration(milliseconds: 500),
             translations: Translation(),

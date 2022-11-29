@@ -13,7 +13,7 @@ class FabHome extends GetView<CategoryItemsController>{
    return  GetBuilder<CategoryItemsController>(
      builder: (context) {
        return GestureDetector(
-         onTap: ()=>Get.to(()=>CartScreen(fabFlag:'yes')),
+         onTap: ()=>Get.off(()=>CartScreen(fabFlag:'yes')),
          child: Container(
            decoration: BoxDecoration(
              color: kPrimaryColor,

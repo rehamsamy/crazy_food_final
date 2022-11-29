@@ -17,7 +17,7 @@ class CartScreen extends GetView<CartController> {
    CartScreen({this.fabFlag});
   @override
   Widget build(BuildContext context) {
-    controller.changeTotalCartPrice();
+     controller.changeTotalCartPrice();
     return Scaffold(
         appBar: null,
         body: GetBuilder<CartController>(

@@ -88,7 +88,7 @@ class AppProgressButtonState extends State<AppProgressButton>
         constraints: BoxConstraints(minWidth: buttonHeight),
         width: sizeAnimation.value,
         height: buttonHeight,
-        child: RaisedButton(
+        child: MaterialButton(
           padding: widget.padding ??
               const EdgeInsets.symmetric(
                 horizontal: 8.0,
