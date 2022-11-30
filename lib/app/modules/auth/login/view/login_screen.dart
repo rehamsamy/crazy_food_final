@@ -153,10 +153,14 @@ class LoginScreenView extends GetView<LoginController> {
                                    Get.log('expire is '+(model.expiresIn).toString());
                                    if(model.expiresIn !=null){
                                      Get.offAll(()=>HomeScreenView());
-                                     showSnackBar('login_success'.tr);
+                                     Future.delayed(Duration.zero, () async {
+                                       showSnackBar('login_success'.tr);
+                                     });
                                      animationController.reverse();
                                    }else{
-                                     showSnackBar('general_error'.tr);
+                                     Future.delayed(Duration.zero, () async {
+                                       showSnackBar('login_success'.tr);
+                                     });
                                      animationController.reverse();
                                      Get.log('rev');
                                    }

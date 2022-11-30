@@ -264,28 +264,30 @@ class CheckoutView extends GetView<CheckoutController> {
   }
 
   checkOrderButton(BuildContext context) {
-    return AppProgressButton(
-        onPressed: (animationController) async {
-          animationController.forward();
-          await Future.delayed(Duration(seconds: 2));
-          animationController.reverse();
-          if (addressList.isNotEmpty && paymentList.isNotEmpty) {
-             _showDialog(context);
-          } else {
-            Fluttertoast.showToast(
-              msg: "cart_empty".tr,
-              toastLength: Toast.LENGTH_LONG,
-              backgroundColor: kPrimaryColor,
-              textColor: Colors.white,
-              gravity: ToastGravity.CENTER,
-            );
-          }
-        },
-        text: ("checkout".tr),
-        textColor: Colors.white,
-        backgroundColor: kPrimaryColor,
-        height: 40,
+    return MaterialApp(
+      home: AppProgressButton(
+          onPressed: (animationController) async {
+            animationController.forward();
+            await Future.delayed(Duration(seconds: 2));
+            animationController.reverse();
+            if (addressList.isNotEmpty && paymentList.isNotEmpty) {
+               _showDialog(context);
+            } else {
+              Fluttertoast.showToast(
+                msg: "cart_empty".tr,
+                toastLength: Toast.LENGTH_LONG,
+                backgroundColor: kPrimaryColor,
+                textColor: Colors.white,
+                gravity: ToastGravity.CENTER,
+              );
+            }
+          },
+          text: ("checkout".tr),
+          textColor: Colors.white,
+          backgroundColor: kPrimaryColor,
+          height: 40,
 
+      ),
     );
   }
 

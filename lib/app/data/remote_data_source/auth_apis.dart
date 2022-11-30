@@ -12,12 +12,13 @@ import 'package:crazy_food/app/data/services/network_service.dart/dio_network_se
 class AuthApis {
   Future<LoginModel> loginUser({required email,required password})async{
     LoginModel loginModel=LoginModel();
+    Get.log('passw  '+password.toString());
     final request = NetworkRequest(
       type: NetworkRequestType.POST,
       path: 'accounts:signInWithPassword?key=$kApiKey',
       data: NetworkRequestBody.json(
         {'email': email,
-          'password': 'password',
+          'password':password,
           'returnSecureToken': true},
       ),
     );
@@ -57,7 +58,8 @@ class AuthApis {
       type: NetworkRequestType.POST,
       path: 'accounts:signUp?key=$kApiKey',
       data: NetworkRequestBody.json(
-        {'displayName':'name',
+        {'displayName':name,
+          'name':name,
           'email': email,
           'password': 'password',
           'returnSecureToken': true},

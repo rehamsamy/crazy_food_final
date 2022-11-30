@@ -1,4 +1,5 @@
 import 'package:crazy_food/app/data/models/order_model.dart';
+import 'package:crazy_food/app/modules/orders_details/view/orders_details_screen.dart';
 import 'package:crazy_food/app/modules/orders_tab/controller/order_controller.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
@@ -16,8 +17,7 @@ class OrderItem extends GetView<OrderController> {
   Widget build(BuildContext context) {
     Get.log('cccc '+(model.address).toString());
     return InkWell(
-      // onTap: ()=>Get.to(()=>OrdersDetailsScreen()),
-      onTap: (){},
+       onTap: ()=>Get.to(()=>OrdersDetailsScreen()),
       child: Container(
         padding: EdgeInsets.all(4),
         margin: EdgeInsets.all(8),
