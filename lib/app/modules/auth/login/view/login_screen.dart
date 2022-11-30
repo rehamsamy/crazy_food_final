@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/data/models/login_error_model.dart';
 import 'package:crazy_food/app/data/models/login_model.dart';
 import 'package:crazy_food/app/data/models/register_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/auth_apis.dart';
@@ -7,6 +8,7 @@ import 'package:crazy_food/app/modules/auth/login/view/widget/register_widget.da
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
+import 'package:crazy_food/app/shared/snack_bar.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,12 +35,7 @@ class LoginScreenView extends GetView<LoginController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: kToolbarHeight),
-                  Center(
-                    child: ListTile(
-                      title:  AppText(controller.isLogin ? 'welcome_back'.tr : 'welcome'.tr, fontSize: 18),
-                      subtitle: AppText(controller.isLogin ? 'Sign_in_to_continue'.tr : 'Sign_up_to_continue'.tr),
-                    ),
-                  ),
+                  Image.asset('assets/images/logo22.png',height: 200,fit: BoxFit.contain,),
                   Stack(
                       alignment: AlignmentDirectional.bottomCenter,
                       clipBehavior: Clip.none,
@@ -76,13 +73,13 @@ class LoginScreenView extends GetView<LoginController> {
                                                 color: Colors.white,
                                                 fontSize: 25,
                                               )),
+                                              SizedBox(height: 5,),
                                               Container(
                                                 margin: const EdgeInsets.symmetric(
                                                     vertical: 4.0),
                                                 color: controller.isLogin
                                                     ? Colors.white
-                                                    : Theme.of(context)
-                                                        .primaryColor,
+                                                    : kPrimaryColor,
                                                 height: 3.5,
                                               )
                                             ],
@@ -105,13 +102,13 @@ class LoginScreenView extends GetView<LoginController> {
                                                 color: Colors.white,
                                                 fontSize: 25,
                                               )),
+                                              SizedBox(height: 5,),
                                               Container(
                                                 margin: const EdgeInsets.symmetric(
                                                     vertical: 4.0),
                                                 color: !controller.isLogin
                                                     ? Colors.white
-                                                    : Theme.of(context)
-                                                        .primaryColor,
+                                                    : kPrimaryColor,
                                                 height: 3.5,
                                               )
                                             ],
@@ -156,15 +153,27 @@ class LoginScreenView extends GetView<LoginController> {
                                    Get.log('expire is '+(model.expiresIn).toString());
                                    if(model.expiresIn !=null){
                                      Get.offAll(()=>HomeScreenView());
+                                     showSnackBar('login_success'.tr);
+                                     animationController.reverse();
+                                   }else{
+                                     showSnackBar('general_error'.tr);
+                                     animationController.reverse();
+                                     Get.log('rev');
                                    }
+
                                     }else{
-                                    RegisterModel model=  await AuthApis().registerUser(name: nameController.text,
+                                      LoginModel model=  await AuthApis().registerUser(name: nameController.text,
                                           email: emailController.text, password: passwordController.text);
                                       if(model.expiresIn !=null){
                                         Get.offAll(()=>HomeScreenView());
+                                        showSnackBar('login_success'.tr);
+                                        animationController.reverse();
+                                      }else{
+                                        showSnackBar('general_error'.tr);
+                                        // Get.log(LoginErrorModel.);
+                                        animationController.reverse();
                                       }
                                     }
-
                                    // Get.offAll(()=>HomeScreenView());
                                   }
                                 },

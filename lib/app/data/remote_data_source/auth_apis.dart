@@ -1,6 +1,8 @@
 
+import 'package:crazy_food/app/data/models/login_error_model.dart';
 import 'package:crazy_food/app/data/models/login_model.dart';
 import 'package:crazy_food/app/data/models/register_model.dart';
+import 'package:crazy_food/app/data/storage/local_storage.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:get/get.dart';
 import 'package:restart_app/restart_app.dart';
@@ -34,20 +36,23 @@ class AuthApis {
       LoginModel.fromJson, // <- Function to convert API response to your model
     );
     response.maybeWhen(
-        ok: (data) {
+        ok: (data) async {
           loginModel = data;
+          await LocalStorage.saveUser(loginModel);
+          Get.log('data ==>'+loginModel.toString());
           return loginModel;
         },
         noData: (info) {
           return null;
         },
-        orElse: () {});
+        orElse: () {
+        });
     return loginModel;
   }
 
 
-  Future<RegisterModel> registerUser({required name,required email,required password})async{
-   RegisterModel registerModel=RegisterModel();
+  Future<LoginModel> registerUser({required name,required email,required password})async{
+    LoginModel registerModel=LoginModel();
     final request = NetworkRequest(
       type: NetworkRequestType.POST,
       path: 'accounts:signUp?key=$kApiKey',
@@ -70,11 +75,13 @@ class AuthApis {
     );
     NetworkResponse response = await networkService.execute(
       request,
-      RegisterModel.fromJson, // <- Function to convert API response to your model
+      LoginModel.fromJson, // <- Function to convert API response to your model
     );
     response.maybeWhen(
-        ok: (data) {
+        ok: (data) async{
           registerModel = data;
+          await LocalStorage.saveUser(registerModel);
+          Get.log('data ==>'+registerModel.toString());
           return registerModel;
         },
         noData: (info) {

@@ -1,7 +1,9 @@
 import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/data/models/category_model.dart';
+import 'package:crazy_food/app/data/models/login_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_apis.dart';
 import 'package:crazy_food/app/data/remote_data_source/popular_apis.dart';
+import 'package:crazy_food/app/data/storage/local_storage.dart';
 import 'package:crazy_food/app/modules/category/view/category_screen.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/category_item_loading.dart';
@@ -18,9 +20,22 @@ import 'package:get/get.dart';
 import 'package:badges/badges.dart';
 import 'widget/loading_widget/discount_item_loading.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
   var searchController = TextEditingController();
+
   List<ProductModel> ? allProducts;
+  LoginModel ?model;
+
+  @override
+  void initState() {
+    model = LocalStorage.getUser;
+    Get.log('dataa ' + (model?.name ?? '').toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +167,7 @@ class HomeTab extends StatelessWidget {
         borderWidth: 2,
       ),
       title: AppText(
-        'user_name',
+        model?.name??'user_name',
         color: Colors.white,
       ),
       subtitle: AppText(
@@ -324,8 +339,6 @@ class HomeTab extends StatelessWidget {
           }
         });
   }
-
-
 
   List<ProductModel> selectionAsecSortFilter(List<ProductModel> prodss){
     List<ProductModel> prods=prodss ;

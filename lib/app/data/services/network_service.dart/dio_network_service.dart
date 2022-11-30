@@ -40,7 +40,7 @@ class NetworkResponse<Model> with _$NetworkResponse {
   const factory NetworkResponse.badRequest(String message) = BadRequest; //400
   const factory NetworkResponse.notFound(String message) = NotFound; //404
   const factory NetworkResponse.conflict(String message) = Conflict; //409
-  const factory NetworkResponse.noData(String message) = NoData; //500
+  const factory NetworkResponse.noData(String message) = NoData;//500
 }
 
 class _PreparedNetworkRequest<Model> {

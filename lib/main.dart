@@ -1,5 +1,7 @@
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/core/values/localization/translation.dart';
+import 'package:crazy_food/app/data/storage/local_storage.dart';
+import 'package:crazy_food/app/modules/auth/login/view/login_screen.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/notification/view/notification_screen.dart';
 import 'package:crazy_food/app/views/network_error.dart';
@@ -59,7 +61,10 @@ class _CrazyAppState extends State<CrazyApp> {
             title: 'Crazy Food',
             theme: ThemeData(primarySwatch: Colors.green),
             home:MaterialApp(
-              home:HomeScreenView() ,
+              home:
+              // LocalStorage.userModel!=null?HomeScreenView()
+              //     :
+              LoginScreenView(),
             ),
 
             //LocalStorage.userModel!=null?
