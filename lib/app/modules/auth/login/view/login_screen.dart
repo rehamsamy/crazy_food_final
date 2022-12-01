@@ -157,14 +157,14 @@ class LoginScreenView extends GetView<LoginController> {
                                        showSnackBar('login_success'.tr);
                                      });
                                      animationController.reverse();
-                                   }else{
+                                   }else if(model.error?.message!=null){
                                      Future.delayed(Duration.zero, () async {
-                                       showSnackBar('login_success'.tr);
+                                       Get.log('err    '+(model.error?.message).toString());
+                                       showSnackBar(model.error?.message??'general_error'.tr);
                                      });
                                      animationController.reverse();
                                      Get.log('rev');
                                    }
-
                                     }else{
                                       LoginModel model=  await AuthApis().registerUser(name: nameController.text,
                                           email: emailController.text, password: passwordController.text);
@@ -172,9 +172,8 @@ class LoginScreenView extends GetView<LoginController> {
                                         Get.offAll(()=>HomeScreenView());
                                         showSnackBar('login_success'.tr);
                                         animationController.reverse();
-                                      }else{
-                                        showSnackBar('general_error'.tr);
-                                        // Get.log(LoginErrorModel.);
+                                      }else if(model.error?.message!=null){
+                                        showSnackBar(model.error?.message??'general_error'.tr);
                                         animationController.reverse();
                                       }
                                     }

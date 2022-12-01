@@ -3,12 +3,11 @@ import 'package:crazy_food/app/shared/shimmer_ui_effect.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../../../app_constant.dart';
+import 'package:get/get.dart';
 
 
 class DiscountItemLoading extends StatelessWidget {
-
 int index;
-
 DiscountItemLoading(this.index);
 
   @override
@@ -26,18 +25,19 @@ DiscountItemLoading(this.index);
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 15,),
+          SizedBox(width: 5,),
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: MyShimmerEffectUI.rectangular(
                   height: CategoryItem.height - 50,
                 ),
               ),
-          SizedBox(width: 15,),
+          SizedBox(width: 5,),
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: MyShimmerEffectUI.rectangular(
               height: CategoryItem.height - 70,
+              // width: Get.width*20,
             ),
           ),
           SizedBox(width: 5,),
@@ -47,7 +47,7 @@ DiscountItemLoading(this.index);
             children: [
               MyShimmerEffectUI.rectangular(height: 10),
               SizedBox(height: 10,),
-              MyShimmerEffectUI.rectangular(height: 15),
+              MyShimmerEffectUI.rectangular(height: 15 ),
               SizedBox(height: 20,),
               MyShimmerEffectUI.rectangular(height: 10)
             ],

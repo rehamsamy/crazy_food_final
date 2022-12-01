@@ -62,8 +62,8 @@ class _CrazyAppState extends State<CrazyApp> {
             theme: ThemeData(primarySwatch: Colors.green),
             home:MaterialApp(
               home:
-              // LocalStorage.userModel!=null?HomeScreenView()
-              //     :
+              LocalStorage.userModel!=null?HomeScreenView()
+                  :
               LoginScreenView(),
             ),
 

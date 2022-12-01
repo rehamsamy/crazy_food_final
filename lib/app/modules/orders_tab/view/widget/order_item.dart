@@ -2,6 +2,7 @@ import 'package:crazy_food/app/data/models/order_model.dart';
 import 'package:crazy_food/app/modules/orders_details/view/orders_details_screen.dart';
 import 'package:crazy_food/app/modules/orders_tab/controller/order_controller.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
+import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:map_launcher/map_launcher.dart';
-
 class OrderItem extends GetView<OrderController> {
   OrderModel model;
   OrderItem(this.model);
@@ -41,9 +41,11 @@ class OrderItem extends GetView<OrderController> {
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),
-                AppElevatedButton(
+                AppProgressButton(
+                  width: 70,
+                  height: 35,
                   text: model.orderStatus??'Processing',
-                  onPressed: () {},
+                  onPressed: (val) {},
                   backgroundColor: Colors.grey.shade100,
                   textColor: Colors.black,
                 ),
@@ -61,7 +63,7 @@ class OrderItem extends GetView<OrderController> {
                     },
                         icon: Icon(Icons.location_on,color: kPrimaryColor,)),
                     SizedBox(
-                      width: 100,
+                      width: 70,
                       child: AppText(
                         '${(model.address).toString().substring(15,50)}',
                       ),

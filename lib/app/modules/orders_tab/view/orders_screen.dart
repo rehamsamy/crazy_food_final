@@ -5,6 +5,7 @@ import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/discount_item_loading.dart';
 import 'package:crazy_food/app/modules/orders_tab/controller/order_controller.dart';
 import 'package:crazy_food/app/modules/orders_tab/view/widget/order_item.dart';
+import 'package:crazy_food/app/modules/orders_tab/view/widget/order_item_loading.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
@@ -124,7 +125,8 @@ class OrdersScreen extends GetView<HomeController> {
                       ListView.builder(
                         itemCount: ordersList.length,
                           padding: EdgeInsets.all(0),itemBuilder: (_, index) {
-                         return OrderItem(ordersList[index]);
+                          // return OrderItem(ordersList[index]);
+                          return DiscountItemLoading(index);
                       }),
                       getPendingList('pending'),
                       getPendingList('processing'),
@@ -147,7 +149,7 @@ class OrdersScreen extends GetView<HomeController> {
                   itemCount: 5,
                   itemBuilder: (_, index) {
                     // return DiscountItemLoading(index);
-                    return DiscountItemLoading(index);
+                    return OrderItemLoading();
                   }),
             );
           } else {

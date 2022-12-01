@@ -2,6 +2,7 @@ import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_i
 import 'package:crazy_food/app/shared/shimmer_ui_effect.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 class OrderItemLoading extends StatelessWidget {
   const OrderItemLoading({Key? key}) : super(key: key);
 
@@ -18,24 +19,25 @@ class OrderItemLoading extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: MyShimmerEffectUI.rectangular(
-                  height: CategoryItem.height - 50,
+                  width: Get.width *0.30,
+                  height: CategoryItem.height - 80,
                 ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  MyShimmerEffectUI.rectangular(height: 12),
+                  MyShimmerEffectUI.rectangular(height: 12, width: Get.width *0.15,),
                   SizedBox(height: 5,),
-                  MyShimmerEffectUI.rectangular(height: 12),
+                  MyShimmerEffectUI.rectangular(height: 12, width: Get.width *0.15,),
                   SizedBox(height: 20,),
-                  MyShimmerEffectUI.rectangular(height: 32)
+                  MyShimmerEffectUI.rectangular(height: 32, width: Get.width *0.15,)
                 ],
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(height: 40,),
-                  MyShimmerEffectUI.rectangular(height: 12)
+                  SizedBox(height: 20,),
+                  MyShimmerEffectUI.rectangular(height: 12, width: Get.width *0.20,)
                 ],
               )
             ],
