@@ -30,7 +30,7 @@ Map<String, String> ar = {
   'level': 'مستوي',
   'next': 'التالي',
   'order_message':'اطلب اي منتج للحصول علي الخصم',
-  'order_now':'اطلب الان',
+  'order_now':'اطلب الان --->',
   'order':'الطلب',
   'reviews':'التقييمات',
   'details':'التفاصيل',
@@ -71,6 +71,7 @@ Map<String, String> ar = {
   'current_location':'العنوان الحالي:',
   'add_address':'اضافه العنوان',
   'cart_empty':'!السلة فارغة',
-  'create_order_sucess':'تم ارسال الطلب بنجاح'
+  'create_order_sucess':'تم ارسال الطلب بنجاح',
+  'order_message':'اطلب ماتحتاجه من التطبيق واحصل علي الخصم'
 
 };

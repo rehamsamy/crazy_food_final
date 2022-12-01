@@ -13,9 +13,10 @@ class CartController extends GetxController {
   void onInit() {
     Get.log('initated   ');
     super.onInit();
+    changeTotalCartPrice();
   }
 
-  void ddItemToCartScreen(
+  void addItemToCartScreen(
       String id, num? price, String title, String imagePath, int caleories) {
     Get.log('found');
     if (_cartsList.containsKey(id)) {

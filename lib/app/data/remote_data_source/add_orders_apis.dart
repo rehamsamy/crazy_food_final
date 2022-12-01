@@ -37,7 +37,9 @@ class AddOrdersApis {
         'totalAmount': total,
         'order_status': 'pending',
         'address': address,
-        'payment': payment
+        'payment': payment,
+        'latitude':latitude,
+        'longitude':longitude
       }),
     );
 
@@ -82,7 +84,9 @@ class AddOrdersApis {
         'order_status': status,
         // 'statusId':2,
         'address': address,
-        'payment': payment
+        'payment': payment,
+        'latitude':latitude,
+        'longitude':longitude
       }),
     );
 

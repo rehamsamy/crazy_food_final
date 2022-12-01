@@ -1,5 +1,4 @@
 import 'package:crazy_food/app/data/models/category_items_model.dart';
-import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_items_apis.dart';
 import 'package:crazy_food/app/modules/category/view/category_screen.dart';
 import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';

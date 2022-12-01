@@ -54,7 +54,7 @@ class OrderItem extends GetView<OrderController> {
                     IconButton(onPressed: ()async{
                       final availableMaps = await MapLauncher.installedMaps;
                       print(availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
-
+               Get.log('log  =>'+model.latitude.toString());
                       await availableMaps.first.showMarker(
                         coords: Coords(model.latitude??0.0, model.longitude??0.0),
                         title: "Shanghai Tower",

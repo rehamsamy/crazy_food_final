@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/order_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/add_orders_apis.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
@@ -38,7 +39,8 @@ class OrdersScreen extends GetView<HomeController> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 IconButton(
-                                  onPressed:()=>Get.off(()=>HomeScreenView()),
+                                  onPressed:()=>Get.offAll(()=>HomeScreenView(),
+                                  binding: GetBinding()),
                                   icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                                 ),
                                 AppText('orders_tab'.tr,color: Colors.white,fontSize: 18,),
@@ -125,12 +127,12 @@ class OrdersScreen extends GetView<HomeController> {
                       ListView.builder(
                         itemCount: ordersList.length,
                           padding: EdgeInsets.all(0),itemBuilder: (_, index) {
-                          // return OrderItem(ordersList[index]);
+                           return OrderItem(ordersList[index]);
                           return DiscountItemLoading(index);
                       }),
                       getPendingList('pending'),
                       getPendingList('processing'),
-                      getPendingList('delivery'),
+                      getPendingList('delivered'),
                     ],
                   ));
             } else if (ordersList.isEmpty) {

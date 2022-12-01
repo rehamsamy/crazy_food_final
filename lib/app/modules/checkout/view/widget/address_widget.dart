@@ -36,13 +36,13 @@ class AddressWidget extends GetView<CheckoutController>{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 10,),
-                AppText('address'.tr,fontWeight: FontWeight.bold,fontSize: 17,),
+                AppText('address'.tr,fontWeight: FontWeight.bold,fontSize: 15,),
                 SizedBox(height: 5,),
                 Row(
                   children: [
                     Icon(Icons.location_on_outlined,color: kPrimaryColor,),
                     SizedBox(width: 10,),
-                    SizedBox(width:Get.width-120,child: AppText((model?.addressTitle).toString(),color: Colors.blue,)),
+                    SizedBox(width:Get.width-140,child: AppText((model?.addressTitle).toString(),color: Colors.blue,)),
                   ],
                 )
 

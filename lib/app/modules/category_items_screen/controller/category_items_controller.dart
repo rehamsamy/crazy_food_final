@@ -48,7 +48,7 @@ class CategoryItemsController extends GetxController{
         itemQuantity;
       }
     }
- cartController.ddItemToCartScreen(model.id.toString(),model.price,
+ cartController.addItemToCartScreen(model.id.toString(),model.price,
         model.nameAr??'',model.imagePath??'',model.caleories as int);
 
     cartCount=((cartCount!) + (itemQuantity));

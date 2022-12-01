@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:crazy_food/app/modules/cart/view/widget/cart_item.dart';
 import 'package:crazy_food/app/modules/checkout/view/checkout_view.dart';
@@ -17,7 +18,7 @@ class CartScreen extends GetView<CartController> {
    CartScreen({this.fabFlag});
   @override
   Widget build(BuildContext context) {
-     controller.changeTotalCartPrice();
+      controller.changeTotalCartPrice();
     return Scaffold(
         appBar: null,
         body: GetBuilder<CartController>(
@@ -36,7 +37,7 @@ class CartScreen extends GetView<CartController> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed:()=>Get.to(()=>HomeScreenView()),
+                        onPressed:()=>Get.offAll(()=>HomeScreenView(),binding: GetBinding()),
                         icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                       ),
                       AppText('cart'.tr,color: Colors.white,fontSize: 18,),

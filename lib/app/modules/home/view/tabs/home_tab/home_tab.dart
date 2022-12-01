@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:badges/badges.dart';
 import 'widget/loading_widget/discount_item_loading.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -305,13 +306,35 @@ class _HomeTabState extends State<HomeTab> {
            List<ProductModel>  discountOrderList= selectionAsecSortFilter(discountList);
               return Container(
                 height: DiscountItem.height,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
+                child:
+                CarouselSlider.builder(
+                  itemBuilder: (_,index,index1){
+                    return DiscountItem(index, discountOrderList[index]);
+                  },
                     itemCount: discountOrderList.length,
-                    itemBuilder: (_, index) {
-                      // return DiscountItemLoading(index);
-                      return DiscountItem(index,discountOrderList[index]);
-                    }),
+                    options: CarouselOptions(
+                       height: 400,
+                      aspectRatio: 16/12,
+                      viewportFraction: 0.9,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 3),
+                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      onPageChanged:(_,x){},
+                      scrollDirection: Axis.horizontal,
+                    )
+                )
+                // child: ListView.builder(
+                //     scrollDirection: Axis.horizontal,
+                //     itemCount: discountOrderList.length,
+                //     itemBuilder: (_, index) {
+                //       // return DiscountItemLoading(index);
+                //       return DiscountItem(index,discountOrderList[index]);
+                //     }),
               );
             } else if (discountList.isEmpty) {
               return Container(

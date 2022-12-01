@@ -31,24 +31,20 @@ class BottomNavigationHome extends GetView<HomeController> {
                     index: 0,
                   ),
                   bottombarItem(
-                    svgName: 'orders_tab',
+                    svgName: 'orders',
                     text: 'orders_tab'.tr,
                     index: 1,
                   ),
-                  bottombarItem(
-                    svgName: '',
-                    text: '',
-                    index: 2,
-                  ),
+
                   bottombarItem(
                     svgName: 'offers',
                     text: 'offers'.tr,
-                    index: 3,
+                    index: 2,
                   ),
                   bottombarItem(
                     svgName: 'more',
                     text: 'more'.tr,
-                    index: 4,
+                    index: 3,
                   )
                 ],
               ),

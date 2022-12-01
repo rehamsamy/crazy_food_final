@@ -10,57 +10,6 @@ import 'package:crazy_food/app/data/services/network_service.dart/dio_network_se
 
 
 class AuthApis {
-  // Future<LoginModel> loginUser({required email,required password})async{
-  //   LoginModel loginModel=LoginModel();
-  //   LoginErrorModel errorModel=LoginErrorModel();
-  //   Get.log('passw  '+password.toString());
-  //   final request = NetworkRequest(
-  //     type: NetworkRequestType.POST,
-  //     path: 'accounts:signInWithPassword?key=$kApiKey',
-  //     data: NetworkRequestBody.json(
-  //       {'email': email,
-  //         'password':password,
-  //         'returnSecureToken': true},
-  //     ),
-  //   );
-  //
-  //   NetworkService networkService = NetworkService(
-  //     baseUrl: 'https://identitytoolkit.googleapis.com/v1/',
-  //     httpHeaders: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //       //'Authorization': 'Bearer ${SharedPrefService.getToken() ?? ''}',
-  //       'Language': Get.locale?.languageCode ?? 'en',
-  //     },//
-  //   );
-  //   NetworkResponse response = await networkService.execute(
-  //     request,
-  //     LoginModel.fromJson, // <- Function to convert API response to your model
-  //   );
-  //
-  //   Get.log('err     1 =>'+response.toString());
-  //
-  //   response.maybeWhen(
-  //       ok: (data) async {
-  //         loginModel = data;
-  //         await LocalStorage.saveUser(loginModel);
-  //         Get.log('data ==>'+loginModel.toString());
-  //         return loginModel;
-  //       },
-  //       noData: (info) {
-  //         return null;
-  //       },
-  //       badRequest: (info){
-  //
-  //         Get.log('err     1 =>'+(loginModel.error?.message).toString());
-  //       },
-  //       orElse: () {
-  //       });
-  //   return loginModel;
-  // }
-
-
-
   Future<LoginModel> loginUser({required email,required password})async{
     LoginModel loginModel=LoginModel();
   String   baseUrl= 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$kApiKey';
@@ -91,51 +40,6 @@ class AuthApis {
     }
     return loginModel;
   }
-
-
-
-  // Future<LoginModel> registerUser({required name,required email,required password})async{
-  //   LoginModel registerModel=LoginModel();
-  //   final request = NetworkRequest(
-  //     type: NetworkRequestType.POST,
-  //     path: 'accounts:signUp?key=$kApiKey',
-  //     data: NetworkRequestBody.json(
-  //       {'displayName':name,
-  //         'name':name,
-  //         'email': email,
-  //         'password': password,
-  //         'returnSecureToken': true},
-  //     ),
-  //   );
-  //
-  //   NetworkService networkService = NetworkService(
-  //     baseUrl: 'https://identitytoolkit.googleapis.com/v1/',
-  //     httpHeaders: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //       //'Authorization': 'Bearer ${SharedPrefService.getToken() ?? ''}',
-  //       'Language': Get.locale?.languageCode ?? 'en',
-  //     },
-  //   );
-  //   NetworkResponse response = await networkService.execute(
-  //     request,
-  //     LoginModel.fromJson, // <- Function to convert API response to your model
-  //   );
-  //   response.maybeWhen(
-  //       ok: (data) async{
-  //         registerModel = data;
-  //         await LocalStorage.saveUser(registerModel);
-  //         Get.log('data ==>'+registerModel.toString());
-  //         return registerModel;
-  //       },
-  //       noData: (info) {
-  //         return null;
-  //       },
-  //       orElse: () {});
-  //   return registerModel;
-  // }
-
-
 
   Future<LoginModel> registerUser({required name,required email,required password})async{
     LoginModel loginModel=LoginModel();

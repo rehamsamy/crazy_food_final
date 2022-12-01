@@ -1,6 +1,8 @@
+import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/cart_model.dart';
 import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
+import 'package:crazy_food/app/modules/product_details/view/product_details_screen.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -23,69 +25,77 @@ class CartItem extends GetView<CartController> {
       onDismissed: (_) {
         showAlertDialog(context);
       },
-      child: GetBuilder<CartController>(builder: (context) {
-        return Container(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppCashedImage(
-                    imageUrl: model?.imagePath ??
-                        'https://cdn.pixabay.com/photo/2020/05/17/04/22/pizza-5179939__340.jpg',
-                    fit: BoxFit.cover,
-                    width: 120,
-                    height: 120,
-                    radius: 15,
-                  ),
-                  Column(
-                    crossAxisAlignment:CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 120,
-                        child: AppText(
-                          model?.title ?? '',
-                          fontSize: 16,
-                          color: Colors.black,
-                          textOverflow: TextOverflow.ellipsis,
+      child: InkWell(
+        onTap: (){
+          // Get.off(()=>ProductDetailsScreen(),
+          //     binding: GetBinding(),
+          //     arguments: {'product_details':model,
+          //       'similarProducts':similarProducts});
+        },
+        child: GetBuilder<CartController>(builder: (context) {
+          return Container(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppCashedImage(
+                      imageUrl: model?.imagePath ??
+                          'https://cdn.pixabay.com/photo/2020/05/17/04/22/pizza-5179939__340.jpg',
+                      fit: BoxFit.cover,
+                      width: 120,
+                      height: 120,
+                      radius: 15,
+                    ),
+                    Column(
+                      crossAxisAlignment:CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 120,
+                          child: AppText(
+                            model?.title ?? '',
+                            fontSize: 16,
+                            color: Colors.black,
+                            textOverflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: AppText(
-                          (model?.caleories).toString(),
-                          fontSize: 10,
-                          color: Colors.grey.shade400,
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: AppText(
+                            (model?.caleories).toString(),
+                            fontSize: 10,
+                            color: Colors.grey.shade400,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: AppText(
-                          (model?.price).toString(),
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  getIncrementWidget(
-                      double.parse((model?.price).toString()), index),
-                ],
-              ),
-              Divider(
-                color: Colors.grey,
-              )
-            ],
-          ),
-        );
-      }),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: AppText(
+                            (model?.price).toString(),
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    getIncrementWidget(
+                        double.parse((model?.price).toString()), index),
+                  ],
+                ),
+                Divider(
+                  color: Colors.grey,
+                )
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 

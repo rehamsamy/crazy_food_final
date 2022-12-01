@@ -30,7 +30,7 @@ Map<String, String> en = {
   'level':'Level',
   'next':'Next',
   'order_message':'Order any food from app to get the discount',
-  'order_now':'Order Now',
+  'order_now':'Order Now -->',
   'order':'Order',
   'reviews':'Reviews',
   'details':'Details',
@@ -71,6 +71,7 @@ Map<String, String> en = {
   'current_location':'Current Location:',
   'add_address':'Add Address',
   'cart_empty':'Cart is empty!!',
-  'create_order_sucess':'Order created successfully'
+  'create_order_sucess':'Order created successfully',
+'order_message':'Order any food from app and get the discount'
 
 };
