@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/core/values/localization/translation.dart';
+import 'package:crazy_food/app/data/models/login_model.dart';
 import 'package:crazy_food/app/data/storage/local_storage.dart';
 import 'package:crazy_food/app/modules/auth/login/view/login_screen.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/notification/view/notification_screen.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:crazy_food/app/views/network_error.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -27,13 +30,17 @@ class CrazyApp extends StatefulWidget {
 class _CrazyAppState extends State<CrazyApp> {
 
   bool _backViewOn = true;
+  LoginModel? model;
+
+
   @override
   Widget build(BuildContext context) {
-    WidgetsFlutterBinding.ensureInitialized();
+      WidgetsFlutterBinding.ensureInitialized();
     Firebase.initializeApp();
     final navigatorKey=GlobalKey<NavigatorState>();
     return  MaterialApp(
        navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
       home: ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,
@@ -62,7 +69,8 @@ class _CrazyAppState extends State<CrazyApp> {
             theme: ThemeData(primarySwatch: Colors.green),
             home:MaterialApp(
               home:
-              LocalStorage.userModel!=null?HomeScreenView()
+              // LocalStorage.getUser!=null?HomeScreenView()
+             model!=null?HomeScreenView()
                   :
               LoginScreenView(),
             ),
@@ -82,6 +90,10 @@ class _CrazyAppState extends State<CrazyApp> {
 
   @override
   void initState() {
+    model=LoginModel.fromJson(jsonDecode(
+      LocalStorage.getString(LocalStorage.userModel) ?? '{}',
+    ));
+    Get.log('data   =>'+(model?.name).toString());
     Connectivity().onConnectivityChanged.listen((event) async{
   if(await InternetConnectionChecker().hasConnection){
     if(!_backViewOn){

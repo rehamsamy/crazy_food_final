@@ -17,7 +17,7 @@ class OrderItem extends GetView<OrderController> {
   Widget build(BuildContext context) {
     Get.log('cccc '+(model.address).toString());
     return InkWell(
-       onTap: ()=>Get.to(()=>OrdersDetailsScreen()),
+       onTap: ()=>Get.to(()=>OrdersDetailsScreen(model)),
       child: Container(
         padding: EdgeInsets.all(4),
         margin: EdgeInsets.all(8),

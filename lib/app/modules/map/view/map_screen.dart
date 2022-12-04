@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:crazy_food/app/data/models/order_model.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
@@ -13,20 +14,21 @@ import 'package:flutter_geocoder/geocoder.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
-
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MapScreen> {
   GoogleMapController? mapController=null;
-List<Address>? addressInfo;
+  List<Address>? addressInfo;
   LatLng _center = const LatLng(45.521563, -122.677433);
+  Map map=Get.arguments;
 
   // ignore: deprecated_member_use
   List<LatLng> latlngSegment1 = [];
   Map<MarkerId, Marker> markers = {};
    Set<Marker> _markers = {};
+   OrderModel ? orderModel;
 
 
   Location currentLocation = Location();
@@ -40,12 +42,11 @@ List<Address>? addressInfo;
   }
 
 
-
-
-  void getLocation() async {
+  void getLocation(OrderModel? orderModel) async {
     currentLocation.onLocationChanged.listen((LocationData loc) async {
       mapController?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
-        target: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
+        // target: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
+        target: LatLng(orderModel?.latitude ?? 0.0, orderModel?.longitude ?? 0.0),
         zoom: 12.0,
       )));
 
@@ -105,8 +106,9 @@ List<Address>? addressInfo;
   @override
   void initState() {
     super.initState();
+    orderModel=map['order_details'];
     setState(() {
-      getLocation();
+      getLocation(orderModel);
     });
   }
 
@@ -250,7 +252,7 @@ List<Address>? addressInfo;
                           children: [
                              AppCashedImage(
                               imageUrl:
-                              'https://knoww.cc/wp-content/uploads/2018/06/2718.jpg',
+                              orderModel?.products?[0].productImage?? 'https://knoww.cc/wp-content/uploads/2018/06/2718.jpg',
                               radius: 20,
                               width: 100,
                               height: 70,
@@ -261,15 +263,15 @@ List<Address>? addressInfo;
                             Column(
                               children: [
                                 AppText(
-                                  'straberrey',
+                                  orderModel?.products?[0].productName?? 'straberrey',
                                   fontSize: 18,
                                 ),
                                 AppText(
-                                  '1.5 kg ',
+                               '1.5 kg ',
                                   fontSize: 13,
                                 ),
                                 AppText(
-                                  '150.0 (paid)',
+                                  '${  orderModel?.totalAmount} (paid)',
                                   color: kPrimaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),

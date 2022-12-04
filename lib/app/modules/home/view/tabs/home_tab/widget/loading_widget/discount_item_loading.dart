@@ -33,13 +33,13 @@ DiscountItemLoading(this.index);
                 ),
               ),
           SizedBox(width: 5,),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: MyShimmerEffectUI.rectangular(
-              height: CategoryItem.height - 70,
-              // width: Get.width*20,
-            ),
-          ),
+          // ClipRRect(
+          //   borderRadius: BorderRadius.circular(12),
+          //   child: MyShimmerEffectUI.rectangular(
+          //     height: CategoryItem.height - 70,
+          //     // width: Get.width*20,
+          //   ),
+          // ),
           SizedBox(width: 5,),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

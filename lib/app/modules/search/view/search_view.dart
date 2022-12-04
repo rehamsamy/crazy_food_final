@@ -21,78 +21,80 @@ class SearchScreen extends GetView<SearchController>{
   SearchScreen();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: GetBuilder<SearchController>(
-          builder:(_)=> Container(
-            decoration: kContainerDecoraction,
-            width: Get.width,
-            height: Get.height,
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                   SizedBox(height: 40,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        onPressed:()=>Get.offAll(()=>HomeScreenView()),
-                        icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
-                      ),
-                      AppText('search'.tr,color: Colors.white,fontSize: 18,),
-                      SizedBox()
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: InkWell(
-                        onTap: () {
-                          FocusScopeNode currentFocus = FocusScope.of(context);
-                          if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-                            currentFocus.focusedChild?.unfocus();
-                          }
-
-                      } ,
-                      child: CustomTextFormField(
-                        hintText: 'search'.tr,
-                        controller: controller.searchController,
-                        keyboardType: TextInputType.text,
-                        prefixIcon: Icons.search,
-                        prefixIconColor: Colors.grey,
-                        radius: 15,
-                        horizontalPadding: 0,
-                        onChanged: (val) {
-                          Get.log('text val  ==>'+val);
-                          controller.onSearchTextChanged(val);
-                        },
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: Get.height,
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                      color: Colors.grey.shade50,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 18.0),
-                    child: Card(
-                        elevation: 8,
-                        color: Colors.white,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+    return MaterialApp(
+      home: Scaffold(
+          body: GetBuilder<SearchController>(
+            builder:(_)=> Container(
+              decoration: kContainerDecoraction,
+              width: Get.width,
+              height: Get.height,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                     SizedBox(height: 40,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          onPressed:()=>Get.offAll(()=>HomeScreenView()),
+                          icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                         ),
-                        child:getSearchListBuilder()
+                        AppText('search'.tr,color: Colors.white,fontSize: 18,),
+                        SizedBox()
+                      ],
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: InkWell(
+                          onTap: () {
+                            FocusScopeNode currentFocus = FocusScope.of(context);
+                            if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                              currentFocus.focusedChild?.unfocus();
+                            }
+
+                        } ,
+                        child: CustomTextFormField(
+                          hintText: 'search'.tr,
+                          controller: controller.searchController,
+                          keyboardType: TextInputType.text,
+                          prefixIcon: Icons.search,
+                          prefixIconColor: Colors.grey,
+                          radius: 15,
+                          horizontalPadding: 0,
+                          onChanged: (val) {
+                            Get.log('text val  ==>'+val);
+                            controller.onSearchTextChanged(val);
+                          },
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: Get.height,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        color: Colors.grey.shade50,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 18.0),
+                      child: Card(
+                          elevation: 8,
+                          color: Colors.white,
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child:getSearchListBuilder()
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-        ),
 
+      ),
     );
   }
 

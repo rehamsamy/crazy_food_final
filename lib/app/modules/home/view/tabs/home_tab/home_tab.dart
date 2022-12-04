@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/models/login_model.dart';
@@ -10,6 +13,7 @@ import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_wi
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/discount_item.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/popular_item_loading.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/popular_item.dart';
+import 'package:crazy_food/app/modules/popular/view/popular_screen.dart';
 import 'package:crazy_food/app/modules/search/view/search_view.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -29,13 +33,15 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   var searchController = TextEditingController();
 
-  List<ProductModel> ? allProducts;
-  LoginModel ?model;
+  List<ProductModel>? allProducts;
+  LoginModel? model;
 
   @override
   void initState() {
-    model = LocalStorage.getUser;
-    Get.log('dataa ' + (model?.name ?? '').toString());
+  model=  LoginModel.fromJson(jsonDecode(
+      LocalStorage.getString(LocalStorage.userModel) ?? '{}',
+    ));
+     Get.log('dataa ' + (model?.expiresIn ?? '').toString());
   }
 
   @override
@@ -66,7 +72,7 @@ class _HomeTabState extends State<HomeTab> {
                         prefixIconColor: Colors.grey,
                         radius: 15,
                         horizontalPadding: 0,
-                        onChanged: (val){
+                        onChanged: (val) {
                           Get.off(() => SearchScreen());
                         },
                         // onChanged: ()=>,
@@ -115,7 +121,7 @@ class _HomeTabState extends State<HomeTab> {
                       SizedBox(
                         height: 15,
                       ),
-                     getDiscountList(),
+                      getDiscountList(),
                       SizedBox(
                         height: 15,
                       ),
@@ -134,9 +140,13 @@ class _HomeTabState extends State<HomeTab> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
-                              trailing: AppText(
-                                'see_all'.tr,
-                                color: kPrimaryColor,
+                              trailing: InkWell(
+                                onTap: () => Get.to(() => PopularScreen(),
+                                    binding: GetBinding()),
+                                child: AppText(
+                                  'see_all'.tr,
+                                  color: kPrimaryColor,
+                                ),
                               ),
                             ),
                             getPopularList()
@@ -168,7 +178,7 @@ class _HomeTabState extends State<HomeTab> {
         borderWidth: 2,
       ),
       title: AppText(
-        model?.name??'user_name',
+        model?.name ?? 'user_name',
         color: Colors.white,
       ),
       subtitle: AppText(
@@ -215,9 +225,12 @@ class _HomeTabState extends State<HomeTab> {
                     itemCount: categories.length),
               );
             } else if (categories.isEmpty) {
-              return Center(
-                child: AppText('no_cat_found'.tr),
-              );
+              return Container(
+                  padding: EdgeInsets.all(5),
+                  height: CategoryItem.height,
+                  child: Center(
+                    child: AppText('no_cat_found'.tr),
+                  ));
             } else {
               return SizedBox();
             }
@@ -296,46 +309,45 @@ class _HomeTabState extends State<HomeTab> {
         builder: (_, snap) {
           if (snap.hasData) {
             List<ProductModel> prods = snap.data as List<ProductModel>;
-             List<ProductModel> discountList = [];
+            List<ProductModel> discountList = [];
             if (prods.isNotEmpty) {
               prods.map((e) {
                 if ((e.discount ?? 0.0) > 4) {
                   discountList.add(e);
                 }
               }).toList();
-           List<ProductModel>  discountOrderList= selectionAsecSortFilter(discountList);
+              List<ProductModel> discountOrderList =
+                  selectionAsecSortFilter(discountList);
               return Container(
-                height: DiscountItem.height,
-                child:
-                CarouselSlider.builder(
-                  itemBuilder: (_,index,index1){
-                    return DiscountItem(index, discountOrderList[index]);
-                  },
-                    itemCount: discountOrderList.length,
-                    options: CarouselOptions(
-                       height: 400,
-                      aspectRatio: 16/12,
-                      viewportFraction: 0.9,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 3),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      onPageChanged:(_,x){},
-                      scrollDirection: Axis.horizontal,
-                    )
-                )
-                // child: ListView.builder(
-                //     scrollDirection: Axis.horizontal,
-                //     itemCount: discountOrderList.length,
-                //     itemBuilder: (_, index) {
-                //       // return DiscountItemLoading(index);
-                //       return DiscountItem(index,discountOrderList[index]);
-                //     }),
-              );
+                  height: DiscountItem.height,
+                  child: CarouselSlider.builder(
+                      itemBuilder: (_, index, index1) {
+                        return DiscountItem(index, discountOrderList[index]);
+                      },
+                      itemCount: discountOrderList.length,
+                      options: CarouselOptions(
+                        height: 400,
+                        aspectRatio: 16 / 12,
+                        viewportFraction: 0.9,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        reverse: false,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 3),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        onPageChanged: (_, x) {},
+                        scrollDirection: Axis.horizontal,
+                      ))
+                  // child: ListView.builder(
+                  //     scrollDirection: Axis.horizontal,
+                  //     itemCount: discountOrderList.length,
+                  //     itemBuilder: (_, index) {
+                  //       // return DiscountItemLoading(index);
+                  //       return DiscountItem(index,discountOrderList[index]);
+                  //     }),
+                  );
             } else if (discountList.isEmpty) {
               return Container(
                 height: 150,
@@ -363,13 +375,12 @@ class _HomeTabState extends State<HomeTab> {
         });
   }
 
-  List<ProductModel> selectionAsecSortFilter(List<ProductModel> prodss){
-    List<ProductModel> prods=prodss ;
+  List<ProductModel> selectionAsecSortFilter(List<ProductModel> prodss) {
+    List<ProductModel> prods = prodss;
     for (var i = 0; i < prods.length - 1; i++) {
       var index_min = i;
       for (var j = i + 1; j < prods.length; j++) {
-        if ((prods[j].discount)! <
-            (prods[index_min].discount??0)) {
+        if ((prods[j].discount)! < (prods[index_min].discount ?? 0)) {
           index_min = j;
         }
       }
@@ -383,5 +394,3 @@ class _HomeTabState extends State<HomeTab> {
     return prods;
   }
 }
-
-

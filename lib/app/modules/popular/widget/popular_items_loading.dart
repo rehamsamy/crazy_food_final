@@ -19,7 +19,6 @@ class CategoryItemsLoading extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             child: MyShimmerEffectUI.rectangular(
               height: CategoryItemsItem.height - 80,
-              width: Get.width,
             ),
           ),
           SizedBox(height: 7),

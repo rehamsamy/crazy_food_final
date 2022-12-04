@@ -24,16 +24,19 @@ class LocalStorage {
 
   static bool isLoggedIn = getBool(loginKey);
 
-  static LoginModel? getUser = getString(userModel) == null
-      ? null
-      : LoginModel.fromJson(jsonDecode(
+  static LoginModel? getUser = getString(userModel) != null
+      ? LoginModel.fromJson(jsonDecode(
           getString(userModel) ?? '{}',
-        ));
+        ))
+      : null;
 
   static Future<void> saveUser(LoginModel model) async {
     await setBool(loginKey, true);
     await setString(userModel, jsonEncode(model.toJson()));
-    Get.log('user ${model.name} saved to local storage');
+    await setString('model', jsonEncode(model.toJson()));
+    await setString('name', model.name??'');
+    await setString('name', model.name??'');
+    Get.log('user ${ getString(userModel).toString()} saved to local storage');
   }
 
   /// ===========================================================
