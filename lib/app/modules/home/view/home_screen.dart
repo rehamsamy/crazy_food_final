@@ -2,6 +2,7 @@ import 'package:crazy_food/app/modules/cart/view/cart_view.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/home_tab.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/more_tab.dart';
+import 'package:crazy_food/app/modules/more_tab/view/more_tab.dart';
 import 'package:crazy_food/app/modules/offers_tab/view/offers_tab.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
@@ -29,7 +30,7 @@ class HomeScreenView extends GetView<HomeController> {
                 OrdersScreen(),
                 // CartScreen(fabFlag:'no'),
                 OffersTab(),
-                MoreTab()
+                MoreTabScreen()
               ],
             ),
           ),

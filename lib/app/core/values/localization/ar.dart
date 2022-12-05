@@ -72,6 +72,9 @@ Map<String, String> ar = {
   'add_address':'اضافه العنوان',
   'cart_empty':'!السلة فارغة',
   'create_order_sucess':'تم ارسال الطلب بنجاح',
-  'order_message':'اطلب ماتحتاجه من التطبيق واحصل علي الخصم'
+  'order_message':'اطلب ماتحتاجه من التطبيق واحصل علي الخصم',
+  'change_password':'تغيير كلمة المرور',
+  'change_lang':'تغيير اللغة',
+  'account_info':'البيانات الشخصية'
 
 };

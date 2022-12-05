@@ -1,9 +1,11 @@
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/cart_model.dart';
 import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
+import 'package:crazy_food/app/modules/cart/view/cart_view.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/product_details/view/product_details_screen.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
+import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
@@ -17,84 +19,92 @@ class CartItem extends GetView<CartController> {
   CartModel? model;
   Map<String,CartModel> _cartsList={};
   CartItem(this.model, this.index,this._cartsList);
-
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ValueKey<int>(1),
-      onDismissed: (_) {
-        showAlertDialog(context);
-      },
-      child: InkWell(
-        onTap: (){
-          // Get.off(()=>ProductDetailsScreen(),
-          //     binding: GetBinding(),
-          //     arguments: {'product_details':model,
-          //       'similarProducts':similarProducts});
+    return GetBuilder<CartController>(
+      builder: (_)=> Dismissible(
+        key: Key(model?.id??''),
+        direction: DismissDirection.startToEnd,
+        background: Container(
+          margin: EdgeInsets.all(15),
+          height: 20,
+          color: kPurpleColor,
+          child: Text('delete'.tr),
+        ),
+        onDismissed: (_) {
+          showAlertDialog(context);
         },
-        child: GetBuilder<CartController>(builder: (context) {
-          return Container(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppCashedImage(
-                      imageUrl: model?.imagePath ??
-                          'https://cdn.pixabay.com/photo/2020/05/17/04/22/pizza-5179939__340.jpg',
-                      fit: BoxFit.cover,
-                      width: 120,
-                      height: 120,
-                      radius: 15,
-                    ),
-                    Column(
-                      crossAxisAlignment:CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 120,
-                          child: AppText(
-                            model?.title ?? '',
-                            fontSize: 16,
-                            color: Colors.black,
-                            textOverflow: TextOverflow.ellipsis,
+        child: InkWell(
+          onTap: (){
+            // Get.off(()=>ProductDetailsScreen(),
+            //     binding: GetBinding(),
+            //     arguments: {'product_details':model,
+            //       'similarProducts':similarProducts});
+          },
+          child: GetBuilder<CartController>(builder: (context) {
+            return Container(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppCashedImage(
+                        imageUrl: model?.imagePath ??
+                            'https://cdn.pixabay.com/photo/2020/05/17/04/22/pizza-5179939__340.jpg',
+                        fit: BoxFit.cover,
+                        width: 120,
+                        height: 120,
+                        radius: 15,
+                      ),
+                      Column(
+                        crossAxisAlignment:CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 120,
+                            child: AppText(
+                              model?.title ?? '',
+                              fontSize: 16,
+                              color: Colors.black,
+                              textOverflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: AppText(
-                            (model?.caleories).toString(),
-                            fontSize: 10,
-                            color: Colors.grey.shade400,
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: AppText(
+                              (model?.caleories).toString(),
+                              fontSize: 10,
+                              color: Colors.grey.shade400,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: AppText(
-                            (model?.price).toString(),
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                          SizedBox(
+                            height: 10,
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    getIncrementWidget(
-                        double.parse((model?.price).toString()), index),
-                  ],
-                ),
-                Divider(
-                  color: Colors.grey,
-                )
-              ],
-            ),
-          );
-        }),
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: AppText(
+                              (model?.price).toString(),
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      getIncrementWidget(
+                          double.parse((model?.price).toString()), index),
+                    ],
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                  )
+                ],
+              ),
+            );
+          }),
+        ),
       ),
     );
   }
@@ -158,6 +168,7 @@ class CartItem extends GetView<CartController> {
     );
   }
 
+
   void showAlertDialog(BuildContext context) {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
@@ -171,22 +182,54 @@ class CartItem extends GetView<CartController> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            AppElevatedButton(
-              text: 'delete'.tr,
-              onPressed: () {},
-              fontSize: 18,
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: AppProgressButton(
+                  height: 40,
+                  // width: Get.width,
+                  textColor: Colors.white,
+                  backgroundColor: kPrimaryColor,
+                  text: 'delete'.tr,
+                  onPressed: (val) {
+                    val.forward();
+                    Future.delayed(Duration(seconds: 5)).then((value) => val.reverse());
+                    controller.removeCartItem(index);
+                    if (_cartsList.values.toList().contains(model?.id??'')) {
+                      controller.removeCartItem(index);
+                      controller.update();
+                      val.reverse();
+                      Get.log('remove item  ===>');
+                    }
+                    //
+                    // Get.offAll(()=>CartScreen(),binding: GetBinding());
+                  },
+                  fontSize: 18,
+                ),
+              ),
             ),
-            AppElevatedButton(
-                text: 'cancel'.tr,
-                fontSize: 18,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                }),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: AppProgressButton(
+                    height: 40,
+                    width: 50,
+                    text: 'cancel'.tr,
+                    textColor: Colors.white,
+                    backgroundColor: kPrimaryColor,
+                    fontSize: 18,
+                    onPressed: (val) {
+                      val.forward();
+                      Future.delayed(Duration(seconds: 5));
+                      val.reverse();
+                      Navigator.of(context).pop();
+                    }),
+              ),
+            ),
           ],
         )
       ],
     );
-
     // show the dialog
     showDialog(
       context: context,
@@ -195,4 +238,7 @@ class CartItem extends GetView<CartController> {
       },
     );
   }
+
 }
+
+

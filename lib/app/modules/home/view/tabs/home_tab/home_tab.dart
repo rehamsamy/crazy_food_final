@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/data/models/category_model.dart';
@@ -38,10 +37,10 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   void initState() {
-  model=  LoginModel.fromJson(jsonDecode(
+    model = LoginModel.fromJson(jsonDecode(
       LocalStorage.getString(LocalStorage.userModel) ?? '{}',
     ));
-     Get.log('dataa ' + (model?.expiresIn ?? '').toString());
+    Get.log('dataa ' + (model?.expiresIn ?? '').toString());
   }
 
   @override

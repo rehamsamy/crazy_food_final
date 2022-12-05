@@ -98,4 +98,10 @@ class CartController extends GetxController {
    totalCartPrice=sum;
     update();
   }
+
+  removeCartItem(int index){
+    _cartsList.values.toList().removeAt(index);
+    update();
+  }
+
 }

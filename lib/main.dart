@@ -5,8 +5,7 @@ import 'package:crazy_food/app/data/models/login_model.dart';
 import 'package:crazy_food/app/data/storage/local_storage.dart';
 import 'package:crazy_food/app/modules/auth/login/view/login_screen.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
-import 'package:crazy_food/app/modules/notification/view/notification_screen.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:crazy_food/app/modules/more_tab/view/more_tab.dart';
 import 'package:crazy_food/app/views/network_error.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -31,8 +30,6 @@ class _CrazyAppState extends State<CrazyApp> {
 
   bool _backViewOn = true;
   LoginModel? model;
-
-
   @override
   Widget build(BuildContext context) {
       WidgetsFlutterBinding.ensureInitialized();
@@ -61,15 +58,14 @@ class _CrazyAppState extends State<CrazyApp> {
             transitionDuration: const Duration(milliseconds: 500),
             translations: Translation(),
             initialBinding: GetBinding(),
-           //  locale: LocalStorage.isAr
-           //      ? const Locale('ar')
-           //      : const Locale('en'),
+            locale: LocalStorage.isAr
+                ? const Locale('ar')
+                : const Locale('en'),
             fallbackLocale: const Locale('en'),
             title: 'Crazy Food',
             theme: ThemeData(primarySwatch: Colors.green),
             home:MaterialApp(
               home:
-              // LocalStorage.getUser!=null?HomeScreenView()
              model!=null?HomeScreenView()
                   :
               LoginScreenView(),
@@ -87,7 +83,6 @@ class _CrazyAppState extends State<CrazyApp> {
       ),
     );
   }
-
   @override
   void initState() {
     model=LoginModel.fromJson(jsonDecode(
@@ -108,10 +103,6 @@ class _CrazyAppState extends State<CrazyApp> {
   }
     });
   }
-
-
-
-
 }
 
 

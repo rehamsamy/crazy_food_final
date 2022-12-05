@@ -72,6 +72,9 @@ Map<String, String> en = {
   'add_address':'Add Address',
   'cart_empty':'Cart is empty!!',
   'create_order_sucess':'Order created successfully',
-'order_message':'Order any food from app and get the discount'
+'order_message':'Order any food from app and get the discount',
+  'change_password':'Change Password',
+  'change_lang':'Change Language',
+  'account_info':'Account Information'
 
 };

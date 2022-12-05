@@ -22,6 +22,12 @@ class LocalStorage {
 
   static bool isAr = GetStorage().read(languageKey) == 'ar';
 
+  static Future<void> saveLocale(String langCode) async {
+    Get.log('lang  =>'+langCode);
+     await setString(languageKey, langCode);
+  }
+
+
   static bool isLoggedIn = getBool(loginKey);
 
   static LoginModel? getUser = getString(userModel) != null
@@ -69,4 +75,8 @@ class LocalStorage {
   static Future<void> signOut() async {
     await _box.erase();
   }
+
+
+
+
 }
