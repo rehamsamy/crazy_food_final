@@ -4,7 +4,7 @@ class ProductDetailsController extends GetxController{
 ProductModel ? productModel;
 bool  isDetailsSelected=true;
 Map map=Get.arguments;
-List<ProductModel> ?similarProducts;
+List<ProductModel> ?similarProducts=[];
 
 @override
   void onInit() {

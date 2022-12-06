@@ -16,7 +16,7 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
    ProductModel ? productModel;
    List<ProductModel> ?similarProducts;
 
-
+ProductDetailsController detailsController=Get.put(ProductDetailsController());
   @override
   Widget build(BuildContext context) {
       productModel=map['product_details'] as ProductModel;

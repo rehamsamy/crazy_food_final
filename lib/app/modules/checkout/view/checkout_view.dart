@@ -156,32 +156,32 @@ class CheckoutView extends GetView<CheckoutController> {
                             SizedBox(
                               height: 10,
                             ),
-                            AppProgressButton(
-                              onPressed: (animationController) async {
-                                animationController.forward();
-                                await Future.delayed(Duration(seconds: 2));
-                                animationController.reverse();
-                                if (addressList.isNotEmpty && paymentList.isNotEmpty) {
-                                   _showDialog(context);
-                                  ///??????????????????????
-                                  // addOrder(context);
+                            Material(
+                              child: AppProgressButton(
+                                onPressed: (animationController) async {
+                                  animationController.forward();
+                                  await Future.delayed(Duration(seconds: 2));
+                                  animationController.reverse();
+                                  if (addressList.isNotEmpty && paymentList.isNotEmpty) {
+                                     _showDialog(context);
+                                    ///??????????????????????
+                                    // addOrder(context);
+                                  } else {
+                                    Fluttertoast.showToast(
+                                      msg: "cart_empty".tr,
+                                      toastLength: Toast.LENGTH_LONG,
+                                      backgroundColor: kPrimaryColor,
+                                      textColor: Colors.white,
+                                      gravity: ToastGravity.CENTER,
+                                    );
+                                  }
+                                },
+                                text: ("checkout".tr),
+                                textColor: Colors.white,
+                                backgroundColor: kPrimaryColor,
+                                height: 40,
 
-
-                                } else {
-                                  Fluttertoast.showToast(
-                                    msg: "cart_empty".tr,
-                                    toastLength: Toast.LENGTH_LONG,
-                                    backgroundColor: kPrimaryColor,
-                                    textColor: Colors.white,
-                                    gravity: ToastGravity.CENTER,
-                                  );
-                                }
-                              },
-                              text: ("checkout".tr),
-                              textColor: Colors.white,
-                              backgroundColor: kPrimaryColor,
-                              height: 40,
-
+                              ),
                             ),
                               // checkOrderButton(context)
                           ],
@@ -329,113 +329,115 @@ class CheckoutView extends GetView<CheckoutController> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          width: 200,
-          height: 100,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20)
-          ),
-          margin: EdgeInsets.symmetric(vertical: 100,horizontal: 20),
-          child: AlertDialog(
-            content: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    buildCircle(),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    buildCircle(),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    buildCircle()
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Image.asset(
-                  'assets/images/shopping-cart.png',
-                  width: 150,
-                  height: 150,
-                ),
-                AppText(
-                  'order_success'.tr,
-                  fontSize: 30,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                AppText(
-                  'order_success_data'.tr,
-                  fontSize: 15,
-                  color: Colors.grey,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                AppProgressButton(
-                  text: 'track_my_order'.tr,
-                  onPressed: (animationController) async {
-                    animationController.forward();
-                    await Future.delayed(Duration(seconds: 4));
-                    bool result = await AddOrdersApis().addOrder(
-                        carts: controller.cartProducts ?? [],
-                        total: controller.total ?? 0.0,
-                        address:
-                            addressList[controller.addressIndex].addressTitle ??
-                                '',
-                        payment: paymentList[controller.paymentIndex].type,
-                        latitude:
-                            addressList[controller.addressIndex].latitude ?? 0.0,
-                        longitude:
-                            addressList[controller.addressIndex].longitude ??
-                                0.0);
-                    if (result) {
-                      Navigator.of(context).pop();
-                      Get.offAll(() => OrdersScreen());
-                      Fluttertoast.showToast(
-                        msg: "create_order_sucess".tr,
-                        toastLength: Toast.LENGTH_LONG,
-                        backgroundColor: kPrimaryColor,
-                        textColor: Colors.white,
-                        gravity: ToastGravity.CENTER,
-                      );
-                    } else {
-                      Fluttertoast.showToast(
-                        msg: "general_error".tr,
-                        toastLength: Toast.LENGTH_LONG,
-                        backgroundColor: kPrimaryColor,
-                        textColor: Colors.white,
-                        gravity: ToastGravity.CENTER,
-                      );
-                    }
-
-                    // ????????????????
-                    ////   add order to firebase ///////
-                  },
-                  backgroundColor: kPrimaryColor,
-                  textColor: Colors.white,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                InkWell(
-                  child: AppText(
-                    'go_back'.tr,
-                    color: kPrimaryColor,
+        return Material(
+          child: Container(
+            width: 200,
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20)
+            ),
+            margin: EdgeInsets.symmetric(vertical: 100,horizontal: 20),
+            child: AlertDialog(
+              content: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      buildCircle(),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      buildCircle(),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      buildCircle()
+                    ],
                   ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Get.offAll(() => HomeScreenView());
-                  },
-                )
-              ],
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Image.asset(
+                    'assets/images/shopping-cart.png',
+                    width: 150,
+                    height: 150,
+                  ),
+                  AppText(
+                    'order_success'.tr,
+                    fontSize: 30,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  AppText(
+                    'order_success_data'.tr,
+                    fontSize: 15,
+                    color: Colors.grey,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  AppProgressButton(
+                    text: 'track_my_order'.tr,
+                    onPressed: (animationController) async {
+                      animationController.forward();
+                      await Future.delayed(Duration(seconds: 4));
+                      bool result = await AddOrdersApis().addOrder(
+                          carts: controller.cartProducts ?? [],
+                          total: controller.total ?? 0.0,
+                          address:
+                              addressList[controller.addressIndex].addressTitle ??
+                                  '',
+                          payment: paymentList[controller.paymentIndex].type,
+                          latitude:
+                              addressList[controller.addressIndex].latitude ?? 0.0,
+                          longitude:
+                              addressList[controller.addressIndex].longitude ??
+                                  0.0);
+                      if (result) {
+                        Navigator.of(context).pop();
+                        Get.offAll(() => OrdersScreen());
+                        Fluttertoast.showToast(
+                          msg: "create_order_sucess".tr,
+                          toastLength: Toast.LENGTH_LONG,
+                          backgroundColor: kPrimaryColor,
+                          textColor: Colors.white,
+                          gravity: ToastGravity.CENTER,
+                        );
+                      } else {
+                        Fluttertoast.showToast(
+                          msg: "general_error".tr,
+                          toastLength: Toast.LENGTH_LONG,
+                          backgroundColor: kPrimaryColor,
+                          textColor: Colors.white,
+                          gravity: ToastGravity.CENTER,
+                        );
+                      }
+
+                      // ????????????????
+                      ////   add order to firebase ///////
+                    },
+                    backgroundColor: kPrimaryColor,
+                    textColor: Colors.white,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    child: AppText(
+                      'go_back'.tr,
+                      color: kPrimaryColor,
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Get.offAll(() => HomeScreenView());
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         );

@@ -14,7 +14,7 @@ class DiscountItem extends StatelessWidget {
   ProductModel model;
   int index;
   CartController cartController=Get.find();
-  CategoryItemsController categoryItemsController=Get.find();
+  CategoryItemsController categoryItemsController=Get.put(CategoryItemsController());
   DiscountItem(this.index,this.model);
   @override
   Widget build(BuildContext context) {

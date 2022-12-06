@@ -6,6 +6,7 @@ import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/discount_i
 import 'package:crazy_food/app/modules/more_tab/controller/setting_controller.dart';
 import 'package:crazy_food/app/modules/offers_tab/view/widget/offer_item.dart';
 import 'package:crazy_food/app/modules/profile_data/view/profile_view.dart';
+import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:flutter/material.dart';
 import 'package:crazy_food/app/data/models/order_model.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
@@ -161,11 +162,10 @@ class MoreTabScreen extends GetView<SettingController> {
                           SizedBox(
                             width: cons.maxWidth * 0.8,
                             height: 40,
-                            child: RaisedButton(
-                              color: kAccentColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                              onPressed: () {
+                            child: AppProgressButton(
+                              backgroundColor: kPrimaryColor,
+                                  radius:5,
+                              onPressed: (val) {
                                 controller.onChangeLang('ar');
                               },
                               child: Container(
@@ -181,11 +181,10 @@ class MoreTabScreen extends GetView<SettingController> {
                           SizedBox(
                             height: 40,
                             width: cons.maxWidth * 0.8,
-                            child: RaisedButton(
-                              color: kPurpleColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                              onPressed: () {
+                            child: AppProgressButton(
+                              backgroundColor: kPrimaryColor,
+                                  radius: 5,
+                              onPressed: (val) {
                                 updateLanguage(locale[0]['locale']);
                                 controller.onChangeLang('en');
                               },
