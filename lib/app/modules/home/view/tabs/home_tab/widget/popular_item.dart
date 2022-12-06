@@ -16,8 +16,8 @@ class PopularItem extends StatelessWidget {
   Widget build(BuildContext context) {
      return  InkWell(
        onTap: (){
-         allProducts?.map((e) {
-           if(e.idType==1){
+         similarProducts?.map((e) {
+           if(e.idType==model.id){
              similarProducts?.add(e);
            }
          } ).toList();

@@ -257,7 +257,7 @@ class _HomeTabState extends State<HomeTab> {
                   popularList.add(e);
                 }
               }).toList();
-              ;;;
+
               return Container(
                 height: 150,
                 padding: EdgeInsets.only(bottom: 15, right: 15, left: 15),
