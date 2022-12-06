@@ -287,7 +287,8 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                 itemBuilder: (_, index) {
                   return InkWell(
                     onTap: (){
-                      Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
+                      Get.log('details tapped');
+                      Get.offAll(()=>ProductDetailsScreen(),binding: GetBinding(),
                           arguments: {'product_details':controller.similarProducts?[index],
                             'similarProducts':controller.similarProducts});
                     },

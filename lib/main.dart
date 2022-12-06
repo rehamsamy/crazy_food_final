@@ -85,10 +85,8 @@ class _CrazyAppState extends State<CrazyApp> {
   }
   @override
   void initState() {
-    model=LoginModel.fromJson(jsonDecode(
-      LocalStorage.getString(LocalStorage.userModel) ?? '{}',
-    ));
-    Get.log('data   =>'+(model?.name).toString());
+    model= LocalStorage.getUser;
+    Get.log('data   =>'+(model?.idToken).toString());
     Connectivity().onConnectivityChanged.listen((event) async{
   if(await InternetConnectionChecker().hasConnection){
     if(!_backViewOn){

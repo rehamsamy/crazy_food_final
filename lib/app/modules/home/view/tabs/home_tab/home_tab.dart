@@ -28,13 +28,10 @@ class HomeTab extends StatefulWidget {
   @override
   State<HomeTab> createState() => _HomeTabState();
 }
-
 class _HomeTabState extends State<HomeTab> {
   var searchController = TextEditingController();
-
   List<ProductModel>? allProducts;
   LoginModel? model;
-
   @override
   void initState() {
     model = LoginModel.fromJson(jsonDecode(
@@ -42,7 +39,6 @@ class _HomeTabState extends State<HomeTab> {
     ));
     Get.log('dataa ' + (model?.expiresIn ?? '').toString());
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,7 +158,6 @@ class _HomeTabState extends State<HomeTab> {
       ),
     );
   }
-
   profileWidget() {
     return ListTile(
       horizontalTitleGap: 10,
@@ -200,7 +195,6 @@ class _HomeTabState extends State<HomeTab> {
       ),
     );
   }
-
   getCategoryList() {
     return FutureBuilder(
         future: CategoryApis().categories(),
@@ -250,7 +244,6 @@ class _HomeTabState extends State<HomeTab> {
           }
         });
   }
-
   getPopularList() {
     return FutureBuilder(
         future: PopularApis().getPopular(),
@@ -264,7 +257,7 @@ class _HomeTabState extends State<HomeTab> {
                   popularList.add(e);
                 }
               }).toList();
-
+              ;;;
               return Container(
                 height: 150,
                 padding: EdgeInsets.only(bottom: 15, right: 15, left: 15),
@@ -301,7 +294,6 @@ class _HomeTabState extends State<HomeTab> {
           }
         });
   }
-
   getDiscountList() {
     return FutureBuilder(
         future: PopularApis().getPopular(),
@@ -373,7 +365,6 @@ class _HomeTabState extends State<HomeTab> {
           }
         });
   }
-
   List<ProductModel> selectionAsecSortFilter(List<ProductModel> prodss) {
     List<ProductModel> prods = prodss;
     for (var i = 0; i < prods.length - 1; i++) {

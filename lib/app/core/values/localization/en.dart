@@ -75,6 +75,12 @@ Map<String, String> en = {
 'order_message':'Order any food from app and get the discount',
   'change_password':'Change Password',
   'change_lang':'Change Language',
-  'account_info':'Account Information'
+  'account_info':'Account Information',
+  'old_password':'Old password',
+  'new_password':'New password',
+  'confirm_password':'Confirm password',
+  'change_password_success':'Change password successfully',
+  'change_profile_success':'Update profile data successfully',
+  'update_profile':'Update profile'
 
 };
