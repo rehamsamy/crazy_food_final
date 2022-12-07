@@ -3,7 +3,7 @@ import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 class CategoryItemsController extends GetxController{
-  CartController cartController=Get.find();
+  CartController cartController=Get.put(CartController());
   int index=0;
   List<bool>? isIncrementVisible;
   int itemIndex =-1;

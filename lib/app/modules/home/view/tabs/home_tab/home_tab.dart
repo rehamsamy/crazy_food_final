@@ -60,6 +60,9 @@ class _HomeTabState extends State<HomeTab> {
                     child: InkWell(
                       onTap: () => Get.off(() => SearchScreen()),
                       child: CustomTextFormField(
+                        onTapped: (){
+                          Get.off(() => SearchScreen());
+                        },
                         hintText: 'search'.tr,
                         controller: searchController,
                         keyboardType: TextInputType.text,

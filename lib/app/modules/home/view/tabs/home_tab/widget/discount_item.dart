@@ -13,7 +13,7 @@ class DiscountItem extends StatelessWidget {
   static double height=150;
   ProductModel model;
   int index;
-  CartController cartController=Get.find();
+  CartController cartController=Get.put(CartController());
   CategoryItemsController categoryItemsController=Get.put(CategoryItemsController());
   DiscountItem(this.index,this.model);
   @override
@@ -43,7 +43,8 @@ class DiscountItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText('${model.discount} % DISCOUNT',color: kPrimaryColor,fontWeight: FontWeight.bold,fontSize: 20,),
+                AppText('${model.discount} % DISCOUNT',color: kPrimaryColor
+                  ,fontWeight: FontWeight.bold,fontSize: 17,),
                 SizedBox(height: 10,),
                 SizedBox(width:150,child: AppText('order_message'.tr,fontSize: 15,maxLines: 2,textOverflow: TextOverflow.ellipsis,)),
                 SizedBox(height: 20,),
@@ -54,8 +55,8 @@ class DiscountItem extends StatelessWidget {
                   Get.log('price  =>'+(model.price).toString()+'   disc  '+(model.discount ??0).toString()+'  equal '+dis.toString());
                   cartController.addItemToCartScreen(model.id.toString(),dis,
                      model.nameAr??'',model.imagePath??'',model.caleories as int);
-                  categoryItemsController.cartCount=1+categoryItemsController.cartCount!;
-                  Get.off(()=>CartScreen(fabFlag:'yes'));
+                  categoryItemsController.cartCount=categoryItemsController.cartCount!+1;
+                  Get.to(()=>CartScreen(fabFlag:'yes'));
                 },)
               ],
             ),

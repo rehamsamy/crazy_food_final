@@ -11,6 +11,8 @@ import 'package:location/location.dart';
 import 'package:get/get.dart';
 import 'package:flutter_geocoder/geocoder.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -209,12 +211,22 @@ class _MyAppState extends State<MapScreen> {
                       SizedBox(
                         width: 30,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(color: kPrimaryColor, shape: BoxShape.circle),
-                        child: Icon(
-                          Icons.phone,
-                          color: Colors.white,
+                      InkWell(
+                        onTap: ()async{
+                          Uri phoneno = Uri.parse('tel:+97798345348734');
+                          if (await launchUrl(phoneno)) {
+                          //dialer opened
+                          }else{
+                          //dailer is not opened
+                          }
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(color: kPrimaryColor, shape: BoxShape.circle),
+                          child: Icon(
+                            Icons.phone,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],

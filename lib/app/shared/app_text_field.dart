@@ -29,6 +29,7 @@ class CustomTextFormField extends StatefulWidget {
   final double horizontalPadding;
   final double verticalPadding;
   final Function(String value)? onChanged;
+  final Function()? onTapped;
   final Function(String value)? onFieldSubmitted;
 
   const CustomTextFormField({
@@ -50,6 +51,7 @@ class CustomTextFormField extends StatefulWidget {
     this.textColor,
     this.enabled = true,
     this.onChanged,
+    this.onTapped,
     this.onFieldSubmitted,
     this.autoFillHints,
     this.suffixIcon,
@@ -84,6 +86,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       ),
       child: TextFormField(
        // obscureText: isSecure,
+        onTap:widget.onTapped ,
         style: TextStyle(
           fontSize: 12,
           fontFamily: 'Monaco',
@@ -172,6 +175,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             ),
           ),
         ),
+
       ),
     );
   }

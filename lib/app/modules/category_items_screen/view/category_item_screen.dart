@@ -105,7 +105,7 @@ class CategoryItemsScreen extends GetView<CategoryItemsController>{
                     {
                       // return CategoryItemsLoading();
                       // List<ProductModel> similarProds=products.map((e) => null).toList();
-                        return CategoryItemsItem(prods[index],prods,index);
+                        return CategoryItemsItem(prods[index],products,index);
                     },
                   itemCount: prods.length,),
               );

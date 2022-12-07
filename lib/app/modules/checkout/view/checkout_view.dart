@@ -22,7 +22,7 @@ import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CheckoutView extends GetView<CheckoutController> {
-  var controller = Get.find();
+  var controller = Get.put(CheckoutController());
   List<PaymentModel> paymentList = [];
   List<Address> addressList = [];
 

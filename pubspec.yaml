@@ -101,6 +101,7 @@ dev_dependencies:
   get_storage: ^2.0.3
   carousel_slider: ^4.1.1
   another_stepper: ^1.1.6
+  url_launcher: ^6.1.5
 
 
 # For information on the generic Dart part of this file, see the

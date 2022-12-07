@@ -17,7 +17,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 class SearchScreen extends GetView<SearchController>{
   CategoryItemModel ? _categoryItemModel;
-  SearchController controller=Get.find();
+  SearchController controller=Get.put(SearchController());
   SearchScreen();
   @override
   Widget build(BuildContext context) {
@@ -115,7 +115,8 @@ class SearchScreen extends GetView<SearchController>{
               itemBuilder: (_,index)
               {
                 // return CategoryItemsLoading();
-                // List<ProductModel> similarProds=products.map((e) => null).toList();
+                // List<ProductModel>? list=controller.allCategoryItemsList;
+                //  List<ProductModel> similarProds=list!.map((e) => e.idType==list[index].idType).cast<ProductModel>().toList();
                 return CategoryItemsItem(controller.searchList![index],controller.allCategoryItemsList,index);
               },
               itemCount:controller.searchList?.length,),

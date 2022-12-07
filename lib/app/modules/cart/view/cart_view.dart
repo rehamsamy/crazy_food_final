@@ -7,6 +7,7 @@ import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
+import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -37,7 +38,7 @@ class CartScreen extends GetView<CartController> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed:()=>Get.offAll(()=>HomeScreenView(),binding: GetBinding()),
+                        onPressed:()=>Get.to(()=>HomeScreenView(),binding: GetBinding()),
                         icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                       ),
                       AppText('cart'.tr,color: Colors.white,fontSize: 18,),
@@ -89,31 +90,39 @@ class CartScreen extends GetView<CartController> {
                                   child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            AppText('${'total'.tr}:${controller.totalCartPrice}',fontSize: 15,),
-                                            AppElevatedButton(
-                                              text: 'checkout'.tr,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w800,
-                                              backgroundColor: kPrimaryColor,
-                                              onPressed: (){
-                                                if(controller.cartItemMap.values.isEmpty){
-                                                  Fluttertoast.showToast(
-                                                      msg: "cart_empty".tr,
-                                                      toastLength: Toast.LENGTH_LONG,
-                                                      backgroundColor: kPrimaryColor,
-                                                      textColor: Colors.white,
-                                                      gravity: ToastGravity.CENTER,);
-                                                }else{
-                                                  double total=controller.totalCartPrice;
-                                                  Get.off(()=>CheckoutView(),arguments: {'total':total,'products':(controller.cartItemMap.values).toList() });
-                                                }
-                                                 },
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 20),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              AppText('${'total'.tr}:${controller.totalCartPrice}',fontSize: 15,),
+                                              AppProgressButton(
+                                                text: 'checkout'.tr,
+                                                fontSize: 15,
+                                                textColor: Colors.white,
+                                                width: 120,
+                                                height: 35,
+                                                backgroundColor: kPrimaryColor,
+                                                onPressed: (val){
+                                                  val.forward();
+                                                  if(controller.cartItemMap.values.isEmpty){
+                                                    Fluttertoast.showToast(
+                                                        msg: "cart_empty".tr,
+                                                        toastLength: Toast.LENGTH_LONG,
+                                                        backgroundColor: kPrimaryColor,
+                                                        textColor: Colors.white,
+                                                        gravity: ToastGravity.CENTER,);
+                                                  }else{
+                                                    double total=controller.totalCartPrice;
+                                                    Get.off(()=>CheckoutView(),arguments: {'total':total,'products':(controller.cartItemMap.values).toList() });
+                                                  }
+                                                  val.reverse();
+                                                   },
 
-                                            )
-                                          ],
+                                              ),
+                                               // SizedBox(),
+                                            ],
+                                          ),
                                         ),
                                       ]
                                   ),

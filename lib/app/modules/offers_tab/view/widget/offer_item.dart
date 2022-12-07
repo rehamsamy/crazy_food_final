@@ -16,7 +16,7 @@ class OfferItem extends StatelessWidget {
 
   OfferItem(this.index,this.model);
 
-  CartController cartController=Get.find();
+  CartController cartController=Get.put(CartController());
   CategoryItemsController categoryItemsController=Get.find();
 
   @override

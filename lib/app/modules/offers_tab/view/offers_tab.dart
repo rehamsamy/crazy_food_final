@@ -16,7 +16,7 @@ import 'package:get/get.dart';
 
 class OffersTab extends GetView<HomeController> {
   List<OrderModel> ordersList=[];
-  OrderController controller1=Get.find();
+  OrderController controller1=Get.put(OrderController());
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

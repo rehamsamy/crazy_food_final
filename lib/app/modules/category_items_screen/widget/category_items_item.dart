@@ -14,16 +14,22 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
   static double height = 230;
   ProductModel model;
   int ? index;
-  List<ProductModel> ?similarProducts;
+  List<ProductModel> ?allProducts;
+  List<ProductModel> ?similarProducts=[];
   int ?selectedIndex;
-  CategoryItemsItem(this.model,this.similarProducts,this.index);
+  CategoryItemsItem(this.model,this.allProducts,this.index);
   @override
-  Widget build(BuildContext context) {
+    Widget build(BuildContext context) {
+    allProducts!.map((e) {
+      if (e.idType==model.idType){
+        similarProducts!.add(e);
+        return e;
+      }
+    }).toList()  ;
     return GetBuilder<CategoryItemsController>(
       init: CategoryItemsController(),
       builder: (_) => InkWell(
         onTap: () {
-          Get.log('category details ==>'+(similarProducts?.length).toString());
           Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
               arguments: {'product_details':model,
                           'similarProducts':similarProducts});},

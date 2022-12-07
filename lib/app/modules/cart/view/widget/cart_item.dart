@@ -19,6 +19,7 @@ class CartItem extends GetView<CartController> {
   CartModel? model;
   Map<String,CartModel> _cartsList={};
   CartItem(this.model, this.index,this._cartsList);
+  CartController cartController=Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CartController>(
@@ -111,60 +112,65 @@ class CartItem extends GetView<CartController> {
 
   getIncrementWidget(double price, int index) {
     int selectedIndex = 0;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        IconButton(
-          onPressed: () {
-            // selectedIndex = index;
-            // Get.log('selectedIndex  =>' + selectedIndex.toString());
-            //   controller.changeCartSelectedIndex(index);
-              controller.changeItemQuantity('increment',model?.id??'');
-              controller.changeTotalCartPrice();
-          },
-          icon: Icon(
-            Icons.add,
-            color: Colors.black,
-            size: 25,
-          ),
-          padding: EdgeInsets.all(5),
-          constraints: BoxConstraints(),
-        ),
-        SizedBox(
-          height: 7,
-        ),
-        Container(
-            width: 35,
-            height: 35,
-            decoration: BoxDecoration(
-                color: kPrimaryColor, borderRadius: BorderRadius.circular(10)),
-            child: Center(
-                child: AppText(
-             ( model?.quantity??0) < 10
-                  ? '0${( model?.quantity??0)}'
-                  : '${( model?.quantity??0)}',
-              color: Colors.white,
-              fontSize: 15,
-            ))),
-        SizedBox(
-          height: 5,
-        ),
-        IconButton(
-          onPressed: () {
-            selectedIndex = index;
-            controller.changeCartSelectedIndex(index);
-            controller.changeItemQuantity('decrement',model?.id??'');
-            controller.changeTotalCartPrice();
-          },
-          icon: Icon(
-            Icons.minimize,
-            color: Colors.black,
-            size: 25,
-          ),
-          padding: EdgeInsets.all(5),
-          constraints: BoxConstraints(),
-        ),
-      ],
+    return GetBuilder<CartController>(
+      builder: (context) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+              onPressed: () {
+                Get.log('cart  =>'+controller.cartItemMap.values.toString());
+                // selectedIndex = index;
+                // Get.log('selectedIndex  =>' + selectedIndex.toString());
+                // controller.changeCartSelectedIndex(index);
+                  controller.changeItemQuantity('increment',model?.id??'');
+                  controller.changeTotalCartPrice();
+              },
+              icon: Icon(
+                Icons.add,
+                color: Colors.black,
+                size: 25,
+              ),
+              padding: EdgeInsets.all(5),
+              constraints: BoxConstraints(),
+            ),
+            SizedBox(
+              height: 7,
+            ),
+            Container(
+                width: 35,
+                height: 35,
+                decoration: BoxDecoration(
+                    color: kPrimaryColor, borderRadius: BorderRadius.circular(10)),
+                child: Center(
+                    child: AppText(
+                 ( model?.quantity??0) < 10
+                      ? '0${( model?.quantity??0)}'
+                      : '${( model?.quantity??0)}',
+                  color: Colors.white,
+                  fontSize: 15,
+                ))),
+            SizedBox(
+              height: 5,
+            ),
+            IconButton(
+              onPressed: () {
+                selectedIndex = index;
+                controller.changeCartSelectedIndex(index);
+                controller.changeItemQuantity('decrement',model?.id??'');
+                controller.changeTotalCartPrice();
+              },
+              icon: Icon(
+                Icons.minimize,
+                color: Colors.black,
+                size: 25,
+              ),
+              padding: EdgeInsets.all(5),
+              constraints: BoxConstraints(),
+            ),
+          ],
+        );
+      }
     );
   }
 
