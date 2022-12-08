@@ -4,8 +4,10 @@ import 'package:crazy_food/app/data/models/login_error_model.dart';
 import 'package:crazy_food/app/data/models/login_model.dart';
 import 'package:crazy_food/app/data/storage/local_storage.dart';
 import 'package:crazy_food/app_constant.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:crazy_food/app/data/services/network_service.dart/dio_network_service.dart';
 
 
@@ -52,7 +54,6 @@ class AuthApis {
           'password': password,
           'returnSecureToken': true},
       ));
-
       if (x.statusCode == 200) {
         print('step1');
         var y = json.decode(x.body);
@@ -70,5 +71,49 @@ class AuthApis {
 
     }
     return loginModel;
+  }
+
+
+
+
+ Future<String ?> forgetPassword(String email) async {
+    String ?mess;
+    String url1 =
+        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=$kApiKey';
+    Map<String, dynamic> map_new = {
+      'email': email,
+      'requestType': 'PASSWORD_RESET'
+    };
+
+    try {
+      var response2 =
+      await http.post(Uri.parse(url1), body: json.encode(map_new));
+      if (response2.statusCode == 200) {
+        print(response2.body.toString());
+        mess=  response2.body.toString();
+        return mess;
+      } else if (response2.statusCode == 400){
+        mess=  response2.body.toString();
+        return mess;
+      }else{
+        Fluttertoast.showToast(
+            msg: 'Token is expired Please login again',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.yellow);
+      }
+    } catch (err) {
+      Fluttertoast.showToast(
+          msg: 'Token is expired Please login again',
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.yellow);
+
+    }
+    return mess;
   }
 }

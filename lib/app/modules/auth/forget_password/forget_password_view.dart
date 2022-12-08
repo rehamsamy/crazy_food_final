@@ -1,10 +1,66 @@
+import 'package:crazy_food/app/data/remote_data_source/auth_apis.dart';
+import 'package:crazy_food/app/modules/auth/login/view/login_screen.dart';
+import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
+import 'package:crazy_food/app/shared/app_text_field.dart';
+import 'package:crazy_food/app/shared/snack_bar.dart';
+import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 class ForgetPasswordView extends StatelessWidget {
-  const ForgetPasswordView({Key? key}) : super(key: key);
-
+  var emailController;
+  final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
+   ForgetPasswordView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container();
+    emailController=TextEditingController();
+    return Container(
+      height: 300,
+      child: Column(
+        children: [
+          SizedBox(height: 20,),
+          Form(
+            key:_formKey,child:
+          CustomTextFormField(
+            hintText: 'email'.tr,
+            keyboardType: TextInputType.emailAddress,
+            prefixIcon: Icons.email,
+            radius: 8,
+            horizontalPadding: 12,
+            controller: emailController,
+          ),
+          ),
+
+          SizedBox(height: 20,),
+          AppProgressButton(
+            width: 50,
+            height: 50,
+            radius: 100,
+            onPressed: (AnimationController animationController) async{
+              if(_formKey.currentState!.validate()){
+                animationController.forward();
+                await Future.delayed(Duration(seconds: 2));
+
+                  String  ? model=   await AuthApis().forgetPassword(
+                       emailController.text);
+
+                    Get.offAll(()=>LoginScreenView());
+                    Future.delayed(Duration.zero, () async {
+                      showSnackBar('login_success'.tr);
+                    });
+                    animationController.reverse();
+
+
+                // Get.offAll(()=>HomeScreenView());
+              }
+            },
+            child: Icon(
+              Icons.arrow_forward,
+              color: kPrimaryColor,
+              size: 30,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
