@@ -72,7 +72,7 @@ class Products {
     quantity = json['quantity'];
   }
   int? caleories;
-  int? price;
+  num? price;
   String? productId;
   String? productImage;
   String? productName;

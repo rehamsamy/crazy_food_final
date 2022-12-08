@@ -114,10 +114,8 @@ class AddOrdersApis {
         Map<String, dynamic> result =
             json.decode(response.body) as Map<String, dynamic>;
         result.forEach((key, value) async {
-          Get.log('orders data ==> step 1 ' + value.toString());
           OrderModel model = OrderModel.fromJson(value);
           Get.log('orders data ==> step 1 ' + model.toString());
-
           //   ---------  change order status ------------------------------
           Future.delayed(Duration(seconds: 10));
           await AddOrdersApis()
@@ -132,13 +130,11 @@ class AddOrdersApis {
                   status: 'processing')
               .then((value) async {
             String? token = await getToken();
+            Get.log('orders data ==> step 2 ' + model.toString());
             NotificationApis().sendPushMessage(
                 'Crazy Food', 'your order processed successfully', token ?? '');
           }).then((value) async {
-
-
             //   ---------  change order status  22 ------------------------------
-
             Future.delayed(Duration(minutes: 30));
             await AddOrdersApis()
                 .updateOrder(
@@ -152,17 +148,17 @@ class AddOrdersApis {
                     status: 'delivered')
                 .then((value) async {
               String? token = await getToken();
+              Get.log('orders data ==> step 3 ' + model.toString());
               NotificationApis().sendPushMessage('Crazy Food',
                   'your order processed successfully', token ?? '');
             });
           });
-          Get.log('error ' + key);
+          Get.log('error ==>>1' + key);
           ordersList?.add(model);
         });
-
         ordersList = await getFinalOrders();
       } else {
-        Get.log('error');
+        Get.log('error ==>>2');
       }
     } catch (err) {
       Get.log('error' + err.toString());

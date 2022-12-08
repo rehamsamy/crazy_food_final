@@ -129,7 +129,7 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
                 AddAddressApis()
                     .addAddress(finalAddress ?? '', finalLatitude ?? 0.0,
                         finalLongitude ?? 0.0)
-                    .then((value) => Get.off(() => CheckoutView(), ));
+                    .then((value) => Get.offAll(() => CheckoutView(), ));
                 widget._show = false;
                 setState(() {});
               },

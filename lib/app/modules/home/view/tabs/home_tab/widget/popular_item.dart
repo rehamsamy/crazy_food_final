@@ -27,7 +27,7 @@ class PopularItem extends StatelessWidget {
              arguments: {'product_details':model,
                'similarProducts':similarProducts});
 
-         Get.log('tabed  size 5 '+(similarProducts?.length).toString());
+         Get.log('tabed  size 5 '+(similarProducts.length).toString());
        },
        child: Padding(
          padding: const EdgeInsets.all(5.0),

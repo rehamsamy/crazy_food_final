@@ -5,7 +5,7 @@ import 'package:crazy_food/app/data/remote_data_source/add_address_api.dart';
 import 'package:crazy_food/app/data/remote_data_source/payment_apis.dart';
 import 'package:get/get.dart';
 class CheckoutController extends GetxController{
-  Map map=Get.arguments;
+  Map map=Get.arguments ??{};
   List<CartModel>? cartProducts;
 List<bool> ? paymentTypeSelected;
 List<PaymentModel>? paymentList;
