@@ -50,7 +50,7 @@ class DiscountItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(
-                  '${model.discount} % DISCOUNT',
+                  '${model.discount} % ${'discount'.tr}',
                   color: kPrimaryColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 17,
@@ -60,14 +60,18 @@ class DiscountItem extends StatelessWidget {
                 ),
                 SizedBox(
                     width: 150,
-                    child: AppText(
-                      'order_message'.tr,
-                      fontSize: 15,
-                      maxLines: 2,
-                      textOverflow: TextOverflow.ellipsis,
+                    height: 50,
+                    child: Align(
+                      alignment:AlignmentDirectional.topStart,
+                      child: AppText(
+                        'order_message'.tr,
+                        fontSize: 15,
+                        maxLines: 2,
+                        textOverflow: TextOverflow.ellipsis,
+                      ),
                     )),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 InkWell(
                   child: AppText('order_now'.tr,
