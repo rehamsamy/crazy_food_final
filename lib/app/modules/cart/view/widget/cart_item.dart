@@ -1,33 +1,30 @@
-import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/cart_model.dart';
 import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
-import 'package:crazy_food/app/modules/cart/view/cart_view.dart';
-import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
-import 'package:crazy_food/app/modules/product_details/view/product_details_screen.dart';
-import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class CartItem extends GetView<CartController> {
   static double height = 120;
   int index;
   CartModel? model;
-  Map<String,CartModel> _cartsList={};
-  CartItem(this.model, this.index,this._cartsList);
-  CartController cartController=Get.put(CartController());
+  Map<String, CartModel> _cartsList = {};
+
+  CartItem(this.model, this.index, this._cartsList);
+
+  CartController cartController = Get.put(CartController());
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CartController>(
-      builder: (_)=> Dismissible(
-        key: Key(model?.id??''),
+      builder: (_) => Dismissible(
+        key: model?.id != null ? Key(model!.id) : UniqueKey(),
         direction: DismissDirection.startToEnd,
         background: Container(
-          margin: EdgeInsets.all(15),
+          margin: const EdgeInsets.all(15),
           height: 20,
           color: kPurpleColor,
           child: Text('delete'.tr),
@@ -36,7 +33,7 @@ class CartItem extends GetView<CartController> {
           showAlertDialog(context);
         },
         child: InkWell(
-          onTap: (){
+          onTap: () {
             // Get.off(()=>ProductDetailsScreen(),
             //     binding: GetBinding(),
             //     arguments: {'product_details':model,
@@ -58,7 +55,7 @@ class CartItem extends GetView<CartController> {
                         radius: 15,
                       ),
                       Column(
-                        crossAxisAlignment:CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
                             width: 120,
@@ -77,7 +74,7 @@ class CartItem extends GetView<CartController> {
                               color: Colors.grey.shade400,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Padding(
@@ -91,14 +88,14 @@ class CartItem extends GetView<CartController> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       getIncrementWidget(
                           double.parse((model?.price).toString()), index),
                     ],
                   ),
-                  Divider(
+                  const Divider(
                     color: Colors.grey,
                   )
                 ],
@@ -112,68 +109,66 @@ class CartItem extends GetView<CartController> {
 
   getIncrementWidget(double price, int index) {
     int selectedIndex = 0;
-    return GetBuilder<CartController>(
-      builder: (context) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              onPressed: () {
-                Get.log('cart  =>'+controller.cartItemMap.values.toString());
-                // selectedIndex = index;
-                // Get.log('selectedIndex  =>' + selectedIndex.toString());
-                // controller.changeCartSelectedIndex(index);
-                  controller.changeItemQuantity('increment',model?.id??'');
-                  controller.changeTotalCartPrice();
-              },
-              icon: Icon(
-                Icons.add,
-                color: Colors.black,
-                size: 25,
-              ),
-              padding: EdgeInsets.all(5),
-              constraints: BoxConstraints(),
+    return GetBuilder<CartController>(builder: (context) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          IconButton(
+            onPressed: () {
+              Get.log('cart  =>' + controller.cartItemMap.values.toString());
+              // selectedIndex = index;
+              // Get.log('selectedIndex  =>' + selectedIndex.toString());
+              // controller.changeCartSelectedIndex(index);
+              controller.changeItemQuantity('increment', model?.id ?? '');
+              controller.changeTotalCartPrice();
+            },
+            icon: const Icon(
+              Icons.add,
+              color: Colors.black,
+              size: 25,
             ),
-            SizedBox(
-              height: 7,
+            padding: const EdgeInsets.all(5),
+            constraints: const BoxConstraints(),
+          ),
+          const SizedBox(
+            height: 7,
+          ),
+          Container(
+              width: 35,
+              height: 35,
+              decoration: BoxDecoration(
+                  color: kPrimaryColor,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Center(
+                  child: AppText(
+                (model?.quantity ?? 0) < 10
+                    ? '0${(model?.quantity ?? 0)}'
+                    : '${(model?.quantity ?? 0)}',
+                color: Colors.white,
+                fontSize: 15,
+              ))),
+          const SizedBox(
+            height: 5,
+          ),
+          IconButton(
+            onPressed: () {
+              selectedIndex = index;
+              controller.changeCartSelectedIndex(index);
+              controller.changeItemQuantity('decrement', model?.id ?? '');
+              controller.changeTotalCartPrice();
+            },
+            icon: const Icon(
+              Icons.minimize,
+              color: Colors.black,
+              size: 25,
             ),
-            Container(
-                width: 35,
-                height: 35,
-                decoration: BoxDecoration(
-                    color: kPrimaryColor, borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                    child: AppText(
-                 ( model?.quantity??0) < 10
-                      ? '0${( model?.quantity??0)}'
-                      : '${( model?.quantity??0)}',
-                  color: Colors.white,
-                  fontSize: 15,
-                ))),
-            SizedBox(
-              height: 5,
-            ),
-            IconButton(
-              onPressed: () {
-                selectedIndex = index;
-                controller.changeCartSelectedIndex(index);
-                controller.changeItemQuantity('decrement',model?.id??'');
-                controller.changeTotalCartPrice();
-              },
-              icon: Icon(
-                Icons.minimize,
-                color: Colors.black,
-                size: 25,
-              ),
-              padding: EdgeInsets.all(5),
-              constraints: BoxConstraints(),
-            ),
-          ],
-        );
-      }
-    );
+            padding: const EdgeInsets.all(5),
+            constraints: const BoxConstraints(),
+          ),
+        ],
+      );
+    });
   }
-
 
   void showAlertDialog(BuildContext context) {
     // set up the AlertDialog
@@ -190,7 +185,7 @@ class CartItem extends GetView<CartController> {
           children: [
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: AppProgressButton(
                   height: 40,
                   // width: Get.width,
@@ -199,9 +194,9 @@ class CartItem extends GetView<CartController> {
                   text: 'delete'.tr,
                   onPressed: (val) {
                     val.forward();
-                    Future.delayed(Duration(seconds: 5)).then((value) => val.reverse());
-                    controller.removeCartItem(index);
-                    if (_cartsList.values.toList().contains(model?.id??'')) {
+                    Future.delayed(const Duration(seconds: 5))
+                        .then((value) => val.reverse());
+                    if (_cartsList.values.toList().contains(model?.id ?? '')) {
                       controller.removeCartItem(index);
                       controller.update();
                       val.reverse();
@@ -216,7 +211,7 @@ class CartItem extends GetView<CartController> {
             ),
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: AppProgressButton(
                     height: 40,
                     width: 50,
@@ -226,7 +221,7 @@ class CartItem extends GetView<CartController> {
                     fontSize: 18,
                     onPressed: (val) {
                       val.forward();
-                      Future.delayed(Duration(seconds: 5));
+                      Future.delayed(const Duration(seconds: 5));
                       val.reverse();
                       Navigator.of(context).pop();
                     }),
@@ -244,7 +239,4 @@ class CartItem extends GetView<CartController> {
       },
     );
   }
-
 }
-
-

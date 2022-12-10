@@ -1,4 +1,3 @@
-import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app/shared/app_text_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +7,9 @@ class RegisterWidget extends StatelessWidget {
   var nameController, emailController, passwordController;
 
   RegisterWidget(
-      {required this.nameController,
+      {Key? key, required this.nameController,
       required this.passwordController,
-      required this.emailController});
+      required this.emailController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +46,10 @@ class RegisterWidget extends StatelessWidget {
             text: TextSpan(children: [
               TextSpan(
                   text: 'by_pressing_on'.tr,
-                  style: TextStyle(color: Colors.white)),
+                  style: const TextStyle(color: Colors.white)),
               TextSpan(
                   text: 'terms'.tr,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,

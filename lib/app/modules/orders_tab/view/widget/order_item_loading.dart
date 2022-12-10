@@ -27,22 +27,22 @@ class OrderItemLoading extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   MyShimmerEffectUI.rectangular(height: 12, width: Get.width *0.15,),
-                  SizedBox(height: 5,),
+                  const SizedBox(height: 5,),
                   MyShimmerEffectUI.rectangular(height: 12, width: Get.width *0.15,),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   MyShimmerEffectUI.rectangular(height: 32, width: Get.width *0.15,)
                 ],
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   MyShimmerEffectUI.rectangular(height: 12, width: Get.width *0.20,)
                 ],
               )
             ],
           ),
-          Divider(color: kPrimaryColor,)
+          const Divider(color: kPrimaryColor,)
         ],
       ),
     );

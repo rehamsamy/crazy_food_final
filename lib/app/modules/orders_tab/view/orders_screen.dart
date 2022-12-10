@@ -3,19 +3,19 @@ import 'package:crazy_food/app/data/models/order_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/add_orders_apis.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
-import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/discount_item_loading.dart';
 import 'package:crazy_food/app/modules/orders_tab/controller/order_controller.dart';
 import 'package:crazy_food/app/modules/orders_tab/view/widget/order_item.dart';
 import 'package:crazy_food/app/modules/orders_tab/view/widget/order_item_loading.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class OrdersScreen extends GetView<HomeController> {
   List<OrderModel> ordersList=[];
   OrderController controller1=Get.put(OrderController());
+
+  OrdersScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +32,7 @@ class OrdersScreen extends GetView<HomeController> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 40,
                             ),
                             Row(
@@ -41,13 +41,13 @@ class OrdersScreen extends GetView<HomeController> {
                                 IconButton(
                                   onPressed:()=>Get.offAll(()=>HomeScreenView(),
                                   binding: GetBinding()),
-                                  icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+                                  icon: const Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                                 ),
                                 AppText('orders_tab'.tr,color: Colors.white,fontSize: 18,),
-                                SizedBox()
+                                const SizedBox()
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Container(
@@ -55,7 +55,7 @@ class OrdersScreen extends GetView<HomeController> {
                               width: Get.width,
                               decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.vertical(top: Radius.circular(20)),
+                                    const BorderRadius.vertical(top: Radius.circular(20)),
                                 color: Colors.grey.shade50,
                               ),
                               padding: const EdgeInsets.symmetric(
@@ -87,14 +87,14 @@ class OrdersScreen extends GetView<HomeController> {
                                             Tab(
                                               text: '  ${'all_orders'.tr}  ',
                                             ),
-                                            Tab(text: 'pending.tr'),
-                                            Tab(text: 'processing.tr'),
-                                            Tab(text: 'delivery.tr'),
+                                            const Tab(text: 'pending.tr'),
+                                            const Tab(text: 'processing.tr'),
+                                            const Tab(text: 'delivery.tr'),
                                           ],
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 20,),
+                                    const SizedBox(height: 20,),
                                    getOrdersList()
                                   ],
                                 ),
@@ -126,9 +126,8 @@ class OrdersScreen extends GetView<HomeController> {
                     children: [
                       ListView.builder(
                         itemCount: ordersList.length,
-                          padding: EdgeInsets.all(0),itemBuilder: (_, index) {
+                          padding: const EdgeInsets.all(0),itemBuilder: (_, index) {
                            return OrderItem(ordersList[index]);
-                          return DiscountItemLoading(index);
                       }),
                       getPendingList('pending'),
                       getPendingList('processing'),
@@ -136,14 +135,14 @@ class OrdersScreen extends GetView<HomeController> {
                     ],
                   ));
             } else if (ordersList.isEmpty) {
-              return Container(
+              return SizedBox(
                 height: 150,
                 child: Center(
                   child: AppText('no_cat_found'.tr),
                 ),
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
             return Expanded(
@@ -151,11 +150,11 @@ class OrdersScreen extends GetView<HomeController> {
                   itemCount: 5,
                   itemBuilder: (_, index) {
                     // return DiscountItemLoading(index);
-                    return OrderItemLoading();
+                    return const OrderItemLoading();
                   }),
             );
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         });
   }
@@ -168,11 +167,11 @@ class OrdersScreen extends GetView<HomeController> {
       return
           ListView.builder(
               itemCount: newList.length,
-              padding: EdgeInsets.all(0),itemBuilder: (_, index) {
+              padding: const EdgeInsets.all(0),itemBuilder: (_, index) {
             return OrderItem(newList[index]);
           });
     }else{
-        return Container(
+        return SizedBox(
           height: 150,
           child: Center(
             child: AppText('no_cat_found'.tr),
@@ -182,10 +181,8 @@ class OrdersScreen extends GetView<HomeController> {
   }
 
   Future<void> handleOrdersType(List<OrderModel> ordersList) async {
-    DateTime dateTime;
-    List<OrderModel>newList=
     ordersList.where((element)  {
-      Get.log('date =>'+(element.dateTime).toString());
+      Get.log('date =>${element.dateTime}');
       if(true){
         // Future.delayed(Duration(seconds: 10)).then((value) {
         //   AddOrdersApis().updateOrder(
@@ -200,8 +197,6 @@ class OrdersScreen extends GetView<HomeController> {
         // });
 
         return true;
-      }else{
-        return false;
       }
     }).toList();
 

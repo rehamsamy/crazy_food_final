@@ -3,7 +3,6 @@ import 'package:crazy_food/app/data/models/order_model.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -21,20 +20,17 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MyAppState extends State<MapScreen> {
-  GoogleMapController? mapController=null;
+  GoogleMapController? mapController;
   List<Address>? addressInfo;
-  LatLng _center = const LatLng(45.521563, -122.677433);
+  final LatLng _center = const LatLng(45.521563, -122.677433);
   Map map=Get.arguments;
-
-  // ignore: deprecated_member_use
   List<LatLng> latlngSegment1 = [];
   Map<MarkerId, Marker> markers = {};
-   Set<Marker> _markers = {};
+   final Set<Marker> _markers = {};
    OrderModel ? orderModel;
 
 
   Location currentLocation = Location();
-  LatLng _lastMapPosition = const LatLng(45.521563, -122.677433);
   List<LatLng> latlng = [];
   late LocationData locationData;
 
@@ -46,37 +42,25 @@ class _MyAppState extends State<MapScreen> {
 
   void getLocation(OrderModel? orderModel) async {
     currentLocation.onLocationChanged.listen((LocationData loc) async {
-      mapController?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
-        // target: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
+      mapController?.animateCamera(CameraUpdate.newCameraPosition( CameraPosition(
         target: LatLng(orderModel?.latitude ?? 0.0, orderModel?.longitude ?? 0.0),
         zoom: 12.0,
       )));
 
       try {
-        final coordinates = new Coordinates(loc.latitude, loc.longitude);
+        final coordinates = Coordinates(loc.latitude, loc.longitude);
         List<Address> add =
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
-        Get.log('loc  ==> '+add[0].addressLine.toString());
-        // List<geo.Placemark> placemarks = await geo.placemarkFromCoordinates(
-        //   loc.latitude??0,
-        //   loc.longitude??0,
-        // );
-        // print('000 '+(placemarks[0].country).toString());
-
+        Get.log('loc  ==> ${add[0].addressLine}');
 
       }catch(err){
-        print('vvvv =>'+err.toString());
       }
-      // Get.log('location   =>'+location.
-      // locationData=loc;
-
-      print('vvvv '+loc.longitude.toString());
       if (mounted) {
 
         setState(() {
           _markers.add(
             Marker(
-                markerId: MarkerId('_center.toString()'),
+                markerId: const MarkerId('_center.toString()'),
                 position: LatLng(
                   loc.latitude ?? 0.0,
                   loc.longitude ?? 0.0,
@@ -84,23 +68,6 @@ class _MyAppState extends State<MapScreen> {
           );
         });
 
-        // setState(() {
-         // _markers.add(
-          //   Marker(
-          //       markerId: MarkerId('_center.toString()'),
-          //       position: LatLng(
-          //         loc.latitude ?? 0.0,
-          //         loc.longitude ?? 0.0,
-          //       )),
-          // );
-        //     _polyline.add(Polyline(
-        //       polylineId: PolylineId(_lastMapPosition.toString()),
-        //       visible: true,
-        //       //latlng is List<LatLng>
-        //       points: latlngSegment1,
-        //       // points: latlng,
-        //       color: Colors.blue,));
-        // });
       }
     });
   }
@@ -129,39 +96,33 @@ class _MyAppState extends State<MapScreen> {
           leading:  IconButton(onPressed: (){
             // Get.to(()=>OrdersDetailsScreen());
            Navigator.of(context).pop();
-          }, icon: Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 30,)),
+          }, icon: const Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 30,)),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         body: Stack(alignment: Alignment.bottomCenter, children: [
-          Container(
-            child: GoogleMap(
-              onMapCreated: _onMapCreated,
-              myLocationEnabled: true,
-            onTap: (val) async {
-              getAddressData(val);
-              addMarkerOnpPoint(val);
-              _showDialog(context);
+          GoogleMap(
+            onMapCreated: _onMapCreated,
+            myLocationEnabled: true,
+          onTap: (val) async {
+            getAddressData(val);
+            addMarkerOnpPoint(val);
+            _showDialog(context);
 
-              // BottomAddAdress(true);
-            },
-            //  polylines: Set<Polyline>.of(polylines.values),
-            //   markers: Set<Marker>.of(markers.values),
-               markers: _markers,
-              //  polylines:_polyline,
-              initialCameraPosition: CameraPosition(
-                target: _center,
-                zoom: 5.0,
-              ),
+          },
+             markers: _markers,
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 5.0,
             ),
           ),
           Stack(
             alignment: Alignment.topCenter,
             children: [
               Container(
-                  margin: EdgeInsets.all(6),
+                  margin: const EdgeInsets.all(6),
                   alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                  padding: const EdgeInsets.only(bottom: 20, right: 20, left: 20),
                   height: 240,
                   decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.8), borderRadius: BorderRadius.circular(20)),
@@ -169,7 +130,7 @@ class _MyAppState extends State<MapScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      AppCashedImage(
+                      const AppCashedImage(
                         imageUrl: userAvatar,
                         height: 50,
                         width: 50,
@@ -182,11 +143,11 @@ class _MyAppState extends State<MapScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          AppText(
+                          const AppText(
                             'Mohamed Ahmed',
                             color: Colors.white,
                           ),
-                          AppText(
+                          const AppText(
                             'hello',
                             color: Colors.grey,
                           ),
@@ -197,18 +158,17 @@ class _MyAppState extends State<MapScreen> {
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                            itemBuilder: (context, _) => Icon(
+                            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => const Icon(
                               Icons.star,
                               color: Colors.amber,
                             ),
                             onRatingUpdate: (rating) {
-                              print(rating);
                             },
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
                       InkWell(
@@ -217,13 +177,12 @@ class _MyAppState extends State<MapScreen> {
                           if (await launchUrl(phoneno)) {
                           //dialer opened
                           }else{
-                          //dailer is not opened
                           }
                         },
                         child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(color: kPrimaryColor, shape: BoxShape.circle),
-                          child: Icon(
+                          padding: const EdgeInsets.all(10),
+                          decoration: const BoxDecoration(color: kPrimaryColor, shape: BoxShape.circle),
+                          child: const Icon(
                             Icons.phone,
                             color: Colors.white,
                           ),
@@ -232,7 +191,7 @@ class _MyAppState extends State<MapScreen> {
                     ],
                   )),
               Container(
-                margin: EdgeInsets.all(6),
+                margin: const EdgeInsets.all(6),
                 alignment: Alignment.topCenter,
                 height: 150,
                 decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
@@ -245,17 +204,17 @@ class _MyAppState extends State<MapScreen> {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
-                        Align(
+                        const Align(
                             alignment: Alignment.topLeft,
                             child: AppText(
                               'shipping_details.tr',
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                             )),
-                        Divider(
+                        const Divider(
                           color: Colors.grey,
                         ),
 
@@ -269,7 +228,7 @@ class _MyAppState extends State<MapScreen> {
                               width: 100,
                               height: 70,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 30,
                             ),
                             Column(
@@ -278,7 +237,7 @@ class _MyAppState extends State<MapScreen> {
                                   orderModel?.products?[0].productName?? 'straberrey',
                                   fontSize: 18,
                                 ),
-                                AppText(
+                                const AppText(
                                '1.5 kg ',
                                   fontSize: 13,
                                 ),
@@ -299,17 +258,16 @@ class _MyAppState extends State<MapScreen> {
             ],
           )
         ]),
-        // bottomSheet: BottomAddAdress(true,addressInfo?[0]??null),
       ),
     );
   }
 
 
   Future<List<Address>> getAddressData(LatLng val)async{
-  final coordinates = new Coordinates(val.latitude, val.longitude);
+  final coordinates = Coordinates(val.latitude, val.longitude);
   List<Address> add =
       await Geocoder.local.findAddressesFromCoordinates(coordinates);
-  Get.log('loc  2==> '+add[0].addressLine.toString());
+  Get.log('loc  2==> ${add[0].addressLine}');
   setState(() {
     addressInfo=add;
   });
@@ -339,21 +297,16 @@ class _MyAppState extends State<MapScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: new Text("add_address".tr),
+          title: Text("add_address".tr),
           content: Row(
             children: [
-              new Text((addressInfo![0].addressLine.toString())),
+               Text((addressInfo![0].addressLine.toString())),
               Checkbox(value: true, onChanged: (val){
               })
             ],
           ),
           actions: <Widget>[
-            // new Flat(
-            //   child: new Text("OK"),
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
+
           ],
         );
       },
@@ -369,178 +322,5 @@ class _MyAppState extends State<MapScreen> {
 
 
 
-
-// class MapScreen extends StatefulWidget {
-//   const MapScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   _MapScreenState createState() => _MapScreenState();
-// }
-//
-//
-//
-// const LatLng dest_location = LatLng(37.42796133580664, -122.085749655962);
-//
-
-
-// class _MapScreenState extends State<MapScreen> {
-//   Completer<GoogleMapController> _controllerGoogleMap = Completer();
-//   late GoogleMapController newGoogleMapController;
-//    // Position currentPosition=g.Position(longitude: 0, latitude: 0, timestamp: 0, accuracy: 0, altitude: 0, heading: 0, speed: 0, speedAccuracy: 0);
-//   var geoLocator = Geolocator();
-//   Map<MarkerId, Marker> markers = {};
-//   Map<PolylineId, Polyline> polylines = {};
-//   List<LatLng> polylineCoordinates = [];
-//   PolylinePoints polylinePoints = PolylinePoints();
-//   late LocationData locationData;
-//   late LatLng _center ;
-//
-//
-//      Location currentLocation = Location();
-//
-//
-//   Future<Position> locatePosition() async {
-//
-//     return Geolocator.getCurrentPosition(
-//         desiredAccuracy: g.LocationAccuracy.high
-//          );
-//     // setState(() {
-//     //   currentPosition = position;
-//     // });
-//     // print('step1'+currentPosition.toString());
-//   }
-//
-//
-//   // getUserLocation() async {
-//   //   print('center $_center');
-//   //   currentPosition = await locatePosition();
-//   //   print('//// '+currentPosition.toString());
-//   //   setState(() {
-//   //     _center = LatLng(currentPosition.latitude, currentPosition.longitude);
-//   //   });
-//   //   print('center $_center');
-//   // }
-//
-//
-//
-//     void getLocation() async {
-//     var location = await currentLocation.getLocation();
-//     currentLocation.onLocationChanged.listen((LocationData loc) {
-//       // mapController?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
-//       //   target: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
-//       //   zoom: 12.0,
-//       // )));
-//       locationData=loc;
-//       print(loc.latitude);
-//       print(loc.longitude);
-//     // _addMarker(position, id, descriptor)
-//     });
-//   }
-//
-//
-//
-//   static final CameraPosition _UserLocation = CameraPosition(
-//     target: LatLng(37.42796133580664, -122.085749655962),
-//     //target: LatLng(26.0667, 50.5577),
-//     zoom: 16,
-//   );
-//   @override
-//   void initState() {
-//     super.initState();
-//     getLocation();
-//     // locatePosition();
-//     // getUserLocation();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Google Maps'),
-//         backgroundColor: Colors.redAccent,
-//         leading: new IconButton(
-//             icon: new Icon(Icons.arrow_back),
-//             onPressed: () {
-//               Navigator.push(
-//                   context, MaterialPageRoute(builder: (context) => HomeScreen()));
-//             }),
-//       ),
-//       body: GoogleMap(
-//         mapType: MapType.normal,
-//         myLocationButtonEnabled: true,
-//         initialCameraPosition: _UserLocation,
-//         polylines: Set<Polyline>.of(polylines.values),
-//         markers: Set<Marker>.of(markers.values),
-//         myLocationEnabled: true,
-//         zoomGesturesEnabled: true,
-//         zoomControlsEnabled: true,
-//         onMapCreated: (GoogleMapController controller) {
-//           _controllerGoogleMap.complete(controller);
-//           newGoogleMapController = controller;
-//           _getPolyline();
-//
-//           print('xxx  '+polylines.values.toString());
-//           setState(() {});
-//         },
-//       ),
-//     );
-//   }
-//
-//   _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
-//     MarkerId markerId = MarkerId(id);
-//     Marker marker =
-//     Marker(markerId: markerId, icon: descriptor, position: position);
-//     markers[markerId] = marker;
-//   }
-//
-//   _addPolyLine(List<LatLng> polylineCoordinates) {
-//     PolylineId id = PolylineId("poly");
-//     Polyline polyline = Polyline(
-//       polylineId: id,
-//       points: polylineCoordinates,
-//       width: 8,
-//     );
-//     polylines[id] = polyline;
-//     print('xxxxx '+id.toString());
-//     setState(() {});
-//   }
-//
-//   void _getPolyline() async {
-//     // print('step1'+currentPosition.latitude.toString());
-//     /// add origin marker origin marker
-//     _addMarker(
-//       LatLng(locationData.latitude??0.0, locationData.longitude ??0.0),
-//       "origin",
-//       BitmapDescriptor.defaultMarker,
-//     );
-//     print('step2');
-//     // Add destination marker
-//     _addMarker(
-//       LatLng(dest_location.latitude, dest_location.longitude),
-//       "destination",
-//       BitmapDescriptor.defaultMarkerWithHue(90),
-//     );
-//
-//     List<LatLng> polylineCoordinates = [];
-//
-//     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-//       "AIzaSyBaExcwW_EwM9oPWIEZATXGM-N7SUM-yXw",
-//       PointLatLng(locationData.latitude??0.0, locationData.longitude??0.0),
-//       PointLatLng(dest_location.latitude, dest_location.longitude),
-//       travelMode: TravelMode.walking,
-//
-//     );
-//     if (result.points.isNotEmpty) {
-//       result.points.forEach((PointLatLng point) {
-//         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-//         print('jjjj'+polylineCoordinates[0].toString());
-//       });
-//     } else {
-//       print('error r'+result.errorMessage.toString());
-//     }
-//     _addPolyLine(polylineCoordinates);
-//   }
-// }
-//
 
 

@@ -18,8 +18,8 @@ class CategoryItemLoading extends StatelessWidget {
               height: CategoryItem.height - 50,
             ),
           ),
-          SizedBox(height: 5),
-          MyShimmerEffectUI.rectangular(height: 10)
+          const SizedBox(height: 5),
+          const MyShimmerEffectUI.rectangular(height: 10)
         ],
       ),
     );

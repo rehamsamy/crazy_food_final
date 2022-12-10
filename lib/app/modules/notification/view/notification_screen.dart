@@ -22,13 +22,13 @@ class _NotificationBadgeState extends State<NotificationBadge> {
     return Container(
       width: 10.0,
       height: 10.0,
-      decoration: new BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.red,
         shape: BoxShape.circle,
       ),
-      child: Center(
+      child: const Center(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
           child: Text(
             '120',
             style: TextStyle(color: Colors.white, fontSize: 20),
@@ -38,17 +38,15 @@ class _NotificationBadgeState extends State<NotificationBadge> {
     );
   }
 
-  String? mtoken = " ";
+  String? mtoken;
 
   void getToken() async {
     Firebase.initializeApp();
-    final fcmToken = await FirebaseMessaging.instance.getToken(vapidKey: "AIzaSyBpaqzorW0S3p9Jot7rjpwFmr0L0DGW_RA");
-    print('ddddd  '+fcmToken.toString());
+    // final fcmToken = await FirebaseMessaging.instance.getToken(vapidKey: "AIzaSyBpaqzorW0S3p9Jot7rjpwFmr0L0DGW_RA");
     await FirebaseMessaging.instance.getToken().then((token) {
-      print('ddddd  '+token.toString());
       setState(() {
         mtoken = token;
-        NotificationApis().sendPushMessage('ggggggg', 'ggggggggg', token??'');
+        NotificationApis().sendPushMessage('Order', 'order success', token??'');
       });
     });
   }
@@ -68,10 +66,8 @@ class _NotificationBadgeState extends State<NotificationBadge> {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
     } else {
       print('User declined or has not accepted permission');
     }
@@ -131,6 +127,7 @@ class _NotificationBadgeState extends State<NotificationBadge> {
     });
   }
 
+  @override
   void initState() {
     super.initState();
     Firebase.initializeApp();

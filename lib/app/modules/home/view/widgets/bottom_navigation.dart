@@ -8,18 +8,20 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class BottomNavigationHome extends GetView<HomeController> {
+  const BottomNavigationHome({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       builder: (_)=> SizedBox(
           height: 80,
           child: ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
             child: BottomAppBar(
               color: kPrimaryColor,
               elevation: 10,
               notchMargin: 10,
-              shape: CircularNotchedRectangle(),
+              shape: const CircularNotchedRectangle(),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,

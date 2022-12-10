@@ -10,7 +10,7 @@ class PopularItem extends StatelessWidget {
   ProductModel model;
   List<ProductModel> ?allProducts;
   List<ProductModel> ?prodsProducts;
-  PopularItem(this.model,this.allProducts);
+  PopularItem(this.model,this.allProducts, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class PopularItem extends StatelessWidget {
              arguments: {'product_details':model,
                'similarProducts':similarProducts});
 
-         Get.log('tabed  size 5 '+(similarProducts.length).toString());
+         Get.log('tabed  size 5 ${similarProducts.length}');
        },
        child: Padding(
          padding: const EdgeInsets.all(5.0),

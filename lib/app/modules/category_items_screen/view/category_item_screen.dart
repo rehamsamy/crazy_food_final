@@ -9,46 +9,60 @@ import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-class CategoryItemsScreen extends GetView<CategoryItemsController>{
-   CategoryItemsScreen();
-   int ?typeId;
-   String ? catName;
-   Map map=Get.arguments;
-   @override
+
+class CategoryItemsScreen extends GetView<CategoryItemsController> {
+  CategoryItemsScreen({Key? key}) : super(key: key);
+  int? typeId;
+  String? catName;
+  Map map = Get.arguments;
+
+  @override
   Widget build(BuildContext context) {
-    typeId=map['categoryType'];
-    catName=map['categoryName'];
+    typeId = map['categoryType'];
+    catName = map['categoryName'];
     return Scaffold(
         appBar: null,
         body: GetBuilder<CategoryItemsController>(
-          builder:(_)=> Container(
+          builder: (_) => Container(
             decoration: kContainerDecoraction,
             width: Get.width,
             height: Get.height,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  SizedBox(height: 50,),
+                  const SizedBox(
+                    height: 50,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed:()=>Get.offAll(()=>CategoryScreen()),
-                        icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+                        onPressed: () =>
+                            Get.offAll(() => const CategoryScreen()),
+                        icon: const Icon(
+                          Icons.arrow_back_ios_sharp,
+                          color: Colors.white,
+                        ),
                       ),
-                      AppText('قسم ال${ catName??''}',color: Colors.white,fontSize: 20,),
-                      SizedBox()
+                      AppText(
+                        'قسم ال${catName ?? ''}',
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                      const SizedBox()
                     ],
                   ),
-                  SizedBox(height: 15,),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Container(
                     height: Get.height,
                     width: Get.width,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(20)),
                       color: Colors.grey.shade50,
                     ),
                     padding: const EdgeInsets.symmetric(
@@ -60,8 +74,7 @@ class CategoryItemsScreen extends GetView<CategoryItemsController>{
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child:getCategoryItemsList()
-                    ),
+                        child: getCategoryItemsList()),
                   )
                 ],
               ),
@@ -70,71 +83,72 @@ class CategoryItemsScreen extends GetView<CategoryItemsController>{
         ),
         bottomNavigationBar: BottomNavigationHome(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FabHome()
-    );
+        floatingActionButton: const FabHome());
   }
 
   getCategoryItemsList() {
-    return  FutureBuilder(
+    return FutureBuilder(
         future: CategoryItemsApis().getCategoriesList(),
-        builder: (_,snap){
-          if(snap.hasData){
-            List<ProductModel>?products=snap.data as List<ProductModel>;
-           List<ProductModel>? prods=[];
-           products.map((e) {
-             if (e.idType==typeId){
-               prods.add(e);
-               return e;
-             }
-           }).toList()  ;
-           for (int i=0;i<prods.length;i++){
-             // Get.log(prods[i].nameAr.toString());
-               }
-                if(prods.isNotEmpty){
-              return    Container(
-                padding: EdgeInsets.all(5),
-                   width: Get.width,
-                   height: CategoryItemsItem.height,
-                child:GridView.builder(
-                  padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        builder: (_, snap) {
+          if (snap.hasData) {
+            List<ProductModel>? products = snap.data as List<ProductModel>;
+            List<ProductModel>? prods = [];
+            products.map((e) {
+              if (e.idType == typeId) {
+                prods.add(e);
+                return e;
+              }
+            }).toList();
+            for (int i = 0; i < prods.length; i++) {
+              // Get.log(prods[i].nameAr.toString());
+            }
+            if (prods.isNotEmpty) {
+              return Container(
+                padding: const EdgeInsets.all(5),
+                width: Get.width,
+                height: CategoryItemsItem.height,
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(10),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 0,
+                      crossAxisSpacing: 0,
+                      mainAxisExtent: CategoryItemsItem.height),
+                  itemBuilder: (_, index) {
+                    // return CategoryItemsLoading();
+                    // List<ProductModel> similarProds=products.map((e) => null).toList();
+                    return CategoryItemsItem(prods[index], products, index);
+                  },
+                  itemCount: prods.length,
+                ),
+              );
+            } else if (products.isEmpty) {
+              return Center(
+                child: AppText('no_cat_found'.tr),
+              );
+            } else {
+              return const SizedBox();
+            }
+          } else if (snap.connectionState == ConnectionState.waiting) {
+            return Container(
+              padding: const EdgeInsets.all(5),
+              height: CategoryItemsItem.height,
+              width: Get.width / 2,
+              child: GridView.builder(
+                padding: const EdgeInsets.all(10),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 0,
                     crossAxisSpacing: 0,
                     mainAxisExtent: CategoryItemsItem.height),
-                  itemBuilder: (_,index)
-                    {
-                      // return CategoryItemsLoading();
-                      // List<ProductModel> similarProds=products.map((e) => null).toList();
-                        return CategoryItemsItem(prods[index],products,index);
-                    },
-                  itemCount: prods.length,),
-              );
-            }else if(products.isEmpty) {
-              return Center(child: AppText('no_cat_found'.tr),);
-            }else{
-              return SizedBox();
-            }
-          }
-          else if(snap.connectionState==ConnectionState.waiting){
-            return    Container(
-              padding: EdgeInsets.all(5),
-              height: CategoryItemsItem.height,
-              width: Get.width/2,
-              child:GridView.builder(
-                padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 0,
-                  crossAxisSpacing: 0,
-                  mainAxisExtent:CategoryItemsItem.height),
-                itemBuilder: (_,index)=>CategoryItemsLoading(),
-                itemCount: 10,),
+                itemBuilder: (_, index) => const CategoryItemsLoading(),
+                itemCount: 10,
+              ),
             );
-          }else{
-            return SizedBox();
+          } else {
+            return const SizedBox();
           }
-        }
-    );
-
+        });
 
     // return   Container(
     //   padding: EdgeInsets.all(5),
@@ -148,7 +162,5 @@ class CategoryItemsScreen extends GetView<CategoryItemsController>{
     //     itemBuilder: (_,index)=>CategoryItemsItem(),
     //     itemCount: 6),
     // );
-
   }
-
 }

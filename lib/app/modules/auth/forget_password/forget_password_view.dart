@@ -13,11 +13,11 @@ class ForgetPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     emailController=TextEditingController();
-    return Container(
+    return SizedBox(
       height: 300,
       child: Column(
         children: [
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           Form(
             key:_formKey,child:
           CustomTextFormField(
@@ -30,7 +30,7 @@ class ForgetPasswordView extends StatelessWidget {
           ),
           ),
 
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           AppProgressButton(
             width: 50,
             height: 50,
@@ -38,7 +38,7 @@ class ForgetPasswordView extends StatelessWidget {
             onPressed: (AnimationController animationController) async{
               if(_formKey.currentState!.validate()){
                 animationController.forward();
-                await Future.delayed(Duration(seconds: 2));
+                await Future.delayed(const Duration(seconds: 2));
 
                   String  ? model=   await AuthApis().forgetPassword(
                        emailController.text);
@@ -53,7 +53,7 @@ class ForgetPasswordView extends StatelessWidget {
                 // Get.offAll(()=>HomeScreenView());
               }
             },
-            child: Icon(
+            child: const Icon(
               Icons.arrow_forward,
               color: kPrimaryColor,
               size: 30,

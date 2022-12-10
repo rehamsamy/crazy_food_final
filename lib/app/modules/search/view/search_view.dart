@@ -1,24 +1,16 @@
-import 'package:crazy_food/app/data/models/category_items_model.dart';
-import 'package:crazy_food/app/data/models/category_model.dart';
-import 'package:crazy_food/app/data/remote_data_source/category_items_apis.dart';
-import 'package:crazy_food/app/modules/category/view/category_screen.dart';
+
 import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_item.dart';
-import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
-import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_widget/category_item_loading.dart';
-import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
-import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/modules/search/controller/search_controller.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app/shared/app_text_field.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 class SearchScreen extends GetView<SearchController>{
-  CategoryItemModel ? _categoryItemModel;
+  @override
   SearchController controller=Get.put(SearchController());
-  SearchScreen();
+  SearchScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,19 +21,19 @@ class SearchScreen extends GetView<SearchController>{
               width: Get.width,
               height: Get.height,
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                     SizedBox(height: 40,),
+                     const SizedBox(height: 40,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IconButton(
                           onPressed:()=>Get.offAll(()=>HomeScreenView()),
-                          icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+                          icon: const Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                         ),
                         AppText('search'.tr,color: Colors.white,fontSize: 18,),
-                        SizedBox()
+                        const SizedBox()
                       ],
                     ),
                     Padding(
@@ -63,7 +55,7 @@ class SearchScreen extends GetView<SearchController>{
                           radius: 15,
                           horizontalPadding: 0,
                           onChanged: (val) {
-                            Get.log('text val  ==>'+val);
+                            Get.log('text val  ==>$val');
                             controller.onSearchTextChanged(val);
                           },
                         ),
@@ -73,7 +65,7 @@ class SearchScreen extends GetView<SearchController>{
                       height: Get.height,
                       width: Get.width,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
                         color: Colors.grey.shade50,
                       ),
                       padding: const EdgeInsets.symmetric(
@@ -103,11 +95,11 @@ class SearchScreen extends GetView<SearchController>{
       return   GetBuilder<SearchController>(
         builder: (context) {
           return Container(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             width: Get.width,
             height: CategoryItemsItem.height,
             child:GridView.builder(
-              padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              padding:const EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 0,
                 crossAxisSpacing: 0,
@@ -128,7 +120,7 @@ class SearchScreen extends GetView<SearchController>{
         child: AppText('no_cat_found'.tr),
       );
     } else {
-      return SizedBox();
+      return const SizedBox();
     }
   }
 

@@ -1,6 +1,4 @@
-import 'package:crazy_food/app/data/models/login_error_model.dart';
 import 'package:crazy_food/app/data/models/login_model.dart';
-import 'package:crazy_food/app/data/models/register_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/auth_apis.dart';
 import 'package:crazy_food/app/modules/auth/login/controller/login_controller.dart';
 import 'package:crazy_food/app/modules/auth/login/view/widget/login_widget.dart';
@@ -20,6 +18,8 @@ class LoginScreenView extends GetView<LoginController> {
   bool isLogin = true;
   final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
 
+  LoginScreenView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,12 +29,12 @@ class LoginScreenView extends GetView<LoginController> {
             child: Container(
               height: ScreenUtil().screenHeight,
               width: ScreenUtil().screenWidth,
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: kToolbarHeight),
+                  const SizedBox(height: kToolbarHeight),
                   Image.asset('assets/images/logo22.png',height: 200,fit: BoxFit.contain,),
                   Stack(
                       alignment: AlignmentDirectional.bottomCenter,
@@ -73,7 +73,7 @@ class LoginScreenView extends GetView<LoginController> {
                                                 color: Colors.white,
                                                 fontSize: 25,
                                               )),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Container(
                                                 margin: const EdgeInsets.symmetric(
                                                     vertical: 4.0),
@@ -102,7 +102,7 @@ class LoginScreenView extends GetView<LoginController> {
                                                 color: Colors.white,
                                                 fontSize: 25,
                                               )),
-                                              SizedBox(height: 5,),
+                                              const SizedBox(height: 5,),
                                               Container(
                                                 margin: const EdgeInsets.symmetric(
                                                     vertical: 4.0),
@@ -146,7 +146,7 @@ class LoginScreenView extends GetView<LoginController> {
                                 onPressed: (AnimationController animationController) async{
                                   if(_formKey.currentState!.validate()){
                                     animationController.forward();
-                                    await Future.delayed(Duration(seconds: 2));
+                                    await Future.delayed(const Duration(seconds: 2));
                                     if(controller.isLogin){
                                    LoginModel ? model=   await AuthApis().loginUser(
                                           email: emailController.text, password: passwordController.text);
@@ -180,7 +180,7 @@ class LoginScreenView extends GetView<LoginController> {
                                    // Get.offAll(()=>HomeScreenView());
                                   }
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_forward,
                                   color: kPrimaryColor,
                                   size: 30,

@@ -11,7 +11,7 @@ class CategoryItem extends StatelessWidget {
 static double height=150;
 CategoryItemModel ? model;
 
-CategoryItem(this.model);
+CategoryItem(this.model, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,12 @@ CategoryItem(this.model);
       child: Column(
         children: [
           Container(
-          margin: EdgeInsets.all(3),
+          margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: kBackColor1
             ),
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child:AppCashedImage(
               imageUrl:model?.imagePath?? 'https://tse2.mm.bing.net/th?id=OIP.4vrkRMpeUJQM2gjRGsR57wHaEK&pid=Api&P=0',
               height: 80,
@@ -35,7 +35,7 @@ CategoryItem(this.model);
               fit: BoxFit.contain,
             ),
           ),
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
           AppText(model?.nameAr??'', maxLines: 1,fontSize: 15,),
         ],
       ),

@@ -7,7 +7,6 @@ import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -17,6 +16,8 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
    List<ProductModel> ?similarProducts;
 
 ProductDetailsController detailsController=Get.put(ProductDetailsController());
+
+  ProductDetailsScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
       productModel=map['product_details'] as ProductModel;
@@ -32,11 +33,11 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
                   floating: true,
                   pinned: false,
                   snap: true,
-                  leading: IconButton(icon:Icon(Icons.arrow_back_ios),
+                  leading: IconButton(icon:const Icon(Icons.arrow_back_ios),
                   color: Colors.white,
                   onPressed: ()=>Get.off(()=>HomeScreenView())),
                   backgroundColor: Colors.white,
-                  actionsIconTheme: IconThemeData(opacity: 0.0),
+                  actionsIconTheme: const IconThemeData(opacity: 0.0),
                   flexibleSpace: AppCashedImage(
                     imageUrl:
                       productModel?.imagePath?? 'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
@@ -49,8 +50,8 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
             body: SingleChildScrollView(
               child: Container(
                 height: 800,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.horizontal(
                       right: Radius.circular(20),
                       left: Radius.circular(20),
@@ -65,10 +66,10 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Padding(
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           child: getFirstProductData()),
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Card(
                       color: Colors.white,
                       elevation: 8,
@@ -77,7 +78,7 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
                       ),
                       child: getProductDetailsData(context),
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Card(
                       color: Colors.white,
                       elevation: 8,
@@ -85,7 +86,7 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Padding(
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           child: getSimilarProducts()),
                     ),
                   ],
@@ -112,7 +113,7 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
           color: Colors.grey,
           fontSize: 13,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Row(
@@ -123,22 +124,22 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
               fontSize: 14,
             ),
             AppText(
-              '${ productModel?.caleories} Calarios',
+              '${ productModel?.caleories} Calories',
               fontSize: 14,
             ),
             RatingBarIndicator(
               itemCount: 5,
               itemSize: 20,
               rating:  double.parse((productModel?.rate).toString()),
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (context, _) => Icon(
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, _) => const Icon(
                 Icons.star_border,
                 color: Colors.amber,
               ),
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Row(
@@ -155,22 +156,22 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
                 child: IconButton(
                     onPressed: () {},
                     padding: EdgeInsets.zero,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.minimize_outlined,
                       color: Colors.white,
                       size: 18,
                     )),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 15,
             ),
-            AppText(
+            const AppText(
               'quantity kg',
               fontSize: 14,
               fontWeight: FontWeight.w700,
             ),
-            SizedBox(
+            const SizedBox(
               width: 15,
             ),
             Container(
@@ -183,7 +184,7 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
               child: Center(
                 child: IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.add,
                       color: Colors.white,
                       size: 18,
@@ -197,11 +198,11 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
   }
 
   getProductDetailsData(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 220,
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -231,13 +232,13 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           Expanded(
             child: Stack(
               children: [
-                getBodyCintent(),
+                getBodyContent(),
                 Positioned(
                     left: controller.isDetailsSelected?70:200,
                     top: -30,
@@ -246,13 +247,13 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
                         color: Colors.white,
                         height: 60.0,
                         width: 90.0,
-                        padding: EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.only(bottom: 10),
                         child: Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
                               width: 10,
                               height: 10,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.orangeAccent),
                             )),
@@ -268,7 +269,7 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
 
 
   getSimilarProducts(){
-    return Container(
+    return SizedBox(
       height: 250,
       child: Column(
         children: [
@@ -277,9 +278,9 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
-          SizedBox(height: 5,),
-          Divider(color: Colors.grey,thickness: 1,),
-          SizedBox(height: 10,),
+          const SizedBox(height: 5,),
+          const Divider(color: Colors.grey,thickness: 1,),
+          const SizedBox(height: 10,),
           Expanded(
             child: ListView.builder(
                 itemCount: controller.similarProducts?.length,
@@ -293,7 +294,7 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
                             'similarProducts':controller.similarProducts});
                     },
                     child: Container(
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
                         child: AppCashedImage(
                           imageUrl:
                          controller.similarProducts?[index].imagePath?? 'https://knoww.cc/wp-content/uploads/2018/06/2718.jpg',
@@ -309,12 +310,12 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
     );
   }
 
-  getBodyCintent() {
+  getBodyContent() {
     if (controller.isDetailsSelected){
       return  Container(
         height: 170,
         width: Get.width,
-        padding: EdgeInsets.only(top: 40,left: 15,right: 15,bottom: 15),
+        padding: const EdgeInsets.only(top: 40,left: 15,right: 15,bottom: 15),
         decoration: BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.circular(20)),
@@ -332,7 +333,7 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
       return  Container(
         height: 170,
         width: Get.width,
-        padding: EdgeInsets.only(top: 40,left: 10,right: 10,bottom: 15),
+        padding: const EdgeInsets.only(top: 40,left: 10,right: 10,bottom: 15),
         decoration: BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.circular(20)),
@@ -346,7 +347,7 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
                    shape:BeveledRectangleBorder(
                      borderRadius: BorderRadius.circular(20)
                    ),
-                   child: SizedBox(height: 14,width: 14,),
+                   child: const SizedBox(height: 14,width: 14,),
                  ),
                 Expanded(
                   child: AppText(

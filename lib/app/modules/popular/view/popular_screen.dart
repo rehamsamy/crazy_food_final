@@ -1,7 +1,5 @@
 import 'package:crazy_food/app/data/models/category_items_model.dart';
-import 'package:crazy_food/app/data/remote_data_source/category_items_apis.dart';
 import 'package:crazy_food/app/data/remote_data_source/popular_apis.dart';
-import 'package:crazy_food/app/modules/category/view/category_screen.dart';
 import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
 import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_item.dart';
 import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_loading.dart';
@@ -11,10 +9,9 @@ import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 class PopularScreen extends GetView<CategoryItemsController>{
- PopularScreen();
+ const PopularScreen({Key? key}) : super(key: key);
    @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,28 +22,28 @@ class PopularScreen extends GetView<CategoryItemsController>{
             width: Get.width,
             height: Get.height,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  SizedBox(height: 50,),
+                  const SizedBox(height: 50,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
                         onPressed:()=>Get.offAll(()=>HomeScreenView()),
-                        icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+                        icon: const Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                       ),
                       AppText('popular'.tr,color: Colors.white,fontSize: 20,),
-                      SizedBox(),
+                      const SizedBox(),
 
                     ],
                   ),
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15,),
                   Container(
                     height: Get.height,
                     width: Get.width,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
                       color: Colors.grey.shade50,
                     ),
                     padding: const EdgeInsets.symmetric(
@@ -66,9 +63,9 @@ class PopularScreen extends GetView<CategoryItemsController>{
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationHome(),
+        bottomNavigationBar: const BottomNavigationHome(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FabHome()
+        floatingActionButton: const FabHome()
     );
   }
 
@@ -88,11 +85,11 @@ class PopularScreen extends GetView<CategoryItemsController>{
             }
             if (popularList.isNotEmpty) {
               return Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 width: Get.width,
                 height: CategoryItemsItem.height,
                 child: GridView.builder(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 0,
@@ -109,25 +106,25 @@ class PopularScreen extends GetView<CategoryItemsController>{
                 child: AppText('no_cat_found'.tr),
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
             return Container(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               height: CategoryItemsItem.height,
               child: GridView.builder(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 0,
                     crossAxisSpacing: 0,
                     mainAxisExtent: CategoryItemsItem.height),
-                itemBuilder: (_, index) => CategoryItemsLoading(),
+                itemBuilder: (_, index) => const CategoryItemsLoading(),
                 itemCount: 10,
               ),
             );
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         });
   }

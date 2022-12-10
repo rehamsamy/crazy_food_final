@@ -8,14 +8,15 @@ import 'package:crazy_food/app/shared/app_text_field.dart';
 import 'package:crazy_food/app/shared/snack_bar.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class ChangePasswordView extends GetView<ChangePasswordController> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  var _oldPasswordController = TextEditingController();
-  var _newPasswordController = TextEditingController();
-  var _confirmPasswordController = TextEditingController();
+  final _oldPasswordController = TextEditingController();
+  final _newPasswordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  ChangePasswordView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 60,
                       ),
                       Row(
@@ -38,7 +39,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                         children: [
                           IconButton(
                             onPressed: () => Get.off(() => MoreTabScreen()),
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back_ios_sharp,
                               color: Colors.white,
                             ),
@@ -48,10 +49,10 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                             color: Colors.white,
                             fontSize: 18,
                           ),
-                          SizedBox()
+                          const SizedBox()
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Container(
@@ -59,7 +60,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                         width: Get.width,
                         decoration: BoxDecoration(
                           borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(20)),
+                              const BorderRadius.vertical(top: Radius.circular(20)),
                           color: Colors.grey.shade50,
                         ),
                         padding: const EdgeInsets.symmetric(
@@ -72,7 +73,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Container(
-                            padding: EdgeInsets.only(top: 50,bottom: 10,left: 20,right: 20),
+                            padding: const EdgeInsets.only(top: 50,bottom: 10,left: 20,right: 20),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20)
                             ),
@@ -81,7 +82,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                               clipBehavior: Clip.none,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(15),
+                                  padding: const EdgeInsets.all(15),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                     color: kPrimaryColor,
@@ -132,7 +133,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                                       if (_formKey.currentState!.validate()) {
                                         animationController.forward();
                                         await Future.delayed(
-                                            Duration(seconds: 2));
+                                            const Duration(seconds: 2));
                                         LoginModel ? model= await PasswordApis().changePassword(oldPass: _oldPasswordController.text,
                                             newPass: _newPasswordController.text, confirmPass: _confirmPasswordController.text);
                                         if(model.expiresIn !=null){
@@ -154,8 +155,8 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                                     child: Row(
                                       children: [
                                         AppText('change_password'.tr),
-                                        SizedBox(width: 10,),
-                                        Icon(
+                                        const SizedBox(width: 10,),
+                                        const Icon(
                                           Icons.arrow_forward,
                                           color: kPrimaryColor,
                                           size: 30,

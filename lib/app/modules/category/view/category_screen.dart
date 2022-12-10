@@ -1,6 +1,5 @@
 import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_apis.dart';
-import 'package:crazy_food/app/modules/category/controller/category_controller.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
@@ -10,9 +9,10 @@ import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 class CategoryScreen extends GetView<HomeController>{
+  const CategoryScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -23,27 +23,27 @@ class CategoryScreen extends GetView<HomeController>{
        width: Get.width,
        height: Get.height,
        child: SingleChildScrollView(
-         physics: BouncingScrollPhysics(),
+         physics: const BouncingScrollPhysics(),
          child: Column(
            children: [
-             SizedBox(height: 50,),
+             const SizedBox(height: 50,),
              Row(
                mainAxisAlignment: MainAxisAlignment.spaceAround,
                children: [
                  IconButton(
                    onPressed:()=>Get.offAll(()=>HomeScreenView()),
-                   icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+                   icon: const Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                  ),
                 AppText('categories'.tr,color: Colors.white,fontSize: 18,),
-                 SizedBox()
+                 const SizedBox()
                ],
              ),
-             SizedBox(height: 15,),
+             const SizedBox(height: 15,),
              Container(
                height: Get.height,
                width: Get.width,
                decoration: BoxDecoration(
-                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                 borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
                  color: Colors.grey.shade50,
                ),
                padding: const EdgeInsets.symmetric(
@@ -65,7 +65,7 @@ class CategoryScreen extends GetView<HomeController>{
    ),
   bottomNavigationBar: BottomNavigationHome(),
        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-       floatingActionButton: FabHome()
+       floatingActionButton: const FabHome()
    );
   }
 
@@ -78,10 +78,10 @@ class CategoryScreen extends GetView<HomeController>{
             List<CategoryItemModel>categories=snap.data as List<CategoryItemModel>;
             if(categories.isNotEmpty){
               return    Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 height: CategoryItem.height,
                 child:GridView.builder(
-                  padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  padding:const EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     mainAxisSpacing: 0,
                     crossAxisSpacing: 0,
@@ -92,24 +92,24 @@ class CategoryScreen extends GetView<HomeController>{
             }else if(categories.isEmpty) {
               return Center(child: AppText('no_cat_found'.tr),);
             }else{
-              return SizedBox();
+              return const SizedBox();
             }
           }
           else if(snap.connectionState==ConnectionState.waiting){
             return    Container(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               height: CategoryItem.height,
               child:GridView.builder(
-                padding:EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                padding:const EdgeInsets.all(10),gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 0,
                   crossAxisSpacing: 0,
                   mainAxisExtent: CategoryItem.height),
-                itemBuilder: (_,index)=>CategoryItemLoading(),
+                itemBuilder: (_,index)=>const CategoryItemLoading(),
                 itemCount: 15,),
             );
           }else{
-            return SizedBox();
+            return const SizedBox();
           }
         }
     );

@@ -10,67 +10,72 @@ import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/loading_wi
 import 'package:crazy_food/app/modules/orders_tab/controller/order_controller.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class OffersTab extends GetView<HomeController> {
-  List<OrderModel> ordersList=[];
-  OrderController controller1=Get.put(OrderController());
+  List<OrderModel> ordersList = [];
+  OrderController controller1 = Get.put(OrderController());
+
+  OffersTab({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: GetBuilder<HomeController>(
-          builder: (context) {
-            return  Scaffold(
-                  appBar: null,
-                  body: Container(
-                      decoration: kContainerDecoraction,
-                      width: Get.width,
-                      height: Get.height,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 40,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                IconButton(
-                                  onPressed:()=>Get.off(()=>HomeScreenView()),
-                                  icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
-                                ),
-                                AppText('offers_tab'.tr,color: Colors.white,fontSize: 18,),
-                                SizedBox()
-                              ],
-                            ),
-                            Container(
-                              height: Get.height,
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(20)),
-                                color: Colors.grey.shade50,
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 8.0),
-                              child: Card(
-                                elevation: 8,
-                                color: Colors.white,
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                 child: getDiscountList()
-                                ),
-                            )
-                          ],
+      home: GetBuilder<HomeController>(builder: (context) {
+        return Scaffold(
+          appBar: null,
+          body: Container(
+              decoration: kContainerDecoraction,
+              width: Get.width,
+              height: Get.height,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          onPressed: () => Get.off(() => HomeScreenView()),
+                          icon: const Icon(
+                            Icons.arrow_back_ios_sharp,
+                            color: Colors.white,
+                          ),
                         ),
-                      )),
-                );
-          }
-      ),
+                        AppText(
+                          'offers_tab'.tr,
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                        const SizedBox()
+                      ],
+                    ),
+                    Container(
+                      height: Get.height,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(20)),
+                        color: Colors.grey.shade50,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 8.0),
+                      child: Card(
+                          elevation: 8,
+                          color: Colors.white,
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: getDiscountList()),
+                    )
+                  ],
+                ),
+              )),
+        );
+      }),
     );
   }
 
@@ -87,30 +92,31 @@ class OffersTab extends GetView<HomeController> {
                   discountList.add(e);
                 }
               }).toList();
-              List<ProductModel>  discountOrderList= selectionAsecSortFilter(discountList);
-              return Container(
-                  height: DiscountItem.height,
+              List<ProductModel> discountOrderList =
+                  selectionAsecSortFilter(discountList);
+              return SizedBox(
+                height: DiscountItem.height,
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: discountOrderList.length,
                     itemBuilder: (_, index) {
                       // return DiscountItemLoading(index);
-                      return OfferItem(index,discountOrderList[index]);
+                      return OfferItem(index, discountOrderList[index]);
                     }),
               );
             } else if (discountList.isEmpty) {
-              return Container(
+              return SizedBox(
                 height: 150,
                 child: Center(
                   child: AppText('no_cat_found'.tr),
                 ),
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
             return ListView.builder(
-              shrinkWrap: true,
+                shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 itemCount: 10,
                 itemBuilder: (_, index) {
@@ -118,30 +124,26 @@ class OffersTab extends GetView<HomeController> {
                   return DiscountItemLoading(index);
                 });
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         });
   }
 
-
-  List<ProductModel> selectionAsecSortFilter(List<ProductModel> prodss){
-    List<ProductModel> prods=prodss ;
+  List<ProductModel> selectionAsecSortFilter(List<ProductModel> prodss) {
+    List<ProductModel> prods = prodss;
     for (var i = 0; i < prods.length - 1; i++) {
-      var index_min = i;
+      var indexMin = i;
       for (var j = i + 1; j < prods.length; j++) {
-        if ((prods[j].discount)! <
-            (prods[index_min].discount??0)) {
-          index_min = j;
+        if ((prods[j].discount)! < (prods[indexMin].discount ?? 0)) {
+          indexMin = j;
         }
       }
-      if (index_min != i) {
+      if (indexMin != i) {
         var temp = prods[i];
-        prods[i] = prods[index_min];
-        prods[index_min] = temp;
+        prods[i] = prods[indexMin];
+        prods[indexMin] = temp;
       }
     }
-    print(prods.length);
     return prods;
   }
 }
-

@@ -7,13 +7,12 @@ import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app/shared/custom_stepper.dart' as step;
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:another_stepper/another_stepper.dart';
 
 class OrdersDetailsScreen extends GetView<HomeController> {
   OrderModel ? model;
-  OrdersDetailsScreen(this.model);
+  OrdersDetailsScreen(this.model, {Key? key}) : super(key: key);
   int orderStatus=0;
   // List<step.Step> stepList() => [
   //    step.Step(title: Text('order_placed'.tr),time: '9:30 AM', content:Text('order_placed_dts'.tr),),
@@ -27,7 +26,7 @@ class OrdersDetailsScreen extends GetView<HomeController> {
     orderStatus =model?.orderStatus=='pending'?2:
                  model?.orderStatus=='processing'?4:
                  model?.orderStatus=='delivered'?5:0;
-    Get.log('status  =>'+orderStatus.toString());
+    Get.log('status  =>$orderStatus');
     return MaterialApp(
       home: Scaffold(
           appBar: null,
@@ -36,27 +35,27 @@ class OrdersDetailsScreen extends GetView<HomeController> {
               width: Get.width,
               height: Get.height,
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                  SizedBox(height: 50,),
+                  const SizedBox(height: 50,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     IconButton(
                       onPressed:()=>Get.offAll(()=>OrdersScreen()),
-                      icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+                      icon: const Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                     ),
                     AppText('orders_details'.tr,color: Colors.white,fontSize: 20,),
-                    SizedBox()
+                    const SizedBox()
                     ]),
-                    SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
                     Container(
                       height: Get.height,
                       width: Get.width,
                       decoration: BoxDecoration(
                         borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(20)),
+                            const BorderRadius.vertical(top: Radius.circular(20)),
                         color: Colors.grey.shade50,
                       ),
                       padding: const EdgeInsets.symmetric(
@@ -75,7 +74,7 @@ class OrdersDetailsScreen extends GetView<HomeController> {
                               child: Column(
                                 children: [
                                   Container(
-                                    margin:EdgeInsetsDirectional.only(start: 20),
+                                    margin:const EdgeInsetsDirectional.only(start: 20),
                                     child: step.AnotherStepper(
                                         stepperList: stepperData,
                                         stepperDirection: Axis.vertical,
@@ -89,7 +88,7 @@ class OrdersDetailsScreen extends GetView<HomeController> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           SizedBox(
                             height: Get.height*0.21,
                             child: Card(
@@ -104,16 +103,16 @@ class OrdersDetailsScreen extends GetView<HomeController> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        AppText(
+                                        const AppText(
                                           'description.tr',
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
                                         ),
-                                        Divider(
+                                        const Divider(
                                           color: Colors.grey,
                                         ),
                                         ListTile(
-                                           onTap: () => Get.to(() => MapScreen(),arguments: {'order_details':model}),
+                                           onTap: () => Get.to(() => const MapScreen(),arguments: {'order_details':model}),
                                           isThreeLine: true,
                                           leading:  AppCashedImage(
                                             imageUrl:model?.products?[0].productImage??
@@ -126,19 +125,19 @@ class OrdersDetailsScreen extends GetView<HomeController> {
                                             model?.products?[0].productName??'',
                                             fontSize: 15,
                                           ),
-                                          trailing: Icon(
+                                          trailing: const Icon(
                                             Icons.arrow_forward_ios_sharp,
                                             color: kPrimaryColor,
                                           ),
                                           subtitle: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              AppText(
+                                              const AppText(
                                                 '1.5 kg ',
                                                 fontSize: 13,
                                                 color: Colors.grey,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 8,
                                               ),
                                               AppText(

@@ -39,7 +39,7 @@ var nameController,emailController,passwordController;
             );
           },
           child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Align(
               alignment: AlignmentDirectional.centerEnd,
               child: AppText(

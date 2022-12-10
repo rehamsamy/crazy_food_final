@@ -1,7 +1,5 @@
-import 'package:crazy_food/app/modules/cart/view/cart_view.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/tabs/home_tab/home_tab.dart';
-import 'package:crazy_food/app/modules/home/view/tabs/more_tab.dart';
 import 'package:crazy_food/app/modules/more_tab/view/more_tab.dart';
 import 'package:crazy_food/app/modules/offers_tab/view/offers_tab.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
@@ -26,7 +24,7 @@ class HomeScreenView extends GetView<HomeController> {
                  controller: controller.homePageViewController,
               onPageChanged: (index)=>controller.handlePageViewerIndex(index),
               children: [
-                HomeTab(),
+                const HomeTab(),
                 OrdersScreen(),
                 // CartScreen(fabFlag:'no'),
                 OffersTab(),
@@ -35,9 +33,9 @@ class HomeScreenView extends GetView<HomeController> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationHome(),
+        bottomNavigationBar: const BottomNavigationHome(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FabHome()
+        floatingActionButton: const FabHome()
       ),
     );
   }

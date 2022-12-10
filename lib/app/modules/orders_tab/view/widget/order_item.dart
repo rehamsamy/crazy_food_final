@@ -1,26 +1,24 @@
 import 'package:crazy_food/app/data/models/order_model.dart';
 import 'package:crazy_food/app/modules/orders_details/view/orders_details_screen.dart';
 import 'package:crazy_food/app/modules/orders_tab/controller/order_controller.dart';
-import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:map_launcher/map_launcher.dart';
 class OrderItem extends GetView<OrderController> {
   OrderModel model;
-  OrderItem(this.model);
+  OrderItem(this.model, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Get.log('cccc '+(model.address).toString());
+    Get.log('address  ${model.address}');
     return InkWell(
        onTap: ()=>Get.to(()=>OrdersDetailsScreen(model)),
       child: Container(
-        padding: EdgeInsets.all(4),
-        margin: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(4),
+        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           border: Border.all(color: kPrimaryColor,width: 0.8),
           borderRadius: BorderRadius.circular(15)
@@ -53,19 +51,18 @@ class OrderItem extends GetView<OrderController> {
                   children: [
                     IconButton(onPressed: ()async{
                       final availableMaps = await MapLauncher.installedMaps;
-                      print(availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
-               Get.log('log  =>'+model.latitude.toString());
+               Get.log('log  =>${model.latitude}');
                       await availableMaps.first.showMarker(
                         coords: Coords(model.latitude??0.0, model.longitude??0.0),
                         title: "Shanghai Tower",
                         description: model.address??"Asia's tallest building",
                       );
                     },
-                        icon: Icon(Icons.location_on,color: kPrimaryColor,)),
+                        icon: const Icon(Icons.location_on,color: kPrimaryColor,)),
                     SizedBox(
                       width: 70,
                       child: AppText(
-                        '${(model.address).toString().substring(15,50)}',
+                        (model.address).toString().substring(15,50),
                       ),
                     ),
                   ],
@@ -159,10 +156,10 @@ class OrderItem extends GetView<OrderController> {
 class ProductItem  extends StatelessWidget{
   Products productModel;
 
-  ProductItem(this.productModel);
+  ProductItem(this.productModel, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 80,
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,7 +196,7 @@ class ProductItem  extends StatelessWidget{
                           fontSize: 14,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       // AppElevatedButton(
@@ -221,7 +218,7 @@ class ProductItem  extends StatelessWidget{
                                child: AppText('${'quantity'.tr} ${productModel.quantity.toString()}')),
                           SizedBox(
                             width: Get.width*0.20,
-                            child: AppText(
+                            child: const AppText(
                               '10 Aug,2020',
                               color: Colors.grey,
                               textOverflow: TextOverflow.ellipsis,
@@ -233,7 +230,7 @@ class ProductItem  extends StatelessWidget{
 
               ],
             ),
-             Divider(color: kPurpleColor,)
+             const Divider(color: kPurpleColor,)
           ],
         ),
     );

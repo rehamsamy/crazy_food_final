@@ -5,7 +5,7 @@ import 'package:flutter_geocoder/geocoder.dart';
 class BottomAddAdress extends StatefulWidget {
   bool _show;
   Address ? _address;
-  BottomAddAdress(this._show,this._address);
+  BottomAddAdress(this._show,this._address, {Key? key}) : super(key: key);
 
   @override
   State<BottomAddAdress> createState() => _BottomAddAdressState();
@@ -34,10 +34,8 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
                   ],
                 ),
                 ElevatedButton(
-                  child: Text("Close Bottom Sheet"),
                   style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.white,
-                    primary: Colors.green,
+                    foregroundColor: Colors.white, primary: Colors.green,
 
                   ),
                   onPressed: () {
@@ -46,6 +44,7 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
 
                     });
                   },
+                  child: const Text("Close Bottom Sheet"),
                 ),
               ],
             ),
@@ -90,7 +89,7 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
         );
       }
       else{
-        return SizedBox();
+        return const SizedBox();
       }
   }
 }

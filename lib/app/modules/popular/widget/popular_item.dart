@@ -5,9 +5,7 @@ import 'package:crazy_food/app/modules/product_details/view/product_details_scre
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 
 class CategoryItemsItem extends GetView<CategoryItemsController> {
@@ -16,14 +14,14 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
   int ? index;
   List<ProductModel> ?similarProducts;
   int ?selectedIndex;
-  CategoryItemsItem(this.model,this.similarProducts,this.index);
+  CategoryItemsItem(this.model,this.similarProducts,this.index, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CategoryItemsController>(
       init: CategoryItemsController(),
       builder: (_) => InkWell(
         onTap: () {
-          Get.log('category details ==>'+(similarProducts?.length).toString());
+          Get.log('category details ==>${similarProducts?.length}');
           Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
               arguments: {'product_details':model,
                           'similarProducts':similarProducts});},
@@ -39,7 +37,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                 right: 1,
                 top: -2,
                 child: Container(
-                  margin: EdgeInsets.only(top: 4),
+                  margin: const EdgeInsets.only(top: 4),
                   child: AppCashedImage(
                     imageUrl: model.imagePath??'https://fustany.com/images/en/content/header_image_fustany-burger-recipe-home-made-backdrop-1-.jpg',
                     height: 150,
@@ -83,8 +81,8 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                   child: Container(
                       width: 30,
                       height: controller.itemIndex==index? 80 : 40,
-                      padding: EdgeInsets.all(3),
-                      decoration: BoxDecoration(
+                      padding: const EdgeInsets.all(3),
+                      decoration: const BoxDecoration(
                           color: kPrimaryColor,
                           borderRadius:
                               BorderRadius.only(topLeft: Radius.circular(15))),
@@ -96,7 +94,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                                     onTap: () {
                                       controller.changeItemQuantity('decrement',index,model);
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.minimize_outlined,
                                       size: 16,
                                       color: Colors.white,
@@ -110,7 +108,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                                     onTap: () {
                                       controller.changeItemQuantity('increment',index,model);
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.add,
                                       size: 16,
                                       color: Colors.white,
@@ -119,7 +117,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                             )
                           : Center(
                               child: IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.add,
                                   size: 14,
                                 ),
@@ -128,7 +126,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                                     controller.handleIsIncrementVisible(true,index??-1);
                                         },
                                 color: Colors.white,
-                                padding: EdgeInsets.all(0),
+                                padding: const EdgeInsets.all(0),
                               ),
                             )))
             ],

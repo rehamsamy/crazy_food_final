@@ -1,14 +1,10 @@
 import 'package:crazy_food/app/modules/category_items_screen/widget/category_items_item.dart';
-import 'package:crazy_food/app/modules/home/view/tabs/home_tab/widget/category_item.dart';
 import 'package:crazy_food/app/shared/shimmer_ui_effect.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 
 class CategoryItemsLoading extends StatelessWidget {
   const CategoryItemsLoading({Key? key}) : super(key: key);
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,12 +17,12 @@ class CategoryItemsLoading extends StatelessWidget {
               height: CategoryItemsItem.height - 80,
             ),
           ),
-          SizedBox(height: 7),
-          MyShimmerEffectUI.rectangular(height: 10),
-          SizedBox(height: 7),
+          const SizedBox(height: 7),
+          const MyShimmerEffectUI.rectangular(height: 10),
+          const SizedBox(height: 7),
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: MyShimmerEffectUI.rectangular(
+            child: const MyShimmerEffectUI.rectangular(
               height:  30,
             ),
           ),

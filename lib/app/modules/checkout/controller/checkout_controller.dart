@@ -22,7 +22,7 @@ int addressIndex = 0;
   cartProducts?.clear();
   total=map['total'];
   cartProducts=map['products'];
-  Get.log('total   =>'+cartProducts!.length.toString());
+  Get.log('total   =>${cartProducts!.length}');
   paymentList =await PaymentApis().getPayment() as List<PaymentModel>;
   paymentTypeSelected=List<bool>.filled(paymentList!.length, false);
 
@@ -32,7 +32,7 @@ int addressIndex = 0;
 
 
   changePaymentTypeSelected(index,val){
-  Get.log('nnn '+index.toString());
+  Get.log('nnn $index');
     paymentTypeSelected?[index] = val;
     update();
   }
@@ -44,7 +44,7 @@ void setPaymentIndex(int newVal) {
 
 
 changeAddressTypeSelected(index,val){
-  Get.log('nnn '+index.toString());
+  Get.log('nnn $index');
   addressTypeSelected?[index] = val;
   update();
 }

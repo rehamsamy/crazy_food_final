@@ -6,7 +6,6 @@ import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
-import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class CartScreen extends GetView<CartController> {
    String ? fabFlag;
-   CartScreen({this.fabFlag});
+   CartScreen({Key? key, this.fabFlag}) : super(key: key);
   @override
   Widget build(BuildContext context) {
       controller.changeTotalCartPrice();
@@ -28,10 +27,10 @@ class CartScreen extends GetView<CartController> {
             width: Get.width,
             height: Get.height,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Row(
@@ -39,13 +38,13 @@ class CartScreen extends GetView<CartController> {
                     children: [
                       IconButton(
                         onPressed:()=>Get.to(()=>HomeScreenView(),binding: GetBinding()),
-                        icon: Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+                        icon: const Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                       ),
                       AppText('cart'.tr,color: Colors.white,fontSize: 18,),
-                      SizedBox()
+                      const SizedBox()
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Stack(
@@ -55,7 +54,7 @@ class CartScreen extends GetView<CartController> {
                         width: Get.width,
                         decoration: BoxDecoration(
                           borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(20)),
+                              const BorderRadius.vertical(top: Radius.circular(20)),
                           color: Colors.grey.shade50,
                         ),
                         padding: const EdgeInsets.symmetric(
@@ -75,7 +74,7 @@ class CartScreen extends GetView<CartController> {
                         right: 1,
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.all(5),
+                          margin: const EdgeInsets.all(5),
                           height: 230,
                           child: Card(
                             elevation: 5,
@@ -139,27 +138,27 @@ class CartScreen extends GetView<CartController> {
             ),
           ),
         ),
-        bottomNavigationBar:fabFlag=='yes'? BottomNavigationHome():SizedBox(),
+        bottomNavigationBar:fabFlag=='yes'? BottomNavigationHome():const SizedBox(),
         floatingActionButtonLocation:fabFlag=='yes'? FloatingActionButtonLocation.centerDocked:null,
-        floatingActionButton: fabFlag=='yes'?FabHome():SizedBox());
+        floatingActionButton: fabFlag=='yes'?FabHome():const SizedBox());
   }
 
   getCartList() {
     Get.log('size is ==>'+controller.cartItemMap.length.toString());
-    if(controller.cartItemMap.values.length>0) {
+    if(controller.cartItemMap.values.isNotEmpty) {
       return Container(
         height: CartItem.height,
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: ListView.builder(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             itemBuilder: (_, index) => CartItem((controller.cartItemMap.values.toList())[index],index,controller.cartItemMap),
             itemCount: (controller.cartItemMap.values.toList()).length),
       );
     }else{
       return  Container(
           height: CartItem.height,
-          padding: EdgeInsets.all(5),
-    child:Center(child:AppText('no_items')));
+          padding: const EdgeInsets.all(5),
+    child:const Center(child:AppText('no_items')));
     }
   }
 }

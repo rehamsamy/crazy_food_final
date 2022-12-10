@@ -25,6 +25,8 @@ import 'widget/loading_widget/discount_item_loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeTab extends StatefulWidget {
+  const HomeTab({Key? key}) : super(key: key);
+
   @override
   State<HomeTab> createState() => _HomeTabState();
 }
@@ -34,10 +36,10 @@ class _HomeTabState extends State<HomeTab> {
   LoginModel? model;
   @override
   void initState() {
+    super.initState();
     model = LoginModel.fromJson(jsonDecode(
       LocalStorage.getString(LocalStorage.userModel) ?? '{}',
     ));
-    Get.log('dataa ' + (model?.expiresIn ?? '').toString());
   }
   @override
   Widget build(BuildContext context) {
@@ -46,12 +48,12 @@ class _HomeTabState extends State<HomeTab> {
         decoration: kContainerDecoraction,
         height: Get.height,
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Column(
               children: [
-                SizedBox(height: kToolbarHeight / 2),
+                const SizedBox(height: kToolbarHeight / 2),
                 profileWidget(),
                 InkWell(
                   onTap: () => Get.off(() => SearchScreen()),
@@ -86,7 +88,7 @@ class _HomeTabState extends State<HomeTab> {
                   decoration: BoxDecoration(
                       color: Colors.grey.shade50,
                       borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(30))),
+                          const BorderRadius.vertical(top: Radius.circular(30))),
                   child: Column(
                     children: [
                       Card(
@@ -116,11 +118,11 @@ class _HomeTabState extends State<HomeTab> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       getDiscountList(),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Card(
@@ -164,7 +166,7 @@ class _HomeTabState extends State<HomeTab> {
   profileWidget() {
     return ListTile(
       horizontalTitleGap: 10,
-      leading: AppCashedImage(
+      leading: const AppCashedImage(
         imageUrl:
             'https://tse2.mm.bing.net/th?id=OIP.izqqI6zf0-Ot-O1iaVu4KAHaEK&pid=Api&P=0',
         isCircular: true,
@@ -178,19 +180,19 @@ class _HomeTabState extends State<HomeTab> {
         model?.name ?? 'user_name',
         color: Colors.white,
       ),
-      subtitle: AppText(
+      subtitle: const AppText(
         'welcome to your crazy food ?!',
         color: Colors.white,
       ),
       trailing: Badge(
-        badgeContent: AppText(
+        badgeContent: const AppText(
           '6',
           color: Colors.white,
           fontSize: 12,
         ),
         toAnimate: true,
         position: BadgePosition.topEnd(top: -15, end: -5),
-        child: Icon(
+        child: const Icon(
           Icons.notifications,
           color: Colors.white,
           size: 30,
@@ -207,7 +209,7 @@ class _HomeTabState extends State<HomeTab> {
                 snap.data as List<CategoryItemModel>;
             if (categories.isNotEmpty) {
               return Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 height: CategoryItem.height,
                 child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
@@ -215,35 +217,35 @@ class _HomeTabState extends State<HomeTab> {
                     itemBuilder: (_, index) {
                       return CategoryItem(categories[index]);
                     },
-                    separatorBuilder: (_, index) => SizedBox(
+                    separatorBuilder: (_, index) => const SizedBox(
                           height: 3,
                         ),
                     itemCount: categories.length),
               );
             } else if (categories.isEmpty) {
               return Container(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   height: CategoryItem.height,
                   child: Center(
                     child: AppText('no_cat_found'.tr),
                   ));
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
             return Container(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               height: CategoryItem.height,
               child: ListView.builder(
                   // physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (_, index) {
-                    return CategoryItemLoading();
+                    return const CategoryItemLoading();
                   },
                   itemCount: 5),
             );
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         });
   }
@@ -263,7 +265,7 @@ class _HomeTabState extends State<HomeTab> {
 
               return Container(
                 height: 150,
-                padding: EdgeInsets.only(bottom: 15, right: 15, left: 15),
+                padding: const EdgeInsets.only(bottom: 15, right: 15, left: 15),
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: popularList.length,
@@ -272,28 +274,28 @@ class _HomeTabState extends State<HomeTab> {
                     }),
               );
             } else if (popularList.isEmpty) {
-              return Container(
+              return SizedBox(
                 height: 150,
                 child: Center(
                   child: AppText('no_cat_found'.tr),
                 ),
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
             return Container(
               height: 150,
-              padding: EdgeInsets.only(bottom: 15, right: 15, left: 15),
+              padding: const EdgeInsets.only(bottom: 15, right: 15, left: 15),
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                   itemBuilder: (_, index) {
-                    return PopularItemLoading();
+                    return const PopularItemLoading();
                   }),
             );
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         });
   }
@@ -312,7 +314,7 @@ class _HomeTabState extends State<HomeTab> {
               }).toList();
               List<ProductModel> discountOrderList =
                   selectionAsecSortFilter(discountList);
-              return Container(
+              return SizedBox(
                   height: DiscountItem.height,
                   child: CarouselSlider.builder(
                       itemBuilder: (_, index, index1) {
@@ -327,8 +329,8 @@ class _HomeTabState extends State<HomeTab> {
                         enableInfiniteScroll: true,
                         reverse: false,
                         autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayInterval: const Duration(seconds: 3),
+                        autoPlayAnimationDuration: const Duration(milliseconds: 800),
                         autoPlayCurve: Curves.fastOutSlowIn,
                         enlargeCenterPage: true,
                         onPageChanged: (_, x) {},
@@ -343,17 +345,17 @@ class _HomeTabState extends State<HomeTab> {
                   //     }),
                   );
             } else if (discountList.isEmpty) {
-              return Container(
+              return SizedBox(
                 height: 150,
                 child: Center(
                   child: AppText('no_cat_found'.tr),
                 ),
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           } else if (snap.connectionState == ConnectionState.waiting) {
-            return Container(
+            return SizedBox(
               height: DiscountItem.height,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -364,7 +366,7 @@ class _HomeTabState extends State<HomeTab> {
                   }),
             );
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         });
   }
@@ -383,7 +385,6 @@ class _HomeTabState extends State<HomeTab> {
         prods[index_min] = temp;
       }
     }
-    print(prods.length);
     return prods;
   }
 }
