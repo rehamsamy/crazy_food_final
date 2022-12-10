@@ -6,6 +6,7 @@ import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/bottom_navigation.dart';
 import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
+import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,10 +69,10 @@ class CartScreen extends GetView<CartController> {
                             ),
                             child: getCartList()),
                       ),
-                      Positioned(
+                      PositionedDirectional(
                         bottom:20,
-                        left: 1,
-                        right: 1,
+                        start: 1,
+                        end: 1,
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.all(5),
@@ -103,7 +104,7 @@ class CartScreen extends GetView<CartController> {
                                                 height: 35,
                                                 backgroundColor: kPrimaryColor,
                                                 onPressed: (val){
-                                                  val.forward();
+                                                  // val.forward();
                                                   if(controller.cartItemMap.values.isEmpty){
                                                     Fluttertoast.showToast(
                                                         msg: "cart_empty".tr,
@@ -115,7 +116,7 @@ class CartScreen extends GetView<CartController> {
                                                     double total=controller.totalCartPrice;
                                                     Get.off(()=>CheckoutView(),arguments: {'total':total,'products':(controller.cartItemMap.values).toList() });
                                                   }
-                                                  val.reverse();
+                                                  // val.reverse();
                                                    },
 
                                               ),
@@ -138,13 +139,13 @@ class CartScreen extends GetView<CartController> {
             ),
           ),
         ),
-        bottomNavigationBar:fabFlag=='yes'? BottomNavigationHome():const SizedBox(),
+        bottomNavigationBar:fabFlag=='yes'? const BottomNavigationHome():const SizedBox(),
         floatingActionButtonLocation:fabFlag=='yes'? FloatingActionButtonLocation.centerDocked:null,
-        floatingActionButton: fabFlag=='yes'?FabHome():const SizedBox());
+        floatingActionButton: fabFlag=='yes'?const FabHome():const SizedBox());
   }
 
   getCartList() {
-    Get.log('size is ==>'+controller.cartItemMap.length.toString());
+    Get.log('size is ==>${controller.cartItemMap.length}');
     if(controller.cartItemMap.values.isNotEmpty) {
       return Container(
         height: CartItem.height,

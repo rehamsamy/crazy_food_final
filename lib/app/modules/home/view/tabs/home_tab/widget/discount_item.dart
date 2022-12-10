@@ -85,7 +85,7 @@ class DiscountItem extends StatelessWidget {
                         model.caleories as int);
                     categoryItemsController.cartCount =
                         categoryItemsController.cartCount! + 1;
-                    Get.to(() => CartScreen(fabFlag: 'yes'));
+                    Get.offAll(() => CartScreen(fabFlag: 'yes'));
                   },
                 )
               ],

@@ -28,7 +28,7 @@ class OrderItem extends GetView<OrderController> {
             ListView.builder(
               shrinkWrap: true,
                 itemCount: model.products?.length,itemBuilder: (_,index){
-              return ProductItem(model.products![index]);
+              return ProductItem(model.products![index]??null);
             }),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -154,7 +154,7 @@ class OrderItem extends GetView<OrderController> {
 }
 
 class ProductItem  extends StatelessWidget{
-  Products productModel;
+  Products ? productModel;
 
   ProductItem(this.productModel, {Key? key}) : super(key: key);
   @override
@@ -168,7 +168,7 @@ class ProductItem  extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 AppCashedImage(
-                  imageUrl: productModel.productImage??'https://knoww.cc/wp-content/uploads/2018/06/2718.jpg',
+                  imageUrl: productModel?.productImage??'https://knoww.cc/wp-content/uploads/2018/06/2718.jpg',
                   width: Get.width * 0.20,
                   height: 60,
                   fit: BoxFit.cover,
@@ -182,7 +182,7 @@ class ProductItem  extends StatelessWidget{
                       Padding(
                         padding: const EdgeInsets.all(1.0),
                         child: AppText(
-                         productModel.productName?? 'Meat new food',
+                         productModel?.productName?? 'Meat new food',
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -190,7 +190,7 @@ class ProductItem  extends StatelessWidget{
                       Padding(
                         padding: const EdgeInsets.all(1.0),
                         child: AppText(
-                          '${productModel.price}\$',
+                          '${productModel?.price}\$',
                           color: kPrimaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
@@ -215,7 +215,7 @@ class ProductItem  extends StatelessWidget{
                         children: [
                            SizedBox(
                                width: Get.width*0.20,
-                               child: AppText('${'quantity'.tr} ${productModel.quantity.toString()}')),
+                               child: AppText('${'quantity'.tr} ${productModel?.quantity.toString()}')),
                           SizedBox(
                             width: Get.width*0.20,
                             child: const AppText(

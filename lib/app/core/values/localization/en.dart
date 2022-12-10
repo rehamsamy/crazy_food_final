@@ -81,6 +81,16 @@ Map<String, String> en = {
   'confirm_password':'Confirm password',
   'change_password_success':'Change password successfully',
   'change_profile_success':'Update profile data successfully',
-  'update_profile':'Update profile'
+  'update_profile':'Update profile',
+'cart':'Cart',
+'see_all':'See All ',
+'discount':'Discount',
+'home':'Home',
+'offers_tab':'Offers',
+'orders_tab':'Orders',
+'more_tab':'More',
+'quantity':'Quantity',
+'calories':'Caleories',
+'search':'Search'
 
 };

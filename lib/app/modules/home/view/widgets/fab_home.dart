@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/modules/cart/view/cart_view.dart';
 import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
@@ -14,7 +15,7 @@ class FabHome extends GetView<CategoryItemsController>{
    return  GetBuilder<CategoryItemsController>(
      builder: (context) {
        return GestureDetector(
-         onTap: ()=>Get.to(()=>CartScreen(fabFlag:'yes')),
+         onTap: ()=>Get.offAll(()=>CartScreen(fabFlag:'yes'),binding: GetBinding()),
          child: Container(
            decoration: const BoxDecoration(
              color: kPrimaryColor,

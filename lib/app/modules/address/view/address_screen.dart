@@ -110,6 +110,11 @@ class _MyAppState extends State<AddressScreen> {
               onTap: (val) async {
                 getAddressData(val);
                 addMarkerOnpPoint(val);
+                Get.log('choose address => ${val.latitude}');
+                setState(() {
+                  chooseLongitude = val.longitude;
+                  chooseLatitude = val.latitude;
+                });
                 BottomAddAdress(
                     true,
                     addressInfo![0],
@@ -118,10 +123,7 @@ class _MyAppState extends State<AddressScreen> {
                     currentLongitude,
                     chooseLatitude,
                     chooseLongitude);
-                setState(() {
-                  chooseLongitude = val.longitude;
-                  chooseLatitude = val.latitude;
-                });
+
               },
               markers: _markers,
               initialCameraPosition: CameraPosition(

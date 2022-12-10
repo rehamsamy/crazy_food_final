@@ -19,7 +19,7 @@ int addressIndex = 0;
 @override
   void onInit() async{
   super.onInit();
-  cartProducts?.clear();
+  Get.log('controller.cartProducts ${cartProducts?.length.toString()} ');
   total=map['total'];
   cartProducts=map['products'];
   Get.log('total   =>${cartProducts!.length}');

@@ -82,6 +82,16 @@ Map<String, String> ar = {
   'change_password_success':'تم تغيير كلمه المرور بنجاح',
   'change_profile_success':'تم تعديل بيانات الحساب بنجاح',
   'update_profile':'تعديل البيانات',
+  'cart':'السلة',
+  'see_all':'عرض الكل',
+  'discount':'خصم',
+  'home':'الرئيسية',
+  'offers_tab':'العروض',
+  'orders_tab':'الطلبات',
+  'more_tab':'المزيد',
+  'quantity':'الكمية',
+  'calories':'سعرات حرارية',
+  'search':'بحث'
 
 
 

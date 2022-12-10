@@ -38,9 +38,9 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
               border: Border.all(width: 0.1, color: Colors.grey)),
           child: Stack(
             children: [
-              Positioned(
-                left: 1,
-                right: 1,
+              PositionedDirectional(
+                start: 1,
+                end: 1,
                 top: -2,
                 child: Container(
                   margin: const EdgeInsets.only(top: 4),
@@ -52,8 +52,8 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                   ),
                 ),
               ),
-              Positioned(
-                left: 1,
+              PositionedDirectional(
+                start: 1,
                 bottom: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,9 +81,9 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                   ],
                 ),
               ),
-              Positioned(
+              PositionedDirectional(
                   bottom: 0,
-                  right: 0,
+                  end: 0,
                   child: Container(
                       width: 30,
                       height: controller.itemIndex==index? 80 : 40,
@@ -91,7 +91,8 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                       decoration: const BoxDecoration(
                           color: kPrimaryColor,
                           borderRadius:
-                              BorderRadius.only(topLeft: Radius.circular(15))),
+                              BorderRadius.
+                              only(topLeft: Radius.circular(15))),
                       child: controller.itemIndex==index
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

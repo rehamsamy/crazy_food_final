@@ -87,9 +87,9 @@ class OrdersScreen extends GetView<HomeController> {
                                             Tab(
                                               text: '  ${'all_orders'.tr}  ',
                                             ),
-                                            const Tab(text: 'pending.tr'),
-                                            const Tab(text: 'processing.tr'),
-                                            const Tab(text: 'delivery.tr'),
+                                             Tab(text: 'pending'.tr),
+                                             Tab(text: 'processing'.tr),
+                                             Tab(text: 'delivery'.tr),
                                           ],
                                         ),
                                       ),
