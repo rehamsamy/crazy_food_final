@@ -91,6 +91,12 @@ Map<String, String> en = {
 'more_tab':'More',
 'quantity':'Quantity',
 'calories':'Caleories',
-'search':'Search'
+'search':'Search',
+  'total':'Total: ',
+  'checkout_bar':'Checkout',
+  'add_new':'Add new',
+  'paid':'Paid',
+  'login':'Login',
+  'register':'Register'
 
 };

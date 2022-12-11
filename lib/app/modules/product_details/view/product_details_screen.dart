@@ -340,22 +340,26 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
         child: ListView.builder(
           itemCount: productModel?.reviews?.length,
           itemBuilder: (context,index) {
-            return Row(
-              children: [
-                 Card(
-                   color: Colors.orangeAccent,
-                   shape:BeveledRectangleBorder(
-                     borderRadius: BorderRadius.circular(20)
+            return Align(
+              alignment:AlignmentDirectional.topStart,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                   Card(
+                     color: Colors.orangeAccent,
+                     shape:BeveledRectangleBorder(
+                       borderRadius: BorderRadius.circular(20)
+                     ),
+                     child: const SizedBox(height: 14,width: 14,),
                    ),
-                   child: const SizedBox(height: 14,width: 14,),
-                 ),
-                Expanded(
-                  child: AppText(
-                    productModel?.reviews?[index].body??'',color:Colors.white,
-                    fontSize: 14,
-                    maxLines:1,textOverflow: TextOverflow.ellipsis,),
-                ),
-              ],
+                  Expanded(
+                    child: AppText(
+                      productModel?.reviews?[index].body??'',color:Colors.white,
+                      fontSize: 14,
+                      maxLines:1,textOverflow: TextOverflow.ellipsis,),
+                  ),
+                ],
+              ),
             );
           }
         ),

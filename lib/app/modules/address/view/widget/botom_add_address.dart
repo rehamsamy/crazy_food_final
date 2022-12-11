@@ -7,29 +7,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_geocoder/geocoder.dart';
 import 'package:get/get.dart';
 
-class BottomAddAdress extends StatefulWidget {
+class BottomAddAddress extends StatefulWidget {
   bool _show;
-  Address? _address;
+  final Address? _address;
   String? currentLocationText;
   double? currentLatitude;
   double? chooseLongitude;
   double? chooseLatitude;
   double? currentLongitude;
 
-  BottomAddAdress(
+  BottomAddAddress(
       this._show,
       this._address,
       this.currentLocationText,
       this.currentLatitude,
       this.currentLongitude,
       this.chooseLatitude,
-      this.chooseLongitude);
+      this.chooseLongitude, {Key? key}) : super(key: key);
 
   @override
-  State<BottomAddAdress> createState() => _BottomAddAdressState();
+  State<BottomAddAddress> createState() => _BottomAddAddressState();
 }
 
-class _BottomAddAdressState extends State<BottomAddAdress> {
+class _BottomAddAddressState extends State<BottomAddAddress> {
   bool? isCurrentSelected = false;
   bool? isChooseSelected = false;
   String ? finalAddress;
@@ -53,7 +53,7 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
                       color: Colors.white,
                       fontSize: 14,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 6,
                     ),
                     SizedBox(
@@ -79,7 +79,7 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
             ),
             Visibility(
               visible:
-                  (widget._address?.addressLine ?? null) == null ? false : true,
+                  (widget._address?.addressLine) == null ? false : true,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -90,13 +90,13 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
                         color: Colors.white,
                         fontSize: 14,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 6,
                       ),
                       SizedBox(
                           width: 170,
                           child: AppText(
-                            (widget._address?.addressLine ?? null).toString(),
+                            (widget._address?.addressLine).toString(),
                             color: kPrimaryColor,
                             textOverflow: TextOverflow.clip,
                           ))
@@ -116,7 +116,7 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
             AppProgressButton(
               onPressed: (animationController) async {
                 animationController.forward();
-                await Future.delayed(Duration(seconds: 2));
+                await Future.delayed(const Duration(seconds: 2));
                 if(isChooseSelected!){
                   finalAddress=(widget._address?.addressLine).toString();
                   finalLatitude=widget.chooseLatitude;
@@ -142,7 +142,7 @@ class _BottomAddAdressState extends State<BottomAddAdress> {
         ),
       );
     } else {
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }

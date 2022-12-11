@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_model.dart';
 import 'package:crazy_food/app/data/remote_data_source/category_apis.dart';
 import 'package:crazy_food/app/modules/home/controller/home_controller.dart';
@@ -31,7 +32,7 @@ class CategoryScreen extends GetView<HomeController>{
                mainAxisAlignment: MainAxisAlignment.spaceAround,
                children: [
                  IconButton(
-                   onPressed:()=>Get.offAll(()=>HomeScreenView()),
+                   onPressed:()=>Get.off(()=>HomeScreenView(),binding: GetBinding()),
                    icon: const Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                  ),
                 AppText('categories'.tr,color: Colors.white,fontSize: 18,),

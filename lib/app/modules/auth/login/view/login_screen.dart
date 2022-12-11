@@ -19,6 +19,8 @@ class LoginScreenView extends GetView<LoginController> {
   final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
 
   LoginScreenView({Key? key}) : super(key: key);
+   @override
+  var controller=Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,8 @@ class LoginScreenView extends GetView<LoginController> {
                                                   child: AppText(
                                                 'login'.tr,
                                                 color: Colors.white,
-                                                fontSize: 25,
+                                                fontSize: 20,
+                                                      textOverflow: TextOverflow.ellipsis
                                               )),
                                               const SizedBox(height: 5,),
                                               Container(
@@ -100,7 +103,8 @@ class LoginScreenView extends GetView<LoginController> {
                                                   child: AppText(
                                                 'register'.tr,
                                                 color: Colors.white,
-                                                fontSize: 25,
+                                                fontSize: 20,
+                                                    textOverflow: TextOverflow.ellipsis,
                                               )),
                                               const SizedBox(height: 5,),
                                               Container(

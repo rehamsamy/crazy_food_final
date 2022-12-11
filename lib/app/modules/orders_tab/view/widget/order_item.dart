@@ -219,7 +219,7 @@ class ProductItem  extends StatelessWidget{
                           SizedBox(
                             width: Get.width*0.20,
                             child: const AppText(
-                              '10 Aug,2020',
+                              '05 Jan,2023',
                               color: Colors.grey,
                               textOverflow: TextOverflow.ellipsis,
                             ),

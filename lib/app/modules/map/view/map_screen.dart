@@ -207,10 +207,10 @@ class _MyAppState extends State<MapScreen> {
                         const SizedBox(
                           height: 5,
                         ),
-                        const Align(
+                         Align(
                             alignment: Alignment.topLeft,
                             child: AppText(
-                              'shipping_details.tr',
+                              'shipping_details'.tr,
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                             )),
@@ -242,7 +242,7 @@ class _MyAppState extends State<MapScreen> {
                                   fontSize: 13,
                                 ),
                                 AppText(
-                                  '${  orderModel?.totalAmount} (paid)',
+                                  '${  orderModel?.totalAmount} (${'paid'.tr})',
                                   color: kPrimaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -305,7 +305,7 @@ class _MyAppState extends State<MapScreen> {
               })
             ],
           ),
-          actions: <Widget>[
+          actions: const <Widget>[
 
           ],
         );

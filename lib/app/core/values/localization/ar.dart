@@ -91,7 +91,14 @@ Map<String, String> ar = {
   'more_tab':'المزيد',
   'quantity':'الكمية',
   'calories':'سعرات حرارية',
-  'search':'بحث'
+  'search':'بحث',
+  'total':'الاجمالي :',
+  'checkout_bar':'الدفع والعنوان',
+  'add_new':'اضافة جديد',
+  'shipping_details':'تفاصيل الطلب',
+  'paid':'المدفوع',
+  'login':'تسجيل الدخول',
+  'register':'انشاء حساب'
 
 
 

@@ -20,128 +20,133 @@ class CartScreen extends GetView<CartController> {
   @override
   Widget build(BuildContext context) {
       controller.changeTotalCartPrice();
+      String ?checkout='checkout'.tr;
     return Scaffold(
-        appBar: null,
-        body: GetBuilder<CartController>(
-          builder: (_) => Container(
-            decoration: kContainerDecoraction,
-            width: Get.width,
-            height: Get.height,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        onPressed:()=>Get.to(()=>HomeScreenView(),binding: GetBinding()),
-                        icon: const Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
-                      ),
-                      AppText('cart'.tr,color: Colors.white,fontSize: 18,),
-                      const SizedBox()
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        height: Get.height,
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.vertical(top: Radius.circular(20)),
-                          color: Colors.grey.shade50,
+          appBar: null,
+          body: GetBuilder<CartController>(
+            builder: (_) => Container(
+              decoration: kContainerDecoraction,
+              width: Get.width,
+              height: Get.height,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          onPressed:()=>Get.to(()=>HomeScreenView(),binding: GetBinding()),
+                          icon: const Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12.0, vertical: 18.0),
-                        child: Card(
-                            elevation: 8,
-                            color: Colors.white,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: getCartList()),
-                      ),
-                      PositionedDirectional(
-                        bottom:20,
-                        start: 1,
-                        end: 1,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.all(5),
-                          height: 230,
+                        AppText('cart'.tr,color: Colors.white,fontSize: 18,),
+                        const SizedBox()
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Stack(
+                      children: [
+                        Container(
+                          height: Get.height,
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.vertical(top: Radius.circular(20)),
+                            color: Colors.grey.shade50,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0, vertical: 18.0),
                           child: Card(
-                            elevation: 5,
-                            color: kBlueLightColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: GetBuilder<HomeController>(
-                              builder: (context) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 20),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              AppText('${'total'.tr}:${controller.totalCartPrice}',fontSize: 15,),
-                                              AppProgressButton(
-                                                text: 'checkout'.tr,
-                                                fontSize: 15,
-                                                textColor: Colors.white,
-                                                width: 120,
-                                                height: 35,
-                                                backgroundColor: kPrimaryColor,
-                                                onPressed: (val){
-                                                  // val.forward();
-                                                  if(controller.cartItemMap.values.isEmpty){
-                                                    Fluttertoast.showToast(
-                                                        msg: "cart_empty".tr,
-                                                        toastLength: Toast.LENGTH_LONG,
-                                                        backgroundColor: kPrimaryColor,
-                                                        textColor: Colors.white,
-                                                        gravity: ToastGravity.CENTER,);
-                                                  }else{
-                                                    double total=controller.totalCartPrice;
-                                                    Get.off(()=>CheckoutView(),arguments: {'total':total,'products':(controller.cartItemMap.values).toList() });
-                                                  }
-                                                  // val.reverse();
-                                                   },
-
-                                              ),
-                                               // SizedBox(),
-                                            ],
+                              elevation: 8,
+                              color: Colors.white,
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: getCartList()),
+                        ),
+                        PositionedDirectional(
+                          bottom:20,
+                          start: 1,
+                          end: 1,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.all(5),
+                            height: 230,
+                            child:
+                            Card(
+                              elevation: 5,
+                              color: kBlueLightColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: GetBuilder<HomeController>(
+                                builder: (context) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 20),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                AppText('${'total'.tr}:${controller.totalCartPrice}',fontSize: 15,),
+                                                AppProgressButton(
+                                                      text:'checkout',
+                                                    fontSize: 15,
+                                                    textColor: Colors.white,
+                                                    width: 120,
+                                                    height: 35,
+                                                    backgroundColor: kPrimaryColor,
+                                                  onPressed: (AnimationController animationController) async{
+                                                  Future.delayed(const Duration(seconds: 1));
+                                                    animationController.forward();
+                                                        if(controller.cartItemMap.values.isEmpty){
+                                                          Fluttertoast.showToast(
+                                                              msg: "cart_empty".tr,
+                                                              toastLength: Toast.LENGTH_LONG,
+                                                              backgroundColor: kPrimaryColor,
+                                                              textColor: Colors.white,
+                                                              gravity: ToastGravity.CENTER,);
+                                                        }else{
+                                                          double total=controller.totalCartPrice;
+                                                          Get.off(()=>CheckoutView(),arguments: {'total':total,'products':(controller.cartItemMap.values).toList() });
+                                                        }
+                                                        // val.reverse();
+                                                  },
+                                                    // child: Text('checkout',style: const TextStyle(
+                                                    //   color: Colors.white
+                                                    // ),),
+                                                )
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ]
-                                  ),
-                                );
-                              }
+                                        ]
+                                    ),
+                                  );
+                                }
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        bottomNavigationBar:fabFlag=='yes'? const BottomNavigationHome():const SizedBox(),
-        floatingActionButtonLocation:fabFlag=='yes'? FloatingActionButtonLocation.centerDocked:null,
-        floatingActionButton: fabFlag=='yes'?const FabHome():const SizedBox());
+          bottomNavigationBar:fabFlag=='yes'? const BottomNavigationHome():const SizedBox(),
+          floatingActionButtonLocation:fabFlag=='yes'? FloatingActionButtonLocation.centerDocked:null,
+          floatingActionButton: fabFlag=='yes'?const FabHome():const SizedBox()
+    );
   }
 
   getCartList() {

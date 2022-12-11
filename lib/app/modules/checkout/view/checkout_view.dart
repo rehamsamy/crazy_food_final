@@ -59,7 +59,7 @@ class CheckoutView extends GetView<CheckoutController> {
                           ),
                         ),
                         AppText(
-                          'checkout'.tr,
+                          'checkout_bar'.tr,
                           color: Colors.white,
                           fontSize: 18,
                         ),
@@ -187,7 +187,7 @@ class CheckoutView extends GetView<CheckoutController> {
                                   );
                                 }
                               },
-                              text: ("checkout".tr),
+                              text: "checkout",
                               textColor: Colors.white,
                               backgroundColor: kPrimaryColor,
                               height: 40,

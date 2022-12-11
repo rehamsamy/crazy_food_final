@@ -85,7 +85,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         vertical: widget.verticalPadding,
       ),
       child: TextFormField(
-       // obscureText: isSecure,
+        obscureText: isSecure,
         onTap:widget.onTapped ,
         style: TextStyle(
           fontSize: 12,

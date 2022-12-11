@@ -40,7 +40,6 @@ class _CrazyAppState extends State<CrazyApp> {
       splitScreenMode: true,
       builder: (_, child) =>GetMaterialApp(
             navigatorKey: navigatorKey,
-
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
@@ -61,7 +60,9 @@ class _CrazyAppState extends State<CrazyApp> {
             fallbackLocale: const Locale('en'),
             title: 'Crazy Food',
             theme: ThemeData(primarySwatch: Colors.green),
-            home: model != null ? HomeScreenView() : LoginScreenView()
+            home:
+            // model != null ? HomeScreenView() :
+            LoginScreenView()
         ),
 
     );

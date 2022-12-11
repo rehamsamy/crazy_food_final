@@ -115,7 +115,7 @@ class _MyAppState extends State<AddressScreen> {
                   chooseLongitude = val.longitude;
                   chooseLatitude = val.latitude;
                 });
-                BottomAddAdress(
+                BottomAddAddress(
                     true,
                     addressInfo![0],
                     currentLocationText,
@@ -143,7 +143,7 @@ class _MyAppState extends State<AddressScreen> {
                   decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(20)),
-                  child: BottomAddAdress(
+                  child: BottomAddAddress(
                       true,
                       addressInfo?[0],
                       currentLocationText,

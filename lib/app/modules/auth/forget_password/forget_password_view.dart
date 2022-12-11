@@ -1,3 +1,4 @@
+import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/remote_data_source/auth_apis.dart';
 import 'package:crazy_food/app/modules/auth/login/view/login_screen.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
@@ -43,7 +44,7 @@ class ForgetPasswordView extends StatelessWidget {
                   String  ? model=   await AuthApis().forgetPassword(
                        emailController.text);
 
-                    Get.offAll(()=>LoginScreenView());
+                    Get.offAll(()=>LoginScreenView(),binding: GetBinding());
                     Future.delayed(Duration.zero, () async {
                       showSnackBar('login_success'.tr);
                     });
