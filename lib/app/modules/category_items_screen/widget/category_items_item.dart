@@ -30,7 +30,8 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
         onTap: () {
           Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
               arguments: {'product_details':model,
-                          'similarProducts':similarProducts});},
+                          'similarProducts':similarProducts
+                          ,'index':index ,});},
         child: Container(
           // margin: EdgeInsets.all(5),
           decoration: BoxDecoration(
@@ -71,7 +72,7 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2.0),
-                      child: AppText('150',fontSize: 10,color: Colors.grey.shade400,),
+                      child: AppText((model.caleories).toString(),fontSize: 10,color: Colors.grey.shade400,),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2.0),

@@ -1,4 +1,5 @@
 import 'package:crazy_food/app/core/get_binding.dart';
+import 'package:crazy_food/app/modules/auth/login/view/login_screen.dart';
 import 'package:crazy_food/app/modules/change_password/view/change_password.dart';
 import 'package:crazy_food/app/modules/more_tab/controller/setting_controller.dart';
 import 'package:crazy_food/app/modules/profile_data/view/profile_view.dart';
@@ -77,6 +78,10 @@ class MoreTabScreen extends GetView<SettingController> {
                               height: 20,
                             ),
                             buildSettingWidget('account_info'.tr, 3, context),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            buildSettingWidget('sign_out'.tr,4, context),
                           ],
                         ),
                       )),
@@ -90,13 +95,16 @@ class MoreTabScreen extends GetView<SettingController> {
   buildSettingWidget(String txt, int flag, BuildContext context) {
     return InkWell(
       onTap: () {
-        flag == 1
-            ? Get.to(() => ChangePasswordView(), binding: GetBinding())
-            : flag == 2
-                ? showChangeLangDialog(context)
-                : flag == 3
-                    ? Get.to(() => ProfileView(), binding: GetBinding())
-                    : null;
+        if(flag==1){
+          Get.to(() => ChangePasswordView(), binding: GetBinding());
+        }else if(flag==2){
+          showChangeLangDialog(context);
+        }else if(flag==3){
+          Get.to(() => ProfileView(), binding: GetBinding());
+        }else if(flag==4){
+          LocalStorage.signOut();
+          Get.offAll(() => LoginScreenView(), binding: GetBinding());
+        }
       },
       child: SizedBox(
         height: 80,

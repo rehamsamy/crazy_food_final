@@ -390,7 +390,7 @@ class CheckoutView extends GetView<CheckoutController> {
                 Navigator.of(context).pop();
                 Get.offAll(() => OrdersScreen());
                 Get.put(CartController()).cartItemMap.clear();
-                Get.put(CategoryItemsController()).cartCount = 0;
+                Get.put(CartController()).cartCount = 0;
                 Fluttertoast.showToast(
                   msg: "create_order_sucess".tr,
                   toastLength: Toast.LENGTH_LONG,

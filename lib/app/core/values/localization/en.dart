@@ -97,6 +97,7 @@ Map<String, String> en = {
   'add_new':'Add new',
   'paid':'Paid',
   'login':'Login',
-  'register':'Register'
+  'register':'Register',
+  'sign_out':'ٍSignOut'
 
 };

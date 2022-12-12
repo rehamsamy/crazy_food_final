@@ -24,7 +24,8 @@ class CategoryItemsItem extends GetView<CategoryItemsController> {
           Get.log('category details ==>${similarProducts?.length}');
           Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
               arguments: {'product_details':model,
-                          'similarProducts':similarProducts});},
+                          'similarProducts':similarProducts,
+                           'index':index});},
         child: Container(
           // margin: EdgeInsets.all(5),
           decoration: BoxDecoration(

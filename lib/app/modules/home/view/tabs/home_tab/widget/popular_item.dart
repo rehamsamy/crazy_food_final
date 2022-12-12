@@ -10,7 +10,8 @@ class PopularItem extends StatelessWidget {
   ProductModel model;
   List<ProductModel> ?allProducts;
   List<ProductModel> ?prodsProducts;
-  PopularItem(this.model,this.allProducts, {Key? key}) : super(key: key);
+  int ? index;
+  PopularItem(this.model,this.allProducts,this.index, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,8 @@ class PopularItem extends StatelessWidget {
          }).toList();
          Get.to(()=>ProductDetailsScreen(),binding: GetBinding(),
              arguments: {'product_details':model,
-               'similarProducts':similarProducts});
+               'similarProducts':similarProducts,
+                'index':index});
 
          Get.log('tabed  size 5 ${similarProducts.length}');
        },

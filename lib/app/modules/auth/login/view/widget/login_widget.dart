@@ -20,6 +20,7 @@ var nameController,emailController,passwordController;
           prefixIcon: Icons.email,
           radius: 8,
           horizontalPadding: 12,
+          validateEmptyText: 'empty'.tr,
           controller: emailController,
         ),
         CustomTextFormField(
@@ -30,6 +31,7 @@ var nameController,emailController,passwordController;
           radius: 8,
           horizontalPadding: 12,
           controller: passwordController,
+          validateEmptyText: 'empty'.tr,
         )  ,
         InkWell(
           onTap: () {

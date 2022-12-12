@@ -4,6 +4,7 @@ import 'package:crazy_food/app/data/models/login_model.dart';
 import 'package:crazy_food/app/data/storage/local_storage.dart';
 import 'package:crazy_food/app/modules/auth/login/view/login_screen.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
+import 'package:crazy_food/app/modules/product_details/view/product_details_screen.dart';
 import 'package:crazy_food/app/views/network_error.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -59,10 +60,10 @@ class _CrazyAppState extends State<CrazyApp> {
             LocalStorage.isAr ? const Locale('ar') : const Locale('en'),
             fallbackLocale: const Locale('en'),
             title: 'Crazy Food',
-            theme: ThemeData(primarySwatch: Colors.green),
+            theme: ThemeData(primarySwatch: Colors.green,platform: TargetPlatform.iOS),
             home:
-            // model != null ? HomeScreenView() :
-            LoginScreenView()
+             model != null ? HomeScreenView() :
+             LoginScreenView()
         ),
 
     );

@@ -65,7 +65,7 @@ class PopularScreen extends GetView<CategoryItemsController>{
         ),
         bottomNavigationBar: const BottomNavigationHome(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: const FabHome()
+        floatingActionButton:  FabHome()
     );
   }
 

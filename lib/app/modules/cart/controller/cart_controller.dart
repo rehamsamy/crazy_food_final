@@ -8,6 +8,7 @@ class CartController extends GetxController {
   int? cartSelectedIndex = 0;
   int itemQuantity = 0;
   double totalCartPrice = 0;
+  int ? cartCount=0;
 
   @override
   void onInit() {
@@ -30,6 +31,7 @@ class CartController extends GetxController {
               imagePath: oldModel.imagePath,
               caleories: oldModel.caleories,
               quantity: oldModel.quantity + 1));
+      cartCount=cartCount;
     } else {
       Get.log('not found');
       _cartsList.putIfAbsent(
@@ -41,6 +43,7 @@ class CartController extends GetxController {
               imagePath: imagePath,
               caleories: caleories,
               quantity: 1));
+      cartCount=((cartCount!) + 1);
     }
     print('exit ${_cartsList.toString()}');
     update();

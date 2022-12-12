@@ -83,7 +83,7 @@ class CategoryItemsScreen extends GetView<CategoryItemsController> {
         ),
         bottomNavigationBar: BottomNavigationHome(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: const FabHome());
+        floatingActionButton:  FabHome());
   }
 
   getCategoryItemsList() {

@@ -98,7 +98,8 @@ Map<String, String> ar = {
   'shipping_details':'تفاصيل الطلب',
   'paid':'المدفوع',
   'login':'تسجيل الدخول',
-  'register':'انشاء حساب'
+  'register':'انشاء حساب',
+  'sign_out':'تسجيل الخروج'
 
 
 

@@ -35,7 +35,7 @@ class HomeScreenView extends GetView<HomeController> {
         ),
         bottomNavigationBar: const BottomNavigationHome(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: const FabHome()
+        floatingActionButton:  FabHome()
       ),
     );
   }

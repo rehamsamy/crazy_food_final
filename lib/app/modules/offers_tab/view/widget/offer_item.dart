@@ -57,7 +57,7 @@ class OfferItem extends StatelessWidget {
                     double dis=((model.price)! * (model.discount ??0))/100;
                     cartController.addItemToCartScreen(model.id.toString(),dis,
                         model.nameAr??'',model.imagePath??'',model.caleories as int);
-                    categoryItemsController.cartCount=categoryItemsController.cartCount!+1;
+                    // cartController.cartCount=cartController.cartCount!+1;
                     // cartCount=((cartCount!) + (itemQuantity));
                     Get.off(()=>CartScreen(fabFlag:'yes'));
                   },)

@@ -66,7 +66,7 @@ class CategoryScreen extends GetView<HomeController>{
    ),
   bottomNavigationBar: BottomNavigationHome(),
        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-       floatingActionButton: const FabHome()
+       floatingActionButton:  FabHome()
    );
   }
 

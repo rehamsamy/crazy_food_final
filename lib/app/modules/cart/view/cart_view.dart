@@ -9,6 +9,7 @@ import 'package:crazy_food/app/modules/home/view/widgets/fab_home.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_elevated_button.dart';
 import 'package:crazy_food/app/shared/app_buttons/app_progress_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
 import 'package:crazy_food/app_constant.dart';
@@ -19,8 +20,9 @@ class CartScreen extends GetView<CartController> {
    CartScreen({Key? key, this.fabFlag}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       controller.changeTotalCartPrice();
-      String ?checkout='checkout'.tr;
+    });
     return Scaffold(
           appBar: null,
           body: GetBuilder<CartController>(
@@ -97,7 +99,7 @@ class CartScreen extends GetView<CartController> {
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                AppText('${'total'.tr}:${controller.totalCartPrice}',fontSize: 15,),
+                                                AppText('${'total'.tr}${controller.totalCartPrice}',fontSize: 15,),
                                                 AppProgressButton(
                                                       text:'checkout',
                                                     fontSize: 15,
@@ -145,7 +147,7 @@ class CartScreen extends GetView<CartController> {
           ),
           bottomNavigationBar:fabFlag=='yes'? const BottomNavigationHome():const SizedBox(),
           floatingActionButtonLocation:fabFlag=='yes'? FloatingActionButtonLocation.centerDocked:null,
-          floatingActionButton: fabFlag=='yes'?const FabHome():const SizedBox()
+          floatingActionButton: fabFlag=='yes'? FabHome():const SizedBox()
     );
   }
 

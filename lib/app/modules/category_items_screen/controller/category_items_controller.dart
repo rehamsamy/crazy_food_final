@@ -7,7 +7,6 @@ class CategoryItemsController extends GetxController{
   int index=0;
   List<bool>? isIncrementVisible;
   int itemIndex =-1;
-  int ? cartCount=0;
   int itemQuantity=0;
   var homePageViewController =PageController();
 
@@ -30,20 +29,23 @@ class CategoryItemsController extends GetxController{
     update();
   }
   changeItemQuantity(String type,index,ProductModel model){
-    if(type=='increment'&&index==itemIndex){
+    if(type=='increment'){
       itemQuantity++;
-    }else if(type=='decrement'&&index==itemIndex){
+      Get.log('quant  =>1 '+itemQuantity.toString());
+    }else if(type=='decrement'){
       itemQuantity--;
+      Get.log('quant  =>2 '+itemQuantity.toString());
       if(itemQuantity<0){
         itemQuantity=0;
       }else{
         itemQuantity;
       }
     }
+    Get.log('quant  =>'+itemQuantity.toString());
  cartController.addItemToCartScreen(model.id.toString(),model.price,
         model.nameAr??'',model.imagePath??'',model.caleories as int);
 
-    cartCount=((cartCount!) + (itemQuantity));
+    // cartCount=((cartCount!) + 1);
     update();
   }
 

@@ -270,7 +270,7 @@ class _HomeTabState extends State<HomeTab> {
                     scrollDirection: Axis.horizontal,
                     itemCount: popularList.length,
                     itemBuilder: (_, index) {
-                      return PopularItem(popularList[index], prods);
+                      return PopularItem(popularList[index], prods,index);
                     }),
               );
             } else if (popularList.isEmpty) {

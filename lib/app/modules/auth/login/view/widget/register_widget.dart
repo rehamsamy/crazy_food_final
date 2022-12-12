@@ -21,10 +21,12 @@ class RegisterWidget extends StatelessWidget {
           prefixIcon: Icons.perm_identity,
           radius: 8,
           horizontalPadding: 12,
+          validateEmptyText: 'empty'.tr,
           controller: nameController,
         ),
         CustomTextFormField(
           hintText: 'email'.tr,
+          validateEmptyText: 'empty'.tr,
           keyboardType: TextInputType.emailAddress,
           prefixIcon: Icons.email,
           radius: 8,
@@ -35,32 +37,33 @@ class RegisterWidget extends StatelessWidget {
           isPassword: true,
           hintText: 'password'.tr,
           prefixIcon: Icons.lock,
+          validateEmptyText: 'empty'.tr,
           keyboardType: TextInputType.visiblePassword,
           radius: 8,
           horizontalPadding: 12,
           controller: passwordController,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0),
-          child: RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                  text: 'by_pressing_on'.tr,
-                  style: const TextStyle(color: Colors.white)),
-              TextSpan(
-                  text: 'terms'.tr,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.white,
-                    decorationThickness: 1,
-                    fontSize: 16,
-                  ),
-                  recognizer: TapGestureRecognizer()..onTap = () {}),
-            ]),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 18.0),
+        //   child: RichText(
+        //     text: TextSpan(children: [
+        //       TextSpan(
+        //           text: 'by_pressing_on'.tr,
+        //           style: const TextStyle(color: Colors.white)),
+        //       TextSpan(
+        //           text: 'terms'.tr,
+        //           style: const TextStyle(
+        //             color: Colors.white,
+        //             fontWeight: FontWeight.bold,
+        //             decoration: TextDecoration.underline,
+        //             decorationColor: Colors.white,
+        //             decorationThickness: 1,
+        //             fontSize: 16,
+        //           ),
+        //           recognizer: TapGestureRecognizer()..onTap = () {}),
+        //     ]),
+        //   ),
+        // ),
       ],
     );
   }

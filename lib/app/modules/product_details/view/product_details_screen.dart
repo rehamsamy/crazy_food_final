@@ -1,10 +1,12 @@
 
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
+import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/product_details/controller/product_details_controller.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
+import 'package:crazy_food/app/shared/snack_bar.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,14 +16,17 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
    Map map=Get.arguments;
    ProductModel ? productModel;
    List<ProductModel> ?similarProducts;
+   int? index;
 
-ProductDetailsController detailsController=Get.put(ProductDetailsController());
-
+   ProductDetailsController detailsController=Get.put(ProductDetailsController());
+   CategoryItemsController categoryItemsController=Get.put(CategoryItemsController());
   ProductDetailsScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
       productModel=map['product_details'] as ProductModel;
     similarProducts=map['similarProducts'] as List<ProductModel>;
+      index=map['index'] ;
+      categoryItemsController.itemQuantity=0;
     return MaterialApp(
       home: GetBuilder<ProductDetailsController>(
         builder: (_)=> Scaffold(
@@ -100,100 +105,107 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
   }
 
   getFirstProductData() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        AppText(
-          productModel?.nameAr??'model.name',
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-        ),
-        AppText(
-          ' ${productModel?.discount}.${' Discount'}\$',
-          color: Colors.grey,
-          fontSize: 13,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            AppText(
-              '${ productModel?.price}\$',
-              fontSize: 14,
-            ),
-            AppText(
-              '${ productModel?.caleories} Calories',
-              fontSize: 14,
-            ),
-            RatingBarIndicator(
-              itemCount: 5,
-              itemSize: 20,
-              rating:  double.parse((productModel?.rate).toString()),
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, _) => const Icon(
-                Icons.star_border,
-                color: Colors.amber,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        Row(
+    return GetBuilder<CategoryItemsController>(
+      builder: (context) {
+        return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 30,
-              height: 30,
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Center(
-                child: IconButton(
-                    onPressed: () {},
-                    padding: EdgeInsets.zero,
-                    icon: const Icon(
-                      Icons.minimize_outlined,
-                      color: Colors.white,
-                      size: 18,
-                    )),
-              ),
+            AppText(
+              productModel?.nameAr??'model.name',
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+            AppText(
+              ' ${productModel?.discount}.${' Discount'}\$',
+              color: Colors.grey,
+              fontSize: 13,
             ),
             const SizedBox(
-              width: 15,
+              height: 10,
             ),
-            const AppText(
-              'quantity kg',
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                AppText(
+                  '${ productModel?.price}\$',
+                  fontSize: 14,
+                ),
+                AppText(
+                  '${ productModel?.caleories} Calories',
+                  fontSize: 14,
+                ),
+                RatingBarIndicator(
+                  itemCount: 5,
+                  itemSize: 20,
+                  rating:  double.parse((productModel?.rate).toString()),
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star_border,
+                    color: Colors.amber,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
-              width: 15,
+              height: 15,
             ),
-            Container(
-              width: 30,
-              height: 30,
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Center(
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 18,
-                    )),
-              ),
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: InkWell(
+                      onTap: (){
+                        categoryItemsController.changeItemQuantity('decrement',index,productModel!);
+                      },
+                    child: const Center(
+                      child: Icon(
+                            Icons.minimize_outlined,
+                            color: Colors.white,
+                            size: 18,
+                          ),
+                    )
+                  ),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                 AppText('${categoryItemsController.itemQuantity}',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: InkWell(
+                    onTap: (){
+                      categoryItemsController.changeItemQuantity('increment',index,productModel!);
+                      // showSnackBar(model.error?.message??'general_error'.tr);
+                    },
+                    child:  const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 18,
+                        )
+                  ),
+                ),
+              ],
+            )
           ],
-        )
-      ],
+        );
+      }
     );
   }
 
@@ -291,7 +303,8 @@ ProductDetailsController detailsController=Get.put(ProductDetailsController());
                       Get.log('details tapped');
                       Get.offAll(()=>ProductDetailsScreen(),binding: GetBinding(),
                           arguments: {'product_details':controller.similarProducts?[index],
-                            'similarProducts':controller.similarProducts});
+                            'similarProducts':controller.similarProducts,
+                            'index':index});
                     },
                     child: Container(
                         margin: const EdgeInsets.all(10),

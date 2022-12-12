@@ -237,10 +237,14 @@ class _MyAppState extends State<MapScreen> {
                                   orderModel?.products?[0].productName?? 'straberrey',
                                   fontSize: 18,
                                 ),
-                                const AppText(
-                               '1.5 kg ',
-                                  fontSize: 13,
+                                 SizedBox(
+                                    width: 150,
+                                   child: AppText(
+                                    ((orderModel?.address))??'',
+                                    fontSize: 13,
+                                     textOverflow: TextOverflow.ellipsis,
                                 ),
+                                 ),
                                 AppText(
                                   '${  orderModel?.totalAmount} (${'paid'.tr})',
                                   color: kPrimaryColor,

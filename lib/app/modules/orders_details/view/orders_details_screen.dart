@@ -90,7 +90,7 @@ class OrdersDetailsScreen extends GetView<HomeController> {
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: Get.height*0.21,
+                            height: Get.height*0.23,
                             child: Card(
                                 color: Colors.white,
                                 elevation: 10,
@@ -103,8 +103,8 @@ class OrdersDetailsScreen extends GetView<HomeController> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        const AppText(
-                                          'description.tr',
+                                         AppText(
+                                          'description'.tr,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
                                         ),
@@ -132,8 +132,8 @@ class OrdersDetailsScreen extends GetView<HomeController> {
                                           subtitle: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              const AppText(
-                                                '1.5 kg ',
+                                               AppText(
+                                                '${((model?.dateTime)??''.substring(0,10))}',
                                                 fontSize: 13,
                                                 color: Colors.grey,
                                               ),
@@ -141,7 +141,7 @@ class OrdersDetailsScreen extends GetView<HomeController> {
                                                 height: 8,
                                               ),
                                               AppText(
-                                                '${model?.totalAmount} (paid)',
+                                                '${model?.totalAmount} ${'paid'.tr}',
                                                 color: kPrimaryColor,
                                                 fontWeight: FontWeight.bold,
                                               ),
