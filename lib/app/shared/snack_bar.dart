@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'app_text.dart';
 
-showSnackBar(String message, {bool popPage = false, int duration = 5}) {
+showSnackBar(String message, {bool popPage = false, int duration = 3}) {
   // ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
   // ScaffoldMessenger.of(Get.context!).showSnackBar(
   //   SnackBar(

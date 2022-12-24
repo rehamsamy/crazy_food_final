@@ -21,6 +21,7 @@ class OffersTab extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: GetBuilder<HomeController>(builder: (context) {
         return Scaffold(
           appBar: null,

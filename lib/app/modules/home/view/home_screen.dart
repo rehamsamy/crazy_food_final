@@ -14,6 +14,7 @@ class HomeScreenView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: GetBuilder<HomeController>(
           builder: (_)=>Container(

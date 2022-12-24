@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 import 'package:myfatoorah_flutter/utils/MFCountry.dart';
 import 'package:myfatoorah_flutter/utils/MFEnvironment.dart';
-import 'dart:io' show Platform;
+
 
 
 /*
@@ -208,13 +208,22 @@ class _PaymentMyFatoorahState extends State<MyFatora> {
       // appBar: appBar,
         floatingActionButton:
           AppProgressButton(
-            text: 'pay'.tr,
+            // text: 'pay'.tr,
               width: 160,
               height: 50,
               radius: 10,
             fontSize: 20,
             backgroundColor: kPrimaryColor,
-        child: AppText('pay'.tr,color: Colors.white,),
+        child: Row(
+          children: [
+            AppText('pay'.tr,color: Colors.white,),
+            const Icon(
+              Icons.arrow_forward,
+              color: Colors.white,
+              size: 20,
+            ),
+          ],
+        ),
         onPressed: (AnimationController animationController) async{
               await  animationController.forward();
               await Future.delayed(Duration(seconds: 2));

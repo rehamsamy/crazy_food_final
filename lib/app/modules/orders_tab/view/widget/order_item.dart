@@ -28,7 +28,7 @@ class OrderItem extends GetView<OrderController> {
             ListView.builder(
               shrinkWrap: true,
                 itemCount: model.products?.length,itemBuilder: (_,index){
-              return ProductItem(model.products![index]??null);
+              return ProductItem(model.products![index]);
             }),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

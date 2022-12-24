@@ -4,7 +4,6 @@ import 'package:crazy_food/app/data/models/login_model.dart';
 import 'package:crazy_food/app/data/storage/local_storage.dart';
 import 'package:crazy_food/app/modules/auth/login/view/login_screen.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
-import 'package:crazy_food/app/modules/product_details/view/product_details_screen.dart';
 import 'package:crazy_food/app/views/network_error.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -18,7 +17,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await LocalStorage.init();
-  runApp(const CrazyApp());
+  runApp( const CrazyApp(),);
 }
 
 class CrazyApp extends StatefulWidget {
@@ -39,32 +38,36 @@ class _CrazyAppState extends State<CrazyApp> {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, child) =>GetMaterialApp(
-            navigatorKey: navigatorKey,
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en', 'US'), // include country code too
-              Locale('ar', 'EG'), // include country code too
-            ],
-            // locale:  Locale('ar', 'EG'),
-            defaultTransition: Transition.cupertino,
-            transitionDuration: const Duration(milliseconds: 500),
-            translations: Translation(),
-            initialBinding: GetBinding(),
-            locale:
-            LocalStorage.isAr ? const Locale('ar') : const Locale('en'),
-            fallbackLocale: const Locale('en'),
-            title: 'Crazy Food',
-            theme: ThemeData(primarySwatch: Colors.green,platform: TargetPlatform.iOS),
-            home:
-             model != null ? HomeScreenView() :
-             LoginScreenView()
-        ),
+      builder: (_, child) =>Directionality(
+    textDirection: LocalStorage.isAr? TextDirection.rtl:
+    TextDirection.ltr,
+        child: GetMaterialApp(
+              navigatorKey: navigatorKey,
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('en', 'US'), // include country code too
+                Locale('ar', 'EG'), // include country code too
+              ],
+              // locale:  Locale('ar', 'EG'),
+              defaultTransition: Transition.cupertino,
+              transitionDuration: const Duration(milliseconds: 500),
+              translations: Translation(),
+              initialBinding: GetBinding(),
+              locale:
+              LocalStorage.isAr ? const Locale('ar') : const Locale('en'),
+              fallbackLocale: const Locale('en'),
+              title: 'Crazy Food',
+              theme: ThemeData(primarySwatch: Colors.green,platform: TargetPlatform.iOS),
+              home:
+               model != null ? HomeScreenView() :
+               LoginScreenView()
+          ),
+      ),
 
     );
   }

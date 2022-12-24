@@ -1,12 +1,12 @@
 
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
+import 'package:crazy_food/app/data/storage/local_storage.dart';
 import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
 import 'package:crazy_food/app/modules/home/view/home_screen.dart';
 import 'package:crazy_food/app/modules/product_details/controller/product_details_controller.dart';
 import 'package:crazy_food/app/shared/app_cached_image.dart';
 import 'package:crazy_food/app/shared/app_text.dart';
-import 'package:crazy_food/app/shared/snack_bar.dart';
 import 'package:crazy_food/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,74 +27,78 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
     similarProducts=map['similarProducts'] as List<ProductModel>;
       index=map['index'] ;
       categoryItemsController.itemQuantity=0;
-    return MaterialApp(
-      home: GetBuilder<ProductDetailsController>(
-        builder: (_)=> Scaffold(
-          body: NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-              return [
-                SliverAppBar(
-                  expandedHeight: 280,
-                  floating: true,
-                  pinned: false,
-                  snap: true,
-                  leading: IconButton(icon:const Icon(Icons.arrow_back_ios),
-                  color: Colors.white,
-                  onPressed: ()=>Get.off(()=>HomeScreenView())),
-                  backgroundColor: Colors.white,
-                  actionsIconTheme: const IconThemeData(opacity: 0.0),
-                  flexibleSpace: AppCashedImage(
-                    imageUrl:
-                      productModel?.imagePath?? 'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
-                    height: 280,
-                    fit: BoxFit.cover,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: GetBuilder<ProductDetailsController>(
+          builder: (_)=> Scaffold(
+            body: NestedScrollView(
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  SliverAppBar(
+                    expandedHeight: 280,
+                    floating: true,
+                    pinned: false,
+                    snap: true,
+                    leading: IconButton(icon:const Icon(Icons.arrow_back_ios),
+                    color: Colors.white,
+                    onPressed: ()=>Get.off(()=>HomeScreenView())),
+                    backgroundColor: Colors.white,
+                    actionsIconTheme: const IconThemeData(opacity: 0.0),
+                    flexibleSpace: AppCashedImage(
+                      imageUrl:
+                        productModel?.imagePath?? 'https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg',
+                      height: 280,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-              ];
-            },
-            body: SingleChildScrollView(
-              child: Container(
-                height: 800,
-                padding: const EdgeInsets.all(8),
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.horizontal(
-                      right: Radius.circular(20),
-                      left: Radius.circular(20),
-                    ),
-                    color:kAuthGreyColor ),
-                child: Column(
-                  children: [
-                    Card(
-                      color: Colors.white,
-                      elevation: 8,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                ];
+              },
+              body: SingleChildScrollView(
+                child: Container(
+                  height: 800,
+                  padding: const EdgeInsets.all(8),
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.horizontal(
+                        right: Radius.circular(20),
+                        left: Radius.circular(20),
                       ),
-                      child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: getFirstProductData()),
-                    ),
-                    const SizedBox(height: 10,),
-                    Card(
-                      color: Colors.white,
-                      elevation: 8,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                      color:kAuthGreyColor ),
+                  child: Column(
+                    children: [
+                      Card(
+                        color: Colors.white,
+                        elevation: 8,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: getFirstProductData()),
                       ),
-                      child: getProductDetailsData(context),
-                    ),
-                    const SizedBox(height: 10,),
-                    Card(
-                      color: Colors.white,
-                      elevation: 8,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                      const SizedBox(height: 10,),
+                      Card(
+                        color: Colors.white,
+                        elevation: 8,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: getProductDetailsData(context),
                       ),
-                      child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: getSimilarProducts()),
-                    ),
-                  ],
+                      const SizedBox(height: 10,),
+                      Card(
+                        color: Colors.white,
+                        elevation: 8,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: getSimilarProducts()),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -343,38 +347,41 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
         ),
       );
     }else{
-      return  Container(
-        height: 170,
-        width: Get.width,
-        padding: const EdgeInsets.only(top: 40,left: 10,right: 10,bottom: 15),
-        decoration: BoxDecoration(
-            color: kPrimaryColor,
-            borderRadius: BorderRadius.circular(20)),
-        child: ListView.builder(
-          itemCount: productModel?.reviews?.length,
-          itemBuilder: (context,index) {
-            return Align(
-              alignment:AlignmentDirectional.topStart,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                   Card(
-                     color: Colors.orangeAccent,
-                     shape:BeveledRectangleBorder(
-                       borderRadius: BorderRadius.circular(20)
+      return  Directionality(
+        textDirection:LocalStorage.isAr? TextDirection.rtl:TextDirection.ltr,
+        child: Container(
+          height: 170,
+          width: Get.width,
+          padding: const EdgeInsets.only(top: 40,left: 10,right: 10,bottom: 15),
+          decoration: BoxDecoration(
+              color: kPrimaryColor,
+              borderRadius: BorderRadius.circular(20)),
+          child: ListView.builder(
+            itemCount: productModel?.reviews?.length,
+            itemBuilder: (context,index) {
+              return Align(
+                alignment:AlignmentDirectional.topStart,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                     Card(
+                       color: Colors.orangeAccent,
+                       shape:BeveledRectangleBorder(
+                         borderRadius: BorderRadius.circular(20)
+                       ),
+                       child: const SizedBox(height: 14,width: 14,),
                      ),
-                     child: const SizedBox(height: 14,width: 14,),
-                   ),
-                  Expanded(
-                    child: AppText(
-                      productModel?.reviews?[index].body??'',color:Colors.white,
-                      fontSize: 14,
-                      maxLines:1,textOverflow: TextOverflow.ellipsis,),
-                  ),
-                ],
-              ),
-            );
-          }
+                    Expanded(
+                      child: AppText(
+                        productModel?.reviews?[index].body??'',color:Colors.white,
+                        fontSize: 14,
+                        maxLines:1,textOverflow: TextOverflow.fade,),
+                    ),
+                  ],
+                ),
+              );
+            }
+          ),
         ),
       );
     }

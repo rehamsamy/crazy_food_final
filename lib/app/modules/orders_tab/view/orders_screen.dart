@@ -19,6 +19,7 @@ class OrdersScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: GetBuilder<HomeController>(
         builder: (context) {
           return DefaultTabController(
@@ -48,7 +49,6 @@ class OrdersScreen extends GetView<HomeController> {
                               ],
                             ),
                             const SizedBox(
-                              height: 15,
                             ),
                             Container(
                               height: Get.height,

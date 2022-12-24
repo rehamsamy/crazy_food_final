@@ -47,7 +47,7 @@ class OfferItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText('${model.discount} % DISCOUNT',color: kPrimaryColor,fontWeight: FontWeight.bold,fontSize: 18,),
+                AppText('${model.discount} % ${'discount'.tr}',color: kPrimaryColor,fontWeight: FontWeight.bold,fontSize: 18,),
                 SizedBox(height: 10,),
                 SizedBox(width:150,child: AppText('order_message'.tr,fontSize: 13,maxLines: 2,textOverflow: TextOverflow.ellipsis,)),
                 SizedBox(height: 20,),

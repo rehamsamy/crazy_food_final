@@ -28,6 +28,7 @@ class OrdersDetailsScreen extends GetView<HomeController> {
                  model?.orderStatus=='delivered'?5:0;
     Get.log('status  =>$orderStatus');
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: null,
           body: Container(

@@ -25,6 +25,7 @@ class LoginScreenView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: GetBuilder<LoginController>(
           builder: (_) => SingleChildScrollView(

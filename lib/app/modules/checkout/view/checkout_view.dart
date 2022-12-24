@@ -5,7 +5,6 @@ import 'package:crazy_food/app/data/remote_data_source/add_orders_apis.dart';
 import 'package:crazy_food/app/data/remote_data_source/payment_apis.dart';
 import 'package:crazy_food/app/modules/address/view/address_screen.dart';
 import 'package:crazy_food/app/modules/cart/controller/cart_controller.dart';
-import 'package:crazy_food/app/modules/category_items_screen/controller/category_items_controller.dart';
 import 'package:crazy_food/app/modules/checkout/controller/checkout_controller.dart';
 import 'package:crazy_food/app/modules/checkout/view/my_fatora.dart';
 import 'package:crazy_food/app/modules/checkout/view/widget/address_widget.dart';
@@ -33,6 +32,7 @@ class CheckoutView extends GetView<CheckoutController> {
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       locale: const Locale('ar', 'EG'),
       home: Scaffold(
           appBar: null,
@@ -307,6 +307,7 @@ class CheckoutView extends GetView<CheckoutController> {
 
   checkOrderButton(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: AppProgressButton(
         onPressed: (animationController) async {
           animationController.forward();
