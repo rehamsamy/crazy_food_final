@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:crazy_food/app/core/get_binding.dart';
 import 'package:crazy_food/app/data/models/category_items_model.dart';
 import 'package:crazy_food/app/data/models/category_model.dart';
